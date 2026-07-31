@@ -48,6 +48,18 @@ python scripts/update.py
 
 See `CONTRIBUTING.md` for workflow details, and `.github/workflows/` for CI (`deploy.yml` for the frontend, `daily-update.yml` for the node pipeline).
 
+## Mirrors / 镜像
+
+This repository is primarily hosted on **GitHub** and mirrored to GitCode and Gitee for accessibility.
+
+| Platform | URL |
+|----------|-----|
+| **GitHub** (primary) | https://github.com/weed33834/OpenBox |
+| GitCode (mirror) | https://gitcode.com/badhope/OpenBox |
+| Gitee (mirror) | https://gitee.com/badhope/OpenBox |
+
+> Content is synchronized manually across platforms. GitHub is the canonical source.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
