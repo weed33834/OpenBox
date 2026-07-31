@@ -1,0 +1,79 @@
+[
+  {
+    "id": "clash-verge",
+    "name": "Clash Verge Rev",
+    "platform": "Windows / macOS / Linux",
+    "supported_protocols": [
+      "vmess",
+      "vless",
+      "ss",
+      "trojan",
+      "hysteria2"
+    ],
+    "download_url": "https://github.com/clash-verge-rev/clash-verge-rev/releases"
+  },
+  {
+    "id": "v2rayn",
+    "name": "v2rayN",
+    "platform": "Windows",
+    "supported_protocols": [
+      "vmess",
+      "vless",
+      "ss",
+      "trojan"
+    ],
+    "download_url": "https://github.com/2dust/v2rayN/releases"
+  },
+  {
+    "id": "v2rayng",
+    "name": "v2rayNG",
+    "platform": "Android",
+    "supported_protocols": [
+      "vmess",
+      "vless",
+      "ss",
+      "trojan"
+    ],
+    "download_url": "https://github.com/2dust/v2rayNG/releases"
+  },
+  {
+    "id": "shadowrocket",
+    "name": "Shadowrocket",
+    "platform": "iOS / iPadOS",
+    "supported_protocols": [
+      "vmess",
+      "vless",
+      "ss",
+      "trojan",
+      "hysteria2"
+    ],
+    "download_url": "https://apps.apple.com/app/shadowrocket/id932747118"
+  },
+  {
+    "id": "stash",
+    "name": "Stash",
+    "platform": "iOS / iPadOS / macOS",
+    "supported_protocols": [
+      "vmess",
+      "vless",
+      "ss",
+      "trojan",
+      "hysteria2"
+    ],
+    "download_url": "https://apps.apple.com/app/stash/id1596063349"
+  },
+  {
+    "id": "karing",
+    "name": "Karing",
+    "platform": "Windows / macOS / Linux / Android",
+    "supported_protocols": [
+      "vmess",
+      "vless",
+      "ss",
+      "trojan",
+      "hysteria2",
+      "tuic"
+    ],
+    "download_url": "https://github.com/KaringX/karing/releases"
+  }
+]

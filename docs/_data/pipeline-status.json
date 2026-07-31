@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-07-28T18:38:10Z",
+  "total_duration_ms": null,
+  "steps": {
+    "crawl": {
+      "duration_ms": null,
+      "status": "unknown"
+    },
+    "parse": {
+      "duration_ms": null,
+      "status": "unknown"
+    },
+    "dedup": {
+      "duration_ms": null,
+      "status": "unknown"
+    },
+    "verify": {
+      "duration_ms": null,
+      "status": "unknown"
+    },
+    "format": {
+      "duration_ms": null,
+      "status": "unknown"
+    },
+    "archive": {
+      "duration_ms": null,
+      "status": "unknown"
+    }
+  }
+}

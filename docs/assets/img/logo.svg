@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="FreeNode logo">
+  <!-- FreeNode brand logo
+       - 中心卫星 = 聚合核心 (6 协议源)
+       - 外圈 6 节点 + 连接线 = 分布式节点网络
+       - 配色与 docs/assets/css/style.css 设计系统一致 (青 #00d9ff + 紫 #b465ff) -->
+  <defs>
+    <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#00d9ff"/>
+      <stop offset="100%" stop-color="#b465ff"/>
+    </linearGradient>
+    <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00d9ff" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#00d9ff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.2"/>
+    </filter>
+  </defs>
+
+  <!-- 背景圆角方块 (深底,与站点 bg-base 一致) -->
+  <rect width="256" height="256" rx="48" fill="#08090d"/>
+
+  <!-- 外环 (青→紫渐变) -->
+  <circle cx="128" cy="128" r="92" fill="none" stroke="url(#ringGrad)" stroke-width="3" opacity="0.85"/>
+  <circle cx="128" cy="128" r="92" fill="none" stroke="#00d9ff" stroke-width="0.5" opacity="0.3"/>
+
+  <!-- 6 个外圈节点 (6 协议: vmess/vless/ss/trojan/hysteria2/tuic) -->
+  <g fill="#00d9ff">
+    <circle cx="128" cy="36"  r="9"/>
+    <circle cx="208" cy="84"  r="9"/>
+    <circle cx="208" cy="172" r="9"/>
+    <circle cx="128" cy="220" r="9"/>
+    <circle cx="48"  cy="172" r="9"/>
+    <circle cx="48"  cy="84"  r="9"/>
+  </g>
+
+  <!-- 节点连接线 (放射状,半透明青) -->
+  <g stroke="#00d9ff" stroke-width="1.5" opacity="0.5">
+    <line x1="128" y1="128" x2="128" y2="36"/>
+    <line x1="128" y1="128" x2="208" y2="84"/>
+    <line x1="128" y1="128" x2="208" y2="172"/>
+    <line x1="128" y1="128" x2="128" y2="220"/>
+    <line x1="128" y1="128" x2="48"  y2="172"/>
+    <line x1="128" y1="128" x2="48"  y2="84"/>
+  </g>
+
+  <!-- 中心卫星核心 (双层光晕 + 实心) -->
+  <circle cx="128" cy="128" r="42" fill="url(#coreGlow)"/>
+  <circle cx="128" cy="128" r="26" fill="none" stroke="url(#ringGrad)" stroke-width="2.5" filter="url(#soft)"/>
+  <circle cx="128" cy="128" r="14" fill="#00d9ff"/>
+  <circle cx="128" cy="128" r="5"  fill="#f0f6fc"/>
+
+  <!-- 卫星天线 (强化"节点"意象) -->
+  <g stroke="#b465ff" stroke-width="2" stroke-linecap="round">
+    <line x1="128" y1="114" x2="128" y2="100"/>
+    <line x1="122" y1="104" x2="134" y2="104"/>
+  </g>
+</svg>

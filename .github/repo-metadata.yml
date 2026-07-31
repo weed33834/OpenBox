@@ -1,0 +1,43 @@
+# GitHub repository metadata for discoverability.
+# Drives the "About" description and topic tags shown on the repo page.
+# Format: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/customizing-your-repositorys-social-media-preview
+#
+# Note: GitHub does not auto-apply this file. The values below were applied to the
+# live repository via the GitHub API on 2026-07-31 (description + homepage + all 20 topics),
+# so the repo "About" sidebar now matches this file. Kept as the canonical record of the
+# intended metadata.
+#
+# Social preview: configured manually in repo Settings → Social preview (image upload,
+# not settable via API). Reuse docs/assets/img/og.png (1200x630) — it is already wired
+# into the site's Open Graph / Twitter Card tags for link previews.
+
+# Short one-liner shown next to the repo name on GitHub.
+description: >
+  Free public proxy / node subscription source aggregator with a GitHub Pages
+  navigation site. Crawls 80+ community sources, verifies reachability,
+  outputs Clash / V2Ray / proxy list.
+
+# Topic tags — improves search & discovery on GitHub. Keep to ~20 max.
+topics:
+  - freenode
+  - free-proxy
+  - free-nodes
+  - proxy
+  - proxy-list
+  - clash
+  - clash-subscription
+  - v2ray
+  - v2ray-subscription
+  - vmess
+  - vless
+  - trojan
+  - shadowsocks
+  - hysteria2
+  - tuic
+  - subscription
+  - github-pages
+  - jekyll
+  - aggregator
+  - open-source
+homepage: https://weed33834.github.io/freenode/
+visibility: public

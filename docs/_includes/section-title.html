@@ -1,0 +1,19 @@
+<!-- Reusable section title
+     Params:
+       title:     main title (fallback, English)
+       i18n_title:  i18n dict key for title (optional)
+       meta:      right-side small text (fallback, English, optional)
+       i18n_meta:   i18n dict key for meta (optional)
+       link:      right-side link URL (optional)
+       link_text: right-side link text (fallback, optional)
+       i18n_link_text: i18n dict key for link_text (optional)
+-->
+<h2 class="section-title">
+  <span class="section-title-left">
+    <span class="section-title-text"{% if include.i18n_title %} data-i18n="{{ include.i18n_title }}"{% endif %}>{{ include.title }}</span>
+    {% if include.meta %}<span class="meta"{% if include.i18n_meta %} data-i18n="{{ include.i18n_meta }}"{% endif %}>{{ include.meta }}</span>{% endif %}
+  </span>
+  {% if include.link %}
+  <span class="meta"><a href="{{ include.link | relative_url }}"{% if include.i18n_link_text %} data-i18n="{{ include.i18n_link_text }}"{% endif %}>{{ include.link_text | default: 'View all →' }}</a></span>
+  {% endif %}
+</h2>

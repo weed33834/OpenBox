@@ -1,0 +1,87 @@
+---
+layout: default
+title: Protocols & Client Guide
+description: Guide to the 6 supported protocols (vmess, vless, ss, trojan, hysteria2, tuic) and recommended clients for Windows, macOS, Linux, iOS, Android.
+keywords: proxy protocols, vmess guide, vless guide, shadowsocks, trojan, hysteria2, tuic, clash client, v2ray client, windows, macos, linux, ios, android
+---
+
+<h1 class="page-title">📖 <span data-i18n="guides.h1">Protocols & Client Guide</span></h1>
+<p class="page-subtitle">// {{ site.data.protocols | size }} <span data-i18n="guides.subtitle">protocols · recommended clients</span> · {{ site.data.clients | size }}</p>
+
+<!-- 协议说明 -->
+<section class="section">
+  {% capture proto_count_meta %}{{ site.data.protocols.size }} protocols{% endcapture %}
+  {% include section-title.html title="Protocols" i18n_title="guides.section.protocols" meta=proto_count_meta %}
+  <div class="proto-cards">
+    {% for proto in site.data.protocols %}
+    <div class="proto-card">
+      <div class="proto-card-header">
+        <span class="proto-card-icon">{{ proto.icon }}</span>
+        <div>
+          <div class="proto-card-title">{{ proto.name }}</div>
+          <div class="proto-card-tagline">{{ proto.tagline }}</div>
+        </div>
+      </div>
+      <div class="proto-card-desc">{{ proto.description }}</div>
+      <div class="proto-card-pros">
+        <span class="pc-icon">✓</span>
+        <span>{{ proto.pros }}</span>
+      </div>
+      <div class="proto-card-cons">
+        <span class="pc-icon">✗</span>
+ <span>{{ proto.cons }}</span>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- 客户端推荐 -->
+<section class="section">
+  {% include section-title.html title="Recommended Clients" i18n_title="guides.section.clients" meta="cross-platform / Windows / macOS / Linux / iOS / Android" i18n_meta="guides.section.clients_meta" %}
+  <div class="source-table-wrap">
+    <table class="source-table">
+      <thead>
+        <tr>
+          <th data-i18n="guides.th.client">Client</th>
+          <th data-i18n="guides.th.platform">Platform</th>
+          <th data-i18n="guides.th.protocols">Protocols</th>
+          <th data-i18n="guides.th.download">Download</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for client in site.data.clients %}
+        <tr>
+          <td><strong>{{ client.name }}</strong></td>
+          <td><code class="mono" style="font-size:11.5px;color:var(--text-muted)">{{ client.platform }}</code></td>
+          <td>
+            {% for p in client.supported_protocols %}
+            <span class="proto-chip">{{ p }}</span>
+            {% endfor %}
+          </td>
+          <td>
+            {% if client.download_url %}
+            <a href="{{ client.download_url }}" target="_blank" rel="noopener" class="btn" data-i18n="guides.download">⬇ Download</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- 使用步骤时间线 -->
+<section class="section">
+  {% include section-title.html title="Setup Steps" i18n_title="guides.section.setup" meta="from subscription to connection · 8 steps" i18n_meta="guides.section.setup_meta" %}
+  <div class="timeline">
+    <div class="timeline-step"><h4 data-i18n="guides.step1.h">Pick a subscription</h4><p data-i18n="guides.step1.p">Choose Clash, V2Ray or proxy list format from the home page.</p></div>
+    <div class="timeline-step"><h4 data-i18n="guides.step2.h">Install a client</h4><p data-i18n="guides.step2.p">Pick one of the recommended clients above for your OS.</p></div>
+    <div class="timeline-step"><h4 data-i18n="guides.step3.h">Add subscription</h4><p data-i18n="guides.step3.p">Paste the subscription URL into the client's Profile / Subscription settings.</p></div>
+    <div class="timeline-step"><h4 data-i18n="guides.step4.h">Update subscription</h4><p data-i18n="guides.step4.p">The client auto-updates on a schedule, or you can trigger it manually.</p></div>
+    <div class="timeline-step"><h4 data-i18n="guides.step5.h">Choose a node</h4><p data-i18n="guides.step5.p">Pick a low-latency node from the list and connect.</p></div>
+    <div class="timeline-step"><h4 data-i18n="guides.step6.h">Enable proxy</h4><p data-i18n="guides.step6.p">Most clients have a system proxy toggle — turn it on.</p></div>
+    <div class="timeline-step"><h4 data-i18n="guides.step7.h">Refresh regularly</h4><p data-i18n="guides.step7.p">Nodes expire fast; set the client to auto-update every few hours.</p></div>
+    <div class="timeline-step"><h4 data-i18n="guides.step8.h">Troubleshoot</h4><p data-i18n="guides.step8.p">If a subscription breaks, wait for the next sync or open an Issue on the repo.</p></div>
+  </div>
+</section>

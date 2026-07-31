@@ -1,0 +1,165 @@
+---
+layout: default
+title: FreeNode
+description: "FreeNode — free public proxy / node subscription source aggregator. Crawls 80+ community sources, verifies reachability, outputs Clash / V2Ray / proxy list subscriptions."
+keywords: freenode, free proxy, free nodes, clash subscription, v2ray subscription, vmess, vless, trojan, shadowsocks, hysteria2, tuic, public proxy list, github pages
+---
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-tagline">
+    <span class="dot"></span>
+    <span data-i18n="index.tagline">Community public nodes · Verified</span>
+  </div>
+  <h1 data-i18n="index.h1">Free Nodes · Aggregator</h1>
+  <p class="hero-subtitle" data-i18n="index.subtitle">
+    Crawls 80+ community public sources, parses, deduplicates and verifies,
+    then outputs Clash / V2Ray / proxy list subscription formats.
+    All data is owner-reviewed via PR before deploy.
+  </p>
+  <div class="hero-meta">
+    <span class="kv"><span class="k" data-i18n="index.meta_sources">SOURCES</span> <span class="v">{{ site.data.stats.total_sources | default: '—' }}</span></span>
+    <span class="kv"><span class="k" data-i18n="index.meta_nodes">NODES</span> <span class="v">{{ site.data.stats.total_nodes | default: '—' }}</span></span>
+    <span class="kv"><span class="k" data-i18n="index.meta_alive">ALIVE</span> <span class="v">{{ site.data.stats.alive_nodes | default: '—' }}</span></span>
+    {% if site.data.stats.freshness %}
+    <span class="kv">
+      <span class="k" data-i18n="index.meta_data">DATA</span>
+      <span class="freshness-badge" data-level="{{ site.data.stats.freshness.level }}">
+        {{ site.data.stats.freshness.label }}
+      </span>
+    </span>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Empty / unverified state: shown when no alive nodes or data is unverified -->
+{% assign sn = site.data.stats %}
+{% if sn.total_nodes == 0 or sn.alive_nodes == null %}
+<section class="section">
+  <div class="card" style="padding: 32px; text-align: center; border-color: rgba(248, 81, 73, 0.3);">
+    <div style="font-size: 48px; margin-bottom: 16px;">🚨</div>
+    <h3 style="color: var(--color-danger); margin-bottom: 10px; font-size: 18px;" data-i18n="index.empty_nodes_title">No available nodes</h3>
+    <p style="color: var(--text-muted); margin-bottom: 18px; max-width: 560px; margin-left: auto; margin-right: auto;" data-i18n="index.empty_nodes_desc">
+      The current data snapshot has no alive nodes. Either all sources are temporarily down,
+      or every node expired since the last sync. Please check back later, or open an Issue on the repo.
+    </p>
+    <a href="{{ site.data.site.repo_urls.github }}/issues/new" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="index.open_issue">
+      📮 Open an Issue
+    </a>
+  </div>
+</section>
+{% elsif sn.verified == false %}
+<section class="section">
+  <div class="card" style="padding: 32px; text-align: center; border-color: rgba(210, 153, 34, 0.3);">
+    <div style="font-size: 48px; margin-bottom: 16px;">⚠️</div>
+    <h3 style="color: var(--color-warn); margin-bottom: 10px; font-size: 18px;" data-i18n="index.unverified_title">Unverified data</h3>
+    <p style="color: var(--text-muted); margin-bottom: 18px; max-width: 560px; margin-left: auto; margin-right: auto;" data-i18n="index.unverified_desc">
+      The current snapshot contains nodes, but they have not been connectivity-verified.
+      Subscriptions will still work, but node availability is not guaranteed.
+    </p>
+  </div>
+</section>
+{% endif %}
+
+<!-- Subscription cards -->
+<section class="section">
+  {% include section-title.html title="Subscription Links" i18n_title="index.section.subscriptions" meta="3 formats · one-click copy · mirror fallback" i18n_meta="index.section.subscriptions_meta" %}
+  <div class="sub-grid">
+    {% for sub in site.data.subscriptions %}
+      {% assign tmp = sub %}
+      {% include sub-card.html sub=tmp %}
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Live data snapshot -->
+<section class="section">
+  {% include section-title.html title="Data Snapshot" i18n_title="index.section.snapshot" meta="Overview of the latest sync" i18n_meta="index.section.snapshot_meta" %}
+  <div class="stats-grid">
+    {% assign sr = site.data.stats.survival_rate %}
+    {% if sr %}
+    {% capture trend_text %}↑ {{ sr }}% alive{% endcapture %}
+    {% else %}
+    {% assign trend_text = "未验证" %}
+    {% endif %}
+    {% include stat-card.html tone="cyan"   label="Total nodes" i18n_label="index.stat.total_nodes" value=site.data.stats.total_nodes %}
+    {% include stat-card.html tone="green"  label="Alive nodes" i18n_label="index.stat.alive_nodes" value=site.data.stats.alive_nodes trend=trend_text trend_class="up" %}
+    {% include stat-card.html tone="purple" label="Avg latency" i18n_label="index.stat.avg_latency" value=site.data.stats.avg_latency_ms unit="ms" %}
+    {% include stat-card.html tone="pink"   label="Data sources" i18n_label="index.stat.sources" value=site.data.stats.total_sources %}
+  </div>
+
+  <!-- Protocol distribution rings -->
+  <div class="protocol-rings">
+    <div class="protocol-rings-title" data-i18n="index.section.proto_dist">Protocol distribution · ring visualization</div>
+    <div class="protocol-rings-grid">
+      {% for proto in site.data.stats.by_protocol %}
+      <div class="proto-ring" data-proto-name="{{ proto.name }}">
+        <div class="proto-ring-svg">
+          <svg viewBox="0 0 100 100">
+            <circle class="ring-bg" cx="50" cy="50" r="42"></circle>
+            <circle class="ring-fg" cx="50" cy="50" r="42"></circle>
+          </svg>
+          <div class="proto-ring-center">
+            <div class="proto-ring-pct" data-ring-pct="{{ proto.percentage }}">
+              {{ proto.percentage }}<span class="pct-sign">%</span>
+            </div>
+            <div class="proto-ring-count">{{ proto.alive | default: '?' }}/{{ proto.total }}</div>
+          </div>
+        </div>
+        <div class="proto-ring-name">{{ proto.name }}</div>
+        {% if proto.avg_latency %}
+        <div class="proto-ring-latency">{{ proto.avg_latency }}ms avg</div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Top 10 reliable sources -->
+<section class="section">
+  {% include section-title.html title="Top 10 Reliable Sources" i18n_title="index.section.top_sources" meta="sorted by 14-day reliability" i18n_meta="index.section.top_sources_meta" link="/sources.html" link_text="View all →" i18n_link_text="common.view_all" %}
+  <div class="source-table-wrap">
+    <table class="source-table top-sources">
+      <thead>
+        <tr><th>#</th><th data-i18n="index.th.name">Name</th><th data-i18n="index.th.type">Type</th><th data-i18n="index.th.reliability">Reliability</th><th data-i18n="index.th.protocols">Protocols</th></tr>
+      </thead>
+      <tbody>
+        {% assign top_sources = site.data.sources | slice: 0, 10 %}
+        {% for src in top_sources %}
+        <tr>
+          <td><span class="rank">{{ forloop.index }}</span></td>
+          <td><strong>{{ src.name }}</strong></td>
+          <td><code class="mono" style="font-size:11.5px;color:var(--text-muted)">{{ src.type }}</code></td>
+          <td>
+            <span class="reliability-bar" style="display:inline-flex;width:80px;vertical-align:middle">
+              <span class="reliability-fill" style="width:{{ src.reliability }}%;background:{% if src.reliability >= 80 %}var(--color-success){% elsif src.reliability >= 50 %}var(--color-warn){% else %}var(--color-danger){% endif %};"></span>
+            </span>
+            <span class="reliability-value">{{ src.reliability }}%</span>
+          </td>
+          <td>
+            {% for p in src.protocols %}
+            <span class="proto-chip">{{ p }}</span>
+            {% endfor %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- Quick start -->
+<section class="section">
+  {% include section-title.html title="Quick Start" i18n_title="index.section.quick_start" meta="from subscription to connection · 8 steps" i18n_meta="index.section.quick_start_meta" %}
+  <div class="timeline">
+    <div class="timeline-step"><h4 data-i18n="index.step1.h">Pick a subscription</h4><p data-i18n="index.step1.p">Choose Clash, V2Ray or proxy list format above and copy the link.</p></div>
+    <div class="timeline-step"><h4 data-i18n="index.step2.h">Install a client</h4><p data-i18n="index.step2.p">Pick a client on the <a href="{{ '/guides.html' | relative_url }}">guide page</a> for your OS.</p></div>
+    <div class="timeline-step"><h4 data-i18n="index.step3.h">Import the subscription</h4><p data-i18n="index.step3.p">Paste the subscription URL in the client's Profile / Subscription settings.</p></div>
+    <div class="timeline-step"><h4 data-i18n="index.step4.h">Update the subscription</h4><p data-i18n="index.step4.p">The client auto-updates on a schedule, or you can trigger it manually.</p></div>
+    <div class="timeline-step"><h4 data-i18n="index.step5.h">Choose a node</h4><p data-i18n="index.step5.p">Pick a low-latency node from the list and connect.</p></div>
+    <div class="timeline-step"><h4 data-i18n="index.step6.h">Enable proxy</h4><p data-i18n="index.step6.p">Most clients have a system proxy toggle — turn it on.</p></div>
+    <div class="timeline-step"><h4 data-i18n="index.step7.h">Refresh regularly</h4><p data-i18n="index.step7.p">Nodes expire fast; set the client to auto-update every few hours.</p></div>
+    <div class="timeline-step"><h4 data-i18n="index.step8.h">Subscription broken</h4><p data-i18n="index.step8.p">Wait for the next sync, or open an Issue on the repo.</p></div>
+  </div>
+</section>

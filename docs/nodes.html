@@ -1,0 +1,78 @@
+---
+layout: default
+title: Node Browser
+description: Live node browser — search and filter free public proxy nodes by protocol, region and status. Aggregated and verified by FreeNode (vmess, vless, ss, trojan, hysteria2, tuic).
+keywords: freenode nodes, proxy nodes, vmess, vless, ss, trojan, hysteria2, tuic, node browser
+---
+
+<h1 class="page-title">🛰️ <span data-i18n="nodes.h1">Node Browser</span></h1>
+<p class="page-subtitle">// {{ site.data.nodes.total }} <span data-i18n="nodes.subtitle">nodes · multi-protocol aggregation · real-time filter</span></p>
+
+<!-- 筛选栏 -->
+<div class="nodes-toolbar">
+  <div class="filter-bar">
+    <span class="filter-label" data-i18n="nodes.filter_protocol">Protocol:</span>
+    <button class="filter-btn active" data-proto="all" data-i18n="common.all">All</button>
+    <button class="filter-btn" data-proto="vmess">vmess</button>
+    <button class="filter-btn" data-proto="vless">vless</button>
+    <button class="filter-btn" data-proto="ss">ss</button>
+    <button class="filter-btn" data-proto="trojan">trojan</button>
+    <button class="filter-btn" data-proto="hysteria2">hysteria2</button>
+    <button class="filter-btn" data-proto="tuic">tuic</button>
+  </div>
+
+  <div class="nodes-toolbar-right">
+    <select id="nodes-region" class="nodes-select" aria-label="地区筛选"
+            data-i18n-aria="nodes.filter_region">
+      <option value="all" data-i18n="nodes.all_regions">All regions</option>
+      {% for region_key in site.data.nodes.regions_summary %}
+      <option value="{{ region_key[0] }}">{{ region_key[0] }} ({{ region_key[1] }})</option>
+      {% endfor %}
+    </select>
+
+    <input type="search" id="nodes-search" class="nodes-search"
+           placeholder="Search name / server…" autocomplete="off" aria-label="Search nodes"
+           data-i18n-placeholder="nodes.search_placeholder" data-i18n-aria="nodes.search_aria">
+  </div>
+</div>
+
+<!-- 统计摘要 -->
+<p class="nodes-summary"><span id="nodes-count">{{ site.data.nodes.total }}</span> <span data-i18n="nodes.summary">nodes total</span></p>
+
+<!-- 节点表格 -->
+<div class="nodes-table-wrap">
+  <table class="nodes-table">
+    <thead>
+      <tr>
+        <th data-i18n="nodes.th.protocol">Protocol</th>
+        <th data-i18n="nodes.th.name">Name</th>
+        <th data-i18n="nodes.th.server">Server</th>
+        <th data-i18n="nodes.th.port">Port</th>
+        <th data-i18n="nodes.th.region">Region</th>
+        <th data-i18n="nodes.th.status">Status</th>
+      </tr>
+    </thead>
+    <tbody id="nodes-tbody">
+      {% for node in site.data.nodes.nodes %}
+      <tr class="node-row" data-protocol="{{ node.protocol }}" data-region="{{ node.region }}" data-name="{{ node.name | downcase }}" data-server="{{ node.server | downcase }}">
+        <td><span class="proto-chip proto-{{ node.protocol }}">{{ node.protocol }}</span></td>
+        <td>{{ node.name }}</td>
+        <td class="mono">{{ node.server }}</td>
+        <td class="mono">{{ node.port }}</td>
+        <td>{{ node.region }}</td>
+        <td><span class="node-status-light {% if node.alive %}alive{% elsif node.alive == null %}unverified{% else %}dead{% endif %}"></span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<!-- 空状态 -->
+<p class="nodes-empty" id="nodes-empty" hidden data-i18n="nodes.empty">No matching nodes found</p>
+
+<!-- 分页 -->
+<div class="nodes-pagination" id="nodes-pagination" hidden>
+  <button type="button" id="nodes-prev" class="page-btn" data-i18n="common.prev_page">Previous</button>
+  <span class="page-info" id="nodes-page-info">1 / 1</span>
+  <button type="button" id="nodes-next" class="page-btn" data-i18n="common.next_page">Next</button>
+</div>

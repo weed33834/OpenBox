@@ -1,0 +1,66 @@
+{
+  "name": "FreeAPI",
+  "private": true,
+  "version": "1.0.0",
+  "description": "全网 AI 公益站与中转站导航 · 278 站点收录 · 实时可用性检测 · 深度 API 端点验证 · 三语言（中/英/日）· 移动端适配 · 站点对比 · 使用指南",
+  "license": "MIT",
+  "type": "module",
+  "author": "weed",
+  "keywords": [
+    "ai",
+    "navigation",
+    "api",
+    "relay",
+    "free-api",
+    "linuxdo",
+    "claude",
+    "gpt",
+    "directory",
+    "FreeAPI"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/weed33834/FreeAPI.git"
+  },
+  "homepage": "https://weed33834.github.io/FreeAPI/",
+  "bugs": {
+    "url": "https://github.com/weed33834/FreeAPI/issues"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "check": "tsc -b --noEmit"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.110.8",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.27.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "tailwind-merge": "^3.6.0",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.1.1",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.4",
+    "babel-plugin-react-dev-locator": "^1.0.6",
+    "eslint": "^10.8.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.3",
+    "globals": "^17.7.0",
+    "postcss": "^8.5.23",
+    "tailwindcss": "^4.3.3",
+    "typescript": "~7.0.2",
+    "typescript-eslint": "^8.65.0",
+    "vite": "^8.1.5"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild"]
+  }
+}

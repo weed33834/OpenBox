@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  {% if page.keywords %}<meta name="keywords" content="{{ page.keywords }}">{% endif %}
+  <meta name="author" content="FreeNode Contributors">
+  {% if site.data.site.pages_url %}{% assign canon_base = site.data.site.pages_url %}{% else %}{% assign canon_base = site.url | append: site.baseurl %}{% endif %}
+  <link rel="canonical" href="{{ canon_base }}{{ page.url | replace: 'index.html', '' }}">
+
+  <!-- SEO: Open Graph + Twitter Card -->
+  {% include meta-seo.html %}
+
+  <meta name="theme-color" content="#08090d">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛰️</text></svg>">
+
+  <!-- Fonts: Inter (UI) + JetBrains Mono (data). Async load via media="print"
+       to avoid blocking first paint; onerror removes the link so CSS variables
+       in :root fall back to system fonts (handy when Google Fonts is blocked). -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        media="print" onload="this.media='all'"
+        onerror="this.media='all';this.remove()">
+  <noscript>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap">
+  </noscript>
+
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <!-- 移动端独立设计语言:仅 ≤768px 加载,不污染桌面端样式 -->
+  <link rel="stylesheet" href="{{ '/assets/css/mobile.css' | relative_url }}" media="(max-width: 768px)">
+</head>
+<body>
+  <!-- 动态背景层: 渐变 mesh + 网格 + 扫描线 + 噪声 -->
+  <div class="bg-layer" aria-hidden="true">
+    <div class="bg-mesh"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-scanlines"></div>
+    <div class="bg-noise"></div>
+  </div>
+
+  <!-- Glass-morphism header -->
+  <header class="site-header">
+    <div class="container">
+      <a href="{{ '/' | relative_url }}" class="logo">
+        <span class="logo-icon">🛰️</span>
+        <span class="logo-text">FreeNode</span>
+      </a>
+
+      <!-- In-site search (desktop inline) -->
+      <div class="nav-search" id="nav-search">
+        <input type="search" id="search-input" placeholder="Search sources / protocols / clients…"
+               autocomplete="off" aria-label="Search site"
+               data-i18n-placeholder="nav.search_placeholder" data-i18n-aria="nav.search_aria">
+        <span class="search-kbd">/</span>
+        <div class="search-results" id="search-results" hidden></div>
+      </div>
+
+      <!-- Desktop nav (>980px inline) -->
+      <nav class="site-nav" id="site-nav">
+        <a href="{{ '/' | relative_url }}" data-nav="/" data-i18n="nav.home">Home</a>
+        <a href="{{ '/nodes.html' | relative_url }}" data-nav="/nodes.html" data-i18n="nav.nodes">节点浏览器</a>
+        <a href="{{ '/sources.html' | relative_url }}" data-nav="/sources.html" data-i18n="nav.sources">Sources</a>
+        <a href="{{ '/status.html' | relative_url }}" data-nav="/status.html" data-i18n="nav.status">状态</a>
+        <a href="{{ '/guides.html' | relative_url }}" data-nav="/guides.html" data-i18n="nav.guides">Guide</a>
+        <a href="{{ '/about.html' | relative_url }}" data-nav="/about.html" data-i18n="nav.about">About</a>
+        <a href="{{ site.data.site.repo_urls.github }}" target="_blank" rel="noopener" data-i18n="nav.github">GitHub ↗</a>
+      </nav>
+
+      <!-- Language switcher (EN / ZH / JA) -->
+      <div class="lang-switcher" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="zh" aria-pressed="false">中</button>
+        <button type="button" data-lang="ja" aria-pressed="false">日</button>
+      </div>
+
+      <!-- Mobile action buttons (≤980px) -->
+      <div class="nav-actions">
+        <button class="nav-icon-btn" id="nav-search-toggle" type="button"
+                aria-label="Search" aria-expanded="false" aria-controls="nav-search-overlay"
+                data-i18n-aria="nav.search_aria">
+          <span aria-hidden="true">🔍</span>
+        </button>
+        <button class="nav-icon-btn nav-menu-toggle" id="nav-menu-toggle" type="button"
+                aria-label="Menu" aria-expanded="false" aria-controls="nav-menu-panel"
+                data-i18n-aria="nav.menu_aria">
+          <span class="menu-icon" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile search overlay (≤980px, toggled by icon button) -->
+    <div class="nav-search-overlay" id="nav-search-overlay" aria-hidden="true">
+      <div class="overlay-input-wrap">
+        <input type="search" id="search-input-mobile"
+               placeholder="Search sources / protocols / clients…"
+               autocomplete="off" aria-label="Search site"
+               data-i18n-placeholder="nav.search_placeholder" data-i18n-aria="nav.search_aria">
+        <div class="search-results" id="search-results-mobile" hidden></div>
+      </div>
+    </div>
+
+    <!-- Mobile nav panel (≤980px, hamburger-toggled) -->
+    <nav class="nav-menu-panel" id="nav-menu-panel" aria-hidden="true">
+      <a href="{{ '/' | relative_url }}" data-nav="/" data-i18n="nav.home">Home</a>
+      <a href="{{ '/nodes.html' | relative_url }}" data-nav="/nodes.html" data-i18n="nav.nodes">节点浏览器</a>
+      <a href="{{ '/sources.html' | relative_url }}" data-nav="/sources.html" data-i18n="nav.sources">Sources</a>
+      <a href="{{ '/status.html' | relative_url }}" data-nav="/status.html" data-i18n="nav.status">状态</a>
+      <a href="{{ '/guides.html' | relative_url }}" data-nav="/guides.html" data-i18n="nav.guides">Guide</a>
+      <a href="{{ '/about.html' | relative_url }}" data-nav="/about.html" data-i18n="nav.about">About</a>
+      <a href="{{ site.data.site.repo_urls.github }}" target="_blank" rel="noopener" class="external" data-i18n="nav.github">GitHub ↗</a>
+
+      <!-- 抽屉内语言切换:移动端顶栏的 .lang-switcher 被隐藏,
+           故在此补一份,保证移动用户也能切换 EN / 中 / 日。
+           点击由 i18n.js 的 document 委托监听统一处理,
+           applyLang 会同步所有 .lang-switcher 的 is-active 态。 -->
+      <div class="nav-menu-foot">
+        <span class="nav-menu-foot-label" data-i18n="lang.label">Language</span>
+        <div class="lang-switcher" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+          <button type="button" data-lang="zh" aria-pressed="false">中</button>
+          <button type="button" data-lang="ja" aria-pressed="false">日</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="site-main">
+    <div class="container">
+      {{ content }}
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-meta">
+        <span class="status-dot" data-freshness="{{ site.data.stats.freshness.level | default: 'unknown' }}"></span>
+        <span data-i18n="footer.update_mode">Update mode:</span> {{ site.data.site.update_description }}
+        ·
+        <a href="{{ site.data.site.repo_urls.github }}" target="_blank" rel="noopener" data-i18n="footer.view_repo">View repo</a>
+        {% assign mins = site.data.stats.freshness.hours_ago | times: 60 %}
+        {% assign fresh_class = 'stale' %}
+        {% if mins < 60 %}{% assign fresh_class = 'fresh' %}
+        {% elsif mins < 360 %}{% assign fresh_class = 'moderate' %}
+        {% endif %}
+        {% if site.data.stats.last_updated %}
+        ·
+        <span class="mono freshness freshness--{{ fresh_class }}"><span data-i18n="footer.last_sync">Last sync:</span> {{ site.data.stats.last_updated | date: "%Y-%m-%d %H:%M UTC" }}</span>
+        {% endif %}
+      </p>
+      <p class="disclaimer" data-i18n="footer.disclaimer">
+        ⚠️ Nodes are for network protocol learning, security testing and privacy research only.
+        Do not use for banking, payments or any sensitive login. Follow your local laws.
+      </p>
+      <p class="footer-meta" style="opacity: 0.6;">
+        © {{ site.time | date: "%Y" }} <span data-i18n="footer.copyright">FreeNode · MIT License · Built with Jekyll</span>
+      </p>
+    </div>
+  </footer>
+
+  <!-- QR modal (content populated by JS) -->
+  <div class="qr-modal" id="qr-modal" aria-hidden="true" role="dialog">
+    <div class="qr-modal-content">
+      <button class="qr-modal-close" id="qr-modal-close" aria-label="Close" data-i18n-aria="common.close">✕</button>
+      <div class="qr-modal-title" id="qr-modal-title" data-i18n="qr.title">Subscription QR</div>
+      <div class="qr-modal-subtitle" data-i18n="qr.subtitle">Scan to import into client</div>
+      <div class="qr-modal-img">
+        <img id="qr-modal-img" src="" alt="QR Code" data-i18n-title="qr.img_alt">
+      </div>
+      <div class="qr-modal-url" id="qr-modal-url"></div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+
+  <!-- Search index: inject Jekyll data into window.SITE_DATA for main.js -->
+  <script>
+    window.SITE_DATA = {
+      sources: {{ site.data.sources | jsonify }},
+      protocols: {{ site.data.protocols | jsonify }},
+      clients: {{ site.data.clients | jsonify }},
+      subscriptions: {{ site.data.subscriptions | jsonify }}
+    };
+    // 暴露 baseurl 给前端 JS,避免站内搜索等动态链接漏掉 /freenode 前缀
+    window.SITE_BASEURL = {{ site.baseurl | jsonify }};
+  </script>
+  <script src="{{ '/assets/js/i18n.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/qr.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
+  {% if page.url == '/status.html' %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="{{ '/assets/js/status.js' | relative_url }}" defer></script>
+  {% endif %}
+  {% if page.url == '/nodes.html' %}
+  <script src="{{ '/assets/js/nodes.js' | relative_url }}" defer></script>
+  {% endif %}
+
+  <!-- 移动端底部 Tab 栏 (≤768px 显示,桌面端 hidden) -->
+  <nav class="mobile-tabbar" id="mobile-tabbar" hidden aria-label="Mobile navigation">
+    <a href="{{ '/' | relative_url }}" class="tab-item" data-nav="/">
+      <span class="tab-icon" aria-hidden="true">🏠</span>
+      <span class="tab-label" data-i18n="tab.home">Home</span>
+    </a>
+    <a href="{{ '/nodes.html' | relative_url }}" class="tab-item" data-nav="/nodes.html">
+      <span class="tab-icon" aria-hidden="true">📡</span>
+      <span class="tab-label" data-i18n="tab.nodes">Nodes</span>
+    </a>
+    <a href="{{ '/sources.html' | relative_url }}" class="tab-item" data-nav="/sources.html">
+      <span class="tab-icon" aria-hidden="true">🔗</span>
+      <span class="tab-label" data-i18n="tab.sources">Sources</span>
+    </a>
+    <a href="{{ '/status.html' | relative_url }}" class="tab-item" data-nav="/status.html">
+      <span class="tab-icon" aria-hidden="true">📊</span>
+      <span class="tab-label" data-i18n="tab.status">Status</span>
+    </a>
+    <button type="button" class="tab-item" id="tab-more"
+            aria-label="More" aria-expanded="false" aria-controls="nav-menu-panel">
+      <span class="tab-icon" aria-hidden="true">⋯</span>
+      <span class="tab-label" data-i18n="tab.more">More</span>
+    </button>
+  </nav>
+</body>
+</html>

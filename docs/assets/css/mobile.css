@@ -1,0 +1,426 @@
+/* ============================================================
+   FreeNode · 移动端独立设计语言 (Mobile-only)
+   ------------------------------------------------------------
+   断点: ≤768px。本文件通过 <link media="(max-width: 768px)">
+   仅在移动视口加载,因此桌面端样式 100% 不受影响。
+   设计取向:与桌面端"横向顶栏 + 多列网格"完全不同,
+   改为移动原生范式 —— 底部 Tab 栏 + 单栏触摸卡片 +
+   横向滑动的协议环 + 表格卡片化,更贴近 App 交互习惯。
+   颜色变量沿用 :root(暗色 cyber 玻璃拟态),不重复定义。
+   ============================================================ */
+
+@media (max-width: 768px) {
+
+  /* 移动端局部令牌:底部 Tab 栏高度 + 安全区适配 */
+  :root {
+    --tabbar-h: 58px;
+    --safe-b: env(safe-area-inset-bottom, 0px);
+    --safe-l: env(safe-area-inset-left, 0px);
+    --safe-r: env(safe-area-inset-right, 0px);
+  }
+
+  /* 容器在窄屏更贴边 */
+  .container { padding-left: 16px; padding-right: 16px; }
+
+  /* 给固定 Tab 栏让出底部空间 (含刘海屏 home indicator) */
+  body {
+    padding-bottom: calc(var(--tabbar-h) + var(--safe-b));
+  }
+
+  /* ============================================================
+     顶栏:瘦身为一行,隐藏语言切换与汉堡(改由底部"更多"承载)
+     ============================================================ */
+  .site-header { position: sticky; top: 0; z-index: 160; }
+  .site-header .container {
+    height: 52px;
+    padding: 0 14px;
+    gap: 8px;
+  }
+  .logo-text { font-size: 15px; }
+  /* 语言切换收进"更多"抽屉,避免顶栏拥挤 */
+  .lang-switcher { display: none; }
+  /* 顶部汉堡与底部"更多"功能重复,移动端隐藏汉堡 */
+  .nav-menu-toggle { display: none; }
+  .nav-search-toggle { display: inline-flex; }
+
+  /* ============================================================
+     抽屉内语言切换:移动端顶栏的 .lang-switcher 已被 display:none
+     隐藏,这里用更高优先级重新显示抽屉内的一份,
+     保证移动用户也能切换 EN / 中 / 日(无需退出抽屉)。
+     ============================================================ */
+  .nav-menu-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 14px 20px;
+    margin-top: 6px;
+    border-top: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  }
+  .nav-menu-foot-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted, #8b949e);
+  }
+  .nav-menu-panel .lang-switcher {
+    display: inline-flex;
+    align-self: center;
+    margin: 0;
+  }
+  .nav-menu-panel .lang-switcher button {
+    font-size: 12px;
+    padding: 6px 11px;
+    min-height: 30px;
+  }
+
+  /* ============================================================
+     底部 Tab 栏 (移动端导航核心,完全区别于桌面顶栏)
+     ============================================================ */
+  /* [hidden] 在桌面端隐藏本栏;移动端媒体查询内强制显示为 flex */
+  .mobile-tabbar[hidden] { display: flex; }
+  .mobile-tabbar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 200;
+    flex-direction: row;
+    height: calc(var(--tabbar-h) + var(--safe-b));
+    padding-bottom: var(--safe-b);
+    padding-left: var(--safe-l);
+    padding-right: var(--safe-r);
+    background: var(--bg-glass, rgba(8, 9, 13, 0.82));
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border-top: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    /* 顶部微光:与页面内容之间增加视觉层次 */
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 217, 255, 0.03) 0%,
+      var(--bg-glass, rgba(8, 9, 13, 0.82)) 12%
+    );
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.45),
+                0 -1px 0 rgba(0, 217, 255, 0.06);
+  }
+  .tab-item {
+    position: relative; /* ← 必须:让 ::before 激活指示线相对本项定位 */
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    min-height: var(--tabbar-h);
+    padding: 6px 2px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted, #8b949e);
+    text-decoration: none;
+    font-family: var(--font-mono, monospace);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.18s ease;
+  }
+  .tab-item:active { background: rgba(255, 255, 255, 0.04); }
+  .tab-icon {
+    font-size: 20px;
+    line-height: 1;
+    filter: grayscale(0.25);
+    transition: transform 0.18s var(--ease-out, ease), filter 0.18s ease;
+  }
+  .tab-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    line-height: 1.1;
+  }
+  /* 激活态:青色高亮 + 顶部发丝指示线 */
+  .tab-item.is-active {
+    color: var(--accent, #00d9ff);
+  }
+  .tab-item.is-active .tab-icon {
+    filter: none;
+    transform: translateY(-1px);
+  }
+  .tab-item.is-active::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 18%; right: 18%;
+    height: 2px;
+    border-radius: 0 0 2px 2px;
+    background: var(--accent, #00d9ff);
+    box-shadow: 0 0 8px var(--accent-glow, rgba(0, 217, 255, 0.6));
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  /* ============================================================
+     Hero:居中、紧凑、青色辉光,明显区别于桌面左对齐大标题
+     ============================================================ */
+  .site-main { padding: 20px 0 48px; }
+  .hero {
+    text-align: center;
+    padding: 24px 0 28px;
+  }
+  .hero-tagline {
+    justify-content: center;
+  }
+  .hero h1 {
+    font-size: clamp(27px, 8.5vw, 38px);
+    line-height: 1.12;
+    margin: 12px 0 10px;
+    text-shadow: 0 0 32px rgba(0, 217, 255, 0.22);
+  }
+  .hero-subtitle {
+    font-size: 13.5px;
+    line-height: 1.6;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  /* 关键指标改为胶囊 chip,横向居中可换行 */
+  .hero-meta {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .hero-meta .kv {
+    background: var(--bg-surface, rgba(255, 255, 255, 0.03));
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+  .hero-meta .v { font-size: 12px; }
+
+  /* ============================================================
+     区块标题:缩小字号、meta 换行
+     ============================================================ */
+  .section { margin-bottom: 34px; }
+  .section-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .section-title-text { font-size: 18px; }
+  .section-title .meta { font-size: 11.5px; }
+
+  /* ============================================================
+     订阅卡片:单栏 + 大触摸按钮(复制占满整行,其余 3 个并排)
+     ============================================================ */
+  .sub-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .sub-card {
+    padding: 16px;
+    border-radius: var(--radius, 14px);
+  }
+  .sub-card-header { gap: 12px; }
+  .sub-card-icon { font-size: 30px; }
+  .sub-card-title { font-size: 16px; }
+  .sub-card-clients {
+    font-size: 12px;
+    margin-top: 2px;
+    white-space: normal;
+  }
+  /* 链接截断,避免撑破卡片 */
+  .sub-card-link {
+    font-size: 11px;
+    margin: 12px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .sub-card-mirrors { margin-bottom: 12px; }
+  .sub-card-mirrors summary { font-size: 12.5px; padding: 6px 0; }
+  /* 动作区:复制按钮独占整行,Open/Docs/QR 三列并排 */
+  .sub-card-actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .sub-card-actions .btn {
+    width: 100%;
+    min-height: 46px;
+    font-size: 13px;
+    padding: 10px 6px;
+  }
+  .sub-card-actions .btn-primary {
+    grid-column: 1 / -1;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  /* ============================================================
+     实时数据卡片:2 列紧凑网格
+     ============================================================ */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .stat-card {
+    padding: 14px;
+    border-left: 2px solid var(--accent, #00d9ff);
+  }
+  .stat-value { font-size: 26px; }
+  .stat-label { font-size: 11px; }
+
+  /* ============================================================
+     协议分布:改横向滑动卡片(移动原生 carousel 感),非网格
+     ============================================================ */
+  .protocol-rings { padding: 16px 0 8px; }
+  .protocol-rings-title {
+    font-size: 12.5px;
+    padding: 0 16px;
+  }
+  .protocol-rings-grid {
+    display: flex;
+    gap: 12px;
+    padding: 12px 16px 14px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .protocol-rings-grid::-webkit-scrollbar { display: none; }
+  .proto-ring {
+    flex: 0 0 45%;
+    scroll-snap-align: start;
+    background: var(--bg-surface, rgba(255, 255, 255, 0.03));
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    border-radius: var(--radius, 14px);
+    padding: 14px 10px;
+  }
+  .proto-ring-svg { width: 84px; height: 84px; }
+  .proto-ring-name { font-size: 12px; margin-top: 8px; }
+  .proto-ring-latency { font-size: 10.5px; }
+
+  /* ============================================================
+     首页 Top10 表格 → 移动卡片(避免横向滚动的"生搬硬套")
+     ============================================================ */
+  .source-table.top-sources thead { display: none; }
+  .source-table.top-sources,
+  .source-table.top-sources tbody,
+  .source-table.top-sources tr,
+  .source-table.top-sources td {
+    display: block;
+    width: 100%;
+  }
+  .source-table.top-sources tr {
+    background: var(--bg-surface, rgba(255, 255, 255, 0.03));
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+    border-radius: var(--radius, 14px);
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+  /* 隐藏序号与类型两列(卡片化后冗余) */
+  .source-table.top-sources td:nth-child(1),
+  .source-table.top-sources td:nth-child(3) { display: none; }
+  .source-table.top-sources td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 5px 0;
+    border: none;
+    font-size: 12.5px;
+  }
+  .source-table.top-sources td:nth-child(2) {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-bright, #f0f6fc);
+    padding-bottom: 8px;
+  }
+  .source-table.top-sources td:nth-child(5) {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+
+  /* ============================================================
+     快速开始时间线:纵向步骤卡(左侧编号徽标)
+     ============================================================ */
+  .timeline {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .timeline-step {
+    text-align: left;
+    padding: 14px 14px 14px 54px;
+  }
+  .timeline-step::before {
+    left: 14px;
+    transform: none;
+  }
+
+  /* ============================================================
+     数据源页卡片网格:单列
+     ============================================================ */
+  .source-cards {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .source-card { padding: 14px; }
+  .filter-bar {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  /* ============================================================
+     节点浏览器:表格保留横向滚动,但做全宽出血 + 间距优化
+     ============================================================ */
+  .nodes-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .nodes-toolbar-right {
+    display: flex;
+    gap: 8px;
+  }
+  .nodes-table-wrap {
+    margin: 0 -16px;
+    padding: 0 16px;
+    border-radius: var(--radius, 14px);
+  }
+  .nodes-table {
+    min-width: 560px;
+  }
+  .nodes-table th,
+  .nodes-table td {
+    padding: 10px 12px;
+    white-space: nowrap;
+    font-size: 12.5px;
+  }
+  .nodes-select,
+  .nodes-search {
+    min-width: 0;
+    height: 42px;
+  }
+  .page-title {
+    font-size: clamp(22px, 7vw, 30px);
+  }
+
+  /* ============================================================
+     页脚:缩小并留足底部间距
+     ============================================================ */
+  .site-footer {
+    padding: 28px 0 24px;
+    font-size: 11.5px;
+  }
+  .footer-meta { line-height: 1.7; }
+
+  /* ============================================================
+     QR / Toast 等浮层在移动端贴边、避免溢出
+     ============================================================ */
+  .qr-modal-content {
+    width: calc(100% - 32px);
+    max-width: 360px;
+    padding: 18px;
+  }
+  .toast-stack {
+    left: 16px; right: 16px;
+    bottom: calc(var(--tabbar-h) + var(--safe-b) + 12px);
+  }
+}

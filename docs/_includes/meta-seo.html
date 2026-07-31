@@ -1,0 +1,42 @@
+<!-- SEO meta: Open Graph + Twitter Card + structured data -->
+{% if site.data.site.pages_url %}{% assign base = site.data.site.pages_url %}{% else %}{% assign base = site.url | append: site.baseurl %}{% endif %}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+<meta property="og:description" content="{{ page.description | default: site.description }}">
+<meta property="og:locale" content="en">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta property="og:locale:alternate" content="ja_JP">
+{% if site.data.site %}
+<meta property="og:url" content="{{ base }}/">
+<meta property="og:image" content="{{ base }}/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+{% endif %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+<meta name="twitter:description" content="{{ page.description | default: site.description }}">
+{% if site.data.site %}
+<meta name="twitter:image" content="{{ base }}/assets/img/og.png">
+<meta name="twitter:image:width" content="1200">
+<meta name="twitter:image:height" content="630">
+{% endif %}
+
+<!-- JSON-LD structured data for richer search results -->
+{% if site.data.site %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ site.title }}",
+  "url": "{{ base }}/",
+  "description": "{{ page.description | default: site.description | escape }}",
+  "inLanguage": ["en", "zh", "ja"],
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "{{ base }}/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+{% endif %}

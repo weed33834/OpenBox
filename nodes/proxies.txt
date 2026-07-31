@@ -1,0 +1,5 @@
+# FreeNode public proxy list
+# Auto-generated.
+# DISCLAIMER: Free public proxies are for educational and research use only.
+# No availability, security, or privacy guarantee. Use at your own risk.
+# Do not log in to sensitive accounts through these proxies.

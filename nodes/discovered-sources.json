@@ -1,0 +1,1090 @@
+{
+  "discovered_at": "2026-07-11T09:25:03Z",
+  "candidates": [
+    {
+      "name": "freeCodeCamp",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/freeCodeCamp/freeCodeCamp/main/pnpm-lock.yaml",
+      "enabled": false,
+      "stars": 451553,
+      "last_pushed": "2026-07-11",
+      "license": "BSD-3-Clause",
+      "description": "freeCodeCamp.org's open-source codebase and curriculum. Learn math, programming, and computer science for free.",
+      "candidate_files": [
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "free-programming-books",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/EbookFoundation/free-programming-books/main/_config.yml",
+      "enabled": false,
+      "stars": 391631,
+      "last_pushed": "2026-07-04",
+      "license": "CC-BY-4.0",
+      "description": ":books: Freely available programming books",
+      "candidate_files": [
+        "_config.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "computer-science",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/ossu/computer-science/master/_config.yml",
+      "enabled": false,
+      "stars": 205915,
+      "last_pushed": "2026-06-26",
+      "license": "MIT",
+      "description": "🎓 Path to a free self-taught education in Computer Science!",
+      "candidate_files": [
+        "_config.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "prompts.chat",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/f/prompts.chat/main/compose.yml",
+      "enabled": false,
+      "stars": 165368,
+      "last_pushed": "2026-07-11",
+      "license": "NOASSERTION",
+      "description": "f.k.a. Awesome ChatGPT Prompts. Share, discover, and collect prompts from the community. Free and open source — self-host for your organization with complete privacy.",
+      "candidate_files": [
+        "compose.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "clash-verge-rev",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/clash-verge-rev/clash-verge-rev/dev/.mergify.yml",
+      "enabled": false,
+      "stars": 130787,
+      "last_pushed": "2026-07-11",
+      "license": "GPL-3.0",
+      "description": "A modern GUI client based on Tauri, designed to run in Windows, macOS and Linux for tailored proxy experience",
+      "candidate_files": [
+        ".mergify.yml",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "frp",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/fatedier/frp/dev/.golangci.yml",
+      "enabled": false,
+      "stars": 107925,
+      "last_pushed": "2026-07-11",
+      "license": "Apache-2.0",
+      "description": "A fast reverse proxy to help you expose a local server behind a NAT or firewall to the internet.",
+      "candidate_files": [
+        ".golangci.yml",
+        ".goreleaser.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "material-ui",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/mui/material-ui/master/.tidelift.yml",
+      "enabled": false,
+      "stars": 98568,
+      "last_pushed": "2026-07-10",
+      "license": "MIT",
+      "description": "Material UI: Comprehensive React component library that implements Google's Material Design. Free forever.",
+      "candidate_files": [
+        ".tidelift.yml",
+        "crowdin.yml",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "elasticsearch",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/elastic/elasticsearch/main/LICENSE.txt",
+      "enabled": false,
+      "stars": 77572,
+      "last_pushed": "2026-07-11",
+      "license": "NOASSERTION",
+      "description": "Free and Open Source, Distributed, RESTful Search Engine",
+      "candidate_files": [
+        "LICENSE.txt",
+        "NOTICE.txt",
+        "catalog-info.yaml",
+        "muted-tests.yml",
+        "updatecli-compose.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "imgui",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/ocornut/imgui/master/LICENSE.txt",
+      "enabled": false,
+      "stars": 74497,
+      "last_pushed": "2026-07-10",
+      "license": "MIT",
+      "description": "Dear ImGui: Bloat-free Graphical User interface for C++ with minimal dependencies",
+      "candidate_files": [
+        "LICENSE.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "obs-studio",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/obsproject/obs-studio/master/CMakeLists.txt",
+      "enabled": false,
+      "stars": 73794,
+      "last_pushed": "2026-07-11",
+      "license": "GPL-2.0",
+      "description": "OBS Studio - Free and open source software for live streaming and screen recording",
+      "candidate_files": [
+        ".cirrus.yml",
+        "CMakeLists.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "rtk",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/rtk-ai/rtk/develop/.semgrep.yml",
+      "enabled": false,
+      "stars": 70232,
+      "last_pushed": "2026-07-09",
+      "license": "Apache-2.0",
+      "description": "CLI proxy that reduces LLM token consumption by 60-90% on common dev commands. Single Rust binary, zero dependencies",
+      "candidate_files": [
+        ".semgrep.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "gpt4free",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/xtekky/gpt4free/main/requirements-min.txt",
+      "enabled": false,
+      "stars": 66460,
+      "last_pushed": "2026-07-10",
+      "license": "GPL-3.0",
+      "description": "The official gpt4free repository | various collection of powerful language models | opus 4.6 gpt 5.3 kimi 2.5 deepseek v3.2 gemini 3",
+      "candidate_files": [
+        "docker-compose-slim.yml",
+        "docker-compose.yml",
+        "requirements-min.txt",
+        "requirements-slim.txt",
+        "requirements.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "traefik",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/traefik/traefik/master/.golangci.yml",
+      "enabled": false,
+      "stars": 63942,
+      "last_pushed": "2026-07-10",
+      "license": "MIT",
+      "description": "The Cloud Native Application Proxy",
+      "candidate_files": [
+        ".golangci.yml",
+        "traefik.sample.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "nocodb",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/nocodb/nocodb/develop/crowdin.yml",
+      "enabled": false,
+      "stars": 63837,
+      "last_pushed": "2026-07-11",
+      "license": "NOASSERTION",
+      "description": "🔥 🔥 🔥 A Free & Self-hostable Airtable Alternative",
+      "candidate_files": [
+        "crowdin.yml",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "headroom",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/headroomlabs-ai/headroom/main/llms.txt",
+      "enabled": false,
+      "stars": 58471,
+      "last_pushed": "2026-07-11",
+      "license": "Apache-2.0",
+      "description": "Compress tool outputs, logs, files, and RAG chunks before they reach the LLM. 60-95% fewer tokens, same answers. Library, proxy, MCP server.",
+      "candidate_files": [
+        ".gitguardian.yaml",
+        ".pre-commit-config.yaml",
+        "codecov.yml",
+        "docker-compose.yml",
+        "llms.txt",
+        "mkdocs.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "mempalace",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/MemPalace/mempalace/develop/openarena-claim.txt",
+      "enabled": false,
+      "stars": 57212,
+      "last_pushed": "2026-07-10",
+      "license": "MIT",
+      "description": "The best-benchmarked open-source AI memory system. And it's free.",
+      "candidate_files": [
+        ".pre-commit-config.yaml",
+        "docker-compose.yml",
+        "openarena-claim.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "daily_stock_analysis",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/ZhuLinsen/daily_stock_analysis/main/requirements.txt",
+      "enabled": false,
+      "stars": 56585,
+      "last_pushed": "2026-07-11",
+      "license": "MIT",
+      "description": "LLM 驱动的多市场股票智能分析系统：多源行情、实时新闻、决策看板与自动推送，支持零成本定时运行。  LLM-powered multi-market stock analysis system with multi-source market data, real-time news, decision dashboard, automated notifications, and cost-free scheduled runs.",
+      "candidate_files": [
+        "requirements.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "Ghost",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/TryGhost/Ghost/main/.coderabbit.yaml",
+      "enabled": false,
+      "stars": 54380,
+      "last_pushed": "2026-07-11",
+      "license": "MIT",
+      "description": "Independent technology for modern publishing, memberships, subscriptions and newsletters.",
+      "candidate_files": [
+        ".coderabbit.yaml",
+        "compose.dev.analytics.yaml",
+        "compose.dev.mailgun.yaml",
+        "compose.dev.sqlite.yaml",
+        "compose.dev.storage.yaml",
+        "compose.dev.yaml",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "jellyfin",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/jellyfin/jellyfin/master/BannedSymbols.txt",
+      "enabled": false,
+      "stars": 54195,
+      "last_pushed": "2026-07-10",
+      "license": "GPL-2.0",
+      "description": "The Free Software Media System - Server Backend & API",
+      "candidate_files": [
+        "BannedSymbols.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "litellm",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/BerriAI/litellm/litellm_internal_staging/.gitguardian.yaml",
+      "enabled": false,
+      "stars": 53248,
+      "last_pushed": "2026-07-11",
+      "license": "NOASSERTION",
+      "description": "Python SDK, Proxy Server (AI Gateway) to call 100+ LLM APIs in OpenAI (or native) format, with cost tracking, guardrails, loadbalancing and logging. [Bedrock, Azure, OpenAI, VertexAI, Cohere, Anthropic, Sagemaker, HuggingFace, VLLM, NVIDIA NIM]",
+      "candidate_files": [
+        ".gitguardian.yaml",
+        "codecov.yaml",
+        "docker-compose.hardened.yml",
+        "docker-compose.yml",
+        "prometheus.yml",
+        "proxy_server_config.yaml",
+        "render.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "freqtrade",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/freqtrade/freqtrade/develop/requirements-dev.txt",
+      "enabled": false,
+      "stars": 52246,
+      "last_pushed": "2026-07-11",
+      "license": "GPL-3.0",
+      "description": "Free, open source crypto trading bot",
+      "candidate_files": [
+        ".pre-commit-config.yaml",
+        ".readthedocs.yml",
+        "docker-compose.yml",
+        "mkdocs.yml",
+        "requirements-dev.txt",
+        "requirements-freqai-rl.txt",
+        "requirements-freqai.txt",
+        "requirements-hyperopt.txt",
+        "requirements-plot.txt",
+        "requirements.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "discourse",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/discourse/discourse/main/LICENSE.txt",
+      "enabled": false,
+      "stars": 47436,
+      "last_pushed": "2026-07-11",
+      "license": "GPL-2.0",
+      "description": "A platform for community discussion. Free, open, simple.",
+      "candidate_files": [
+        ".annotaterb.yml",
+        ".licensed.yml",
+        ".rubocop.yml",
+        "LICENSE.txt",
+        "lefthook.yml",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml",
+        "translator.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "upscayl",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/upscayl/upscayl/main/Real-ESRGAN_LICENSE.txt",
+      "enabled": false,
+      "stars": 46828,
+      "last_pushed": "2026-07-11",
+      "license": "AGPL-3.0",
+      "description": "🆙 Upscayl - #1 Free and Open Source AI Image Upscaler for Linux, MacOS and Windows.",
+      "candidate_files": [
+        "Real-ESRGAN_LICENSE.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "Rocket.Chat",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/RocketChat/Rocket.Chat/develop/.yarnrc.yml",
+      "enabled": false,
+      "stars": 45769,
+      "last_pushed": "2026-07-11",
+      "license": "NOASSERTION",
+      "description": "The Secure CommsOS™ for mission-critical operations",
+      "candidate_files": [
+        ".yarnrc.yml",
+        "codecov.yml",
+        "docker-compose-ci.yml",
+        "docker-compose-local.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "AdminLTE",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/ColorlibHQ/AdminLTE/master/.gitpod.yml",
+      "enabled": false,
+      "stars": 45501,
+      "last_pushed": "2026-07-02",
+      "license": "MIT",
+      "description": "AdminLTE - Free admin dashboard template based on Bootstrap 5",
+      "candidate_files": [
+        ".gitpod.yml",
+        ".lgtm.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "FlClash",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/chen08209/FlClash/main/analysis_options.yaml",
+      "enabled": false,
+      "stars": 44954,
+      "last_pushed": "2026-07-03",
+      "license": "GPL-3.0",
+      "description": "A multi-platform proxy client based on ClashMeta,simple and easy to use, open-source and ad-free.",
+      "candidate_files": [
+        "analysis_options.yaml",
+        "build.yaml",
+        "distribute_options.yaml",
+        "pubspec.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "mitmproxy",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/mitmproxy/mitmproxy/main/codecov.yml",
+      "enabled": false,
+      "stars": 44245,
+      "last_pushed": "2026-07-03",
+      "license": "MIT",
+      "description": "An interactive TLS-capable intercepting HTTP proxy for penetration testers and software developers.",
+      "candidate_files": [
+        "codecov.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "puter",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/HeyPuter/puter/main/LICENSE.txt",
+      "enabled": false,
+      "stars": 42689,
+      "last_pushed": "2026-07-11",
+      "license": "AGPL-3.0",
+      "description": "🌐 The Internet Computer! Free, Open-Source, and Self-Hostable.",
+      "candidate_files": [
+        "LICENSE.txt",
+        "docker-compose.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "tabler",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/tabler/tabler/dev/.gitpod.yml",
+      "enabled": false,
+      "stars": 41288,
+      "last_pushed": "2026-07-11",
+      "license": "MIT",
+      "description": "Tabler is free and open-source HTML Dashboard UI Kit built on Bootstrap",
+      "candidate_files": [
+        ".gitpod.yml",
+        "docker-compose.yml",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "phaser",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/phaserjs/phaser/master/.travis.yml",
+      "enabled": false,
+      "stars": 39934,
+      "last_pushed": "2026-07-09",
+      "license": "MIT",
+      "description": "Phaser is a fun, free and fast 2D game framework for making HTML5 games for desktop and mobile web browsers, supporting Canvas and WebGL rendering.",
+      "candidate_files": [
+        ".travis.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "CLIProxyAPI",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/router-for-me/CLIProxyAPI/main/config.example.yaml",
+      "enabled": false,
+      "stars": 39853,
+      "last_pushed": "2026-07-11",
+      "license": "MIT",
+      "description": "Wrap Antigravity, ChatGPT Codex, Claude Code, Grok Build as an OpenAI/Gemini/Claude/Codex compatible API service, allowing you to enjoy the free Gemini 3.1 Pro, GPT 5.5, Grok 4.3, Claude model through API",
+      "candidate_files": [
+        "config.example.yaml",
+        "docker-compose.cluster.yml",
+        "docker-compose.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "reactive-resume",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/amruthpillai/reactive-resume/main/.markdownlint-cli2.yaml",
+      "enabled": false,
+      "stars": 39490,
+      "last_pushed": "2026-07-09",
+      "license": "MIT",
+      "description": "A one-of-a-kind resume builder that keeps your privacy in mind. Completely secure, customizable, portable, open-source and free forever. Try it out today!",
+      "candidate_files": [
+        ".markdownlint-cli2.yaml",
+        "compose.dev.yml",
+        "compose.yml",
+        "crowdin.yml",
+        "lefthook.yml",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "ShareX",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/ShareX/ShareX/develop/LICENSE.txt",
+      "enabled": false,
+      "stars": 38599,
+      "last_pushed": "2026-07-11",
+      "license": "GPL-3.0",
+      "description": "ShareX is a free and open-source application that enables users to capture or record any area of their screen with a single keystroke. It also supports uploading images, text, and various file types to a wide range of destinations.",
+      "candidate_files": [
+        "LICENSE.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "drawdb",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/drawdb-io/drawdb/main/compose.yml",
+      "enabled": false,
+      "stars": 38028,
+      "last_pushed": "2026-07-08",
+      "license": "AGPL-3.0",
+      "description": "Free, simple, and intuitive online database diagram editor and SQL generator.",
+      "candidate_files": [
+        "compose.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "erpnext",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/frappe/erpnext/develop/license.txt",
+      "enabled": false,
+      "stars": 36710,
+      "last_pushed": "2026-07-11",
+      "license": "GPL-3.0",
+      "description": "Free and Open Source Enterprise Resource Planning (ERP)",
+      "candidate_files": [
+        ".coderabbit.yml",
+        ".mergify.yml",
+        ".pre-commit-config.yaml",
+        "codecov.yml",
+        "crowdin.yml",
+        "license.txt",
+        "sider.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "sing-box",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/SagerNet/sing-box/testing/.golangci.yml",
+      "enabled": false,
+      "stars": 35909,
+      "last_pushed": "2026-07-11",
+      "license": "NOASSERTION",
+      "description": "The universal proxy platform",
+      "candidate_files": [
+        ".golangci.yml",
+        "mkdocs.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "khoj",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/khoj-ai/khoj/master/.pre-commit-config.yaml",
+      "enabled": false,
+      "stars": 35636,
+      "last_pushed": "2026-06-24",
+      "license": "AGPL-3.0",
+      "description": "Your AI second brain. Self-hostable. Get answers from the web or your docs. Build custom agents, schedule automations, do deep research. Turn any online or local LLM into your personal, autonomous AI (gpt, claude, gemini, llama, qwen, mistral). Get started - free.",
+      "candidate_files": [
+        ".pre-commit-config.yaml",
+        "docker-compose.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "searxng",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/searxng/searxng/master/requirements-dev.txt",
+      "enabled": false,
+      "stars": 33722,
+      "last_pushed": "2026-07-11",
+      "license": "AGPL-3.0",
+      "description": "SearXNG is a free internet metasearch engine which aggregates results from various search services and databases. Users are neither tracked nor profiled.",
+      "candidate_files": [
+        ".yamllint.yml",
+        "requirements-dev.txt",
+        "requirements-server.txt",
+        "requirements.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "changedetection.io",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/dgtlmoon/changedetection.io/master/requirements.txt",
+      "enabled": false,
+      "stars": 32273,
+      "last_pushed": "2026-07-10",
+      "license": "Apache-2.0",
+      "description": "Best and simplest tool for website change detection, web page monitoring, and website change alerts. Perfect for tracking content changes, price drops, restock alerts, and website defacement monitoring—all for free or enjoy our SaaS plan!",
+      "candidate_files": [
+        ".pre-commit-config.yaml",
+        "docker-compose.yml",
+        "requirements.txt",
+        "runtime.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "FreeCAD",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/FreeCAD/FreeCAD/main/CMakeLists.txt",
+      "enabled": false,
+      "stars": 32040,
+      "last_pushed": "2026-07-11",
+      "license": "LGPL-2.1",
+      "description": "Official source code of FreeCAD, a free and opensource multiplatform 3D parametric modeler.",
+      "candidate_files": [
+        ".packit.yaml",
+        ".pre-commit-config.yaml",
+        "CMakeLists.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "hiddify-app",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/hiddify/hiddify-app/main/.aider.conf.yml",
+      "enabled": false,
+      "stars": 31354,
+      "last_pushed": "2026-06-17",
+      "license": "NOASSERTION",
+      "description": "Multi-platform auto-proxy client, supporting Sing-box, X-ray, TUIC, Hysteria, Reality, Trojan, SSH etc. It’s an open-source, secure and ad-free.",
+      "candidate_files": [
+        ".aider.conf.yml",
+        "analysis_options.yaml",
+        "build.yaml",
+        "devtools_options.yaml",
+        "pubspec.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "AionUi",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/iOfficeAI/AionUi/main/.codecov.yml",
+      "enabled": false,
+      "stars": 29813,
+      "last_pushed": "2026-07-11",
+      "license": "Apache-2.0",
+      "description": "Free, local, open-source 24/7 Cowork app for OpenClaw, Hermes Agent, Claude Code, Codex, OpenCode, Gemini CLI and 20+ more CLI | Customize your assistants | Star if you like it!",
+      "candidate_files": [
+        ".codecov.yml",
+        ".pre-commit-config.yaml",
+        "codecov.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "envoy",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/envoyproxy/envoy/main/API_VERSION.txt",
+      "enabled": false,
+      "stars": 28551,
+      "last_pushed": "2026-07-11",
+      "license": "Apache-2.0",
+      "description": "Cloud-native high-performance edge/middle/service proxy",
+      "candidate_files": [
+        "API_VERSION.txt",
+        "SECURITY-INSIGHTS.yml",
+        "VERSION.txt",
+        "reviewers.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "bagisto",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/bagisto/bagisto/2.4/docker-compose.yml",
+      "enabled": false,
+      "stars": 27679,
+      "last_pushed": "2026-07-08",
+      "license": "MIT",
+      "description": "Free and open source laravel eCommerce platform",
+      "candidate_files": [
+        "docker-compose.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "analytics",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/plausible/analytics/master/.pre-commit-config.yaml",
+      "enabled": false,
+      "stars": 27658,
+      "last_pushed": "2026-07-10",
+      "license": "AGPL-3.0",
+      "description": "Open source, privacy-first web analytics. Lightweight, cookie-free Google Analytics alternative. Self-hosted or cloud.",
+      "candidate_files": [
+        ".pre-commit-config.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "driver.js",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/nilbuild/driver.js/master/pnpm-lock.yaml",
+      "enabled": false,
+      "stars": 26252,
+      "last_pushed": "2026-07-08",
+      "license": "MIT",
+      "description": "A lightweight, dependency-free JavaScript library for guiding user focus across the page.",
+      "candidate_files": [
+        "pnpm-lock.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "grapesjs",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/GrapesJS/grapesjs/dev/pnpm-lock.yaml",
+      "enabled": false,
+      "stars": 26018,
+      "last_pushed": "2026-06-30",
+      "license": "NOASSERTION",
+      "description": "Free and Open source Web Builder Framework. Next generation tool for building templates without coding",
+      "candidate_files": [
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "ai",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/vercel/ai/main/pnpm-lock.yaml",
+      "enabled": false,
+      "stars": 25481,
+      "last_pushed": "2026-07-10",
+      "license": "NOASSERTION",
+      "description": "The AI Toolkit for TypeScript. From the creators of Next.js, the AI SDK is a free open-source library for building AI-powered applications and agents ",
+      "candidate_files": [
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml",
+        "socket.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "zulip",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/zulip/zulip/main/.codecov.yml",
+      "enabled": false,
+      "stars": 25475,
+      "last_pushed": "2026-07-10",
+      "license": "Apache-2.0",
+      "description": "Zulip server and web application. Open-source team chat that helps teams stay productive and focused.",
+      "candidate_files": [
+        ".codecov.yml",
+        ".readthedocs.yaml",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "clash-party",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/mihomo-party-org/clash-party/smart_core/.prettierrc.yaml",
+      "enabled": false,
+      "stars": 25322,
+      "last_pushed": "2026-07-10",
+      "license": "GPL-3.0",
+      "description": ":electron: Another Mihomo GUI. ",
+      "candidate_files": [
+        ".prettierrc.yaml",
+        "electron-builder.yml",
+        "pnpm-lock.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "crawlee",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/apify/crawlee/master/.yarnrc.yml",
+      "enabled": false,
+      "stars": 24644,
+      "last_pushed": "2026-07-10",
+      "license": "Apache-2.0",
+      "description": "Crawlee—A web scraping and browser automation library for Node.js to build reliable crawlers. In JavaScript and TypeScript. Extract data for AI, LLMs, RAG, or GPTs. Download HTML, PDF, JPG, PNG, and other files from websites. Works with Puppeteer, Playwright, Cheerio, JSDOM, and raw HTTP. Both headful and headless mode. With proxy rotation.",
+      "candidate_files": [
+        ".yarnrc.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "awesome-n8n-templates",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/enescingoz/awesome-n8n-templates/main/llms.txt",
+      "enabled": false,
+      "stars": 23808,
+      "last_pushed": "2026-07-06",
+      "license": "NOASSERTION",
+      "description": "280+ free n8n automation templates — ready-to-use workflows for Gmail, Telegram, Slack, Discord, WhatsApp, Google Drive, Notion, OpenAI, and more. AI agents, RAG   chatbots, email automation, social media, DevOps, and document processing. The largest open-source n8n template collection.",
+      "candidate_files": [
+        "llms.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "proxy_pool",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/jhao104/proxy_pool/master/requirements-test.txt",
+      "enabled": false,
+      "stars": 23480,
+      "last_pushed": "2026-06-15",
+      "license": "MIT",
+      "description": "Python ProxyPool for web spider",
+      "candidate_files": [
+        "_config.yml",
+        "docker-compose.yml",
+        "mkdocs.yml",
+        "requirements-test.txt",
+        "requirements.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "laravel-crm",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/krayin/laravel-crm/2.2/example.txt",
+      "enabled": false,
+      "stars": 23335,
+      "last_pushed": "2026-06-22",
+      "license": "MIT",
+      "description": "Free & Opensource Laravel CRM solution for SMEs and Enterprises for complete customer lifecycle management.",
+      "candidate_files": [
+        ".styleci.yml",
+        "example.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "slim",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/slimtoolkit/slim/master/.gitpod.yml",
+      "enabled": false,
+      "stars": 23331,
+      "last_pushed": "2026-06-23",
+      "license": "Apache-2.0",
+      "description": "Slim(toolkit): Don't change anything in your container image and minify it by up to 30x (and for compiled languages even more) making it secure too! (free and open source)",
+      "candidate_files": [
+        ".gitpod.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "dev-sidecar",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/docmirror/dev-sidecar/master/pnpm-lock.yaml",
+      "enabled": false,
+      "stars": 23122,
+      "last_pushed": "2026-07-02",
+      "license": "MPL-2.0",
+      "description": "开发者边车，github打不开，github加速，git clone加速，git release下载加速，stackoverflow加速",
+      "candidate_files": [
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "Open-Generative-AI",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/Anil-matcha/Open-Generative-AI/main/docker-compose.yml",
+      "enabled": false,
+      "stars": 23066,
+      "last_pushed": "2026-07-10",
+      "license": "MIT",
+      "description": "Unrestricted Open-source alternative to AI video platforms — Free AI image & video generation studio with 200+ models (Flux, Midjourney, Kling, Sora, Veo). No content filters. Self-hosted, MIT licensed.",
+      "candidate_files": [
+        "docker-compose.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "authentik",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/goauthentik/authentik/main/pnpm-lock.yaml",
+      "enabled": false,
+      "stars": 22284,
+      "last_pushed": "2026-07-11",
+      "license": "NOASSERTION",
+      "description": "The authentication glue you need.",
+      "candidate_files": [
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml",
+        "schema.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "hysteria",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/apernet/hysteria/master/platforms.txt",
+      "enabled": false,
+      "stars": 22066,
+      "last_pushed": "2026-07-11",
+      "license": "MIT",
+      "description": "Hysteria is a powerful, lightning fast and censorship resistant proxy.",
+      "candidate_files": [
+        "platforms.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "9router",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/decolua/9router/master/docker-compose.yml",
+      "enabled": false,
+      "stars": 21682,
+      "last_pushed": "2026-07-10",
+      "license": "MIT",
+      "description": "Unlimited FREE AI coding. Connect Claude Code, Codex, Cursor, Cline, Copilot, Antigravity to FREE Claude/GPT/Gemini via 40+ providers. Auto-fallback, RTK -40% tokens, never hit limits.",
+      "candidate_files": [
+        "docker-compose.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "SafeLine",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/chaitin/SafeLine/main/compose.yaml",
+      "enabled": false,
+      "stars": 21678,
+      "last_pushed": "2026-07-10",
+      "license": "GPL-3.0",
+      "description": "SafeLine is a self-hosted WAF(Web Application Firewall) / reverse proxy to protect your web apps from attacks and exploits.",
+      "candidate_files": [
+        "compose.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "pangolin",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/fosrl/pangolin/main/compose.drizzle.yaml",
+      "enabled": false,
+      "stars": 21656,
+      "last_pushed": "2026-07-10",
+      "license": "NOASSERTION",
+      "description": "Identity-aware VPN and tunneled reverse proxy for remote access based on WireGuard®.",
+      "candidate_files": [
+        "compose.drizzle.yaml",
+        "compose.example.yaml",
+        "compose.mailpit.yaml",
+        "compose.pgr.yaml",
+        "compose.yaml",
+        "crowdin.yml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "magicui",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/magicuidesign/magicui/main/lefthook.yml",
+      "enabled": false,
+      "stars": 21517,
+      "last_pushed": "2026-07-02",
+      "license": "MIT",
+      "description": "UI Library for Design Engineers. Animated components and effects you can copy and paste into your apps. Free. Open Source.",
+      "candidate_files": [
+        "lefthook.yml",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "gentelella",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/ColorlibHQ/gentelella/master/LICENSE.txt",
+      "enabled": false,
+      "stars": 21406,
+      "last_pushed": "2026-06-22",
+      "license": "MIT",
+      "description": "Free Bootstrap 5 Admin Dashboard Template",
+      "candidate_files": [
+        "LICENSE.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "FreeTube",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/FreeTubeApp/FreeTube/development/lefthook.yml",
+      "enabled": false,
+      "stars": 21393,
+      "last_pushed": "2026-07-11",
+      "license": "AGPL-3.0",
+      "description": "An Open Source YouTube app for privacy",
+      "candidate_files": [
+        "lefthook.yml",
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "tabler-icons",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/pnpm-lock.yaml",
+      "enabled": false,
+      "stars": 21112,
+      "last_pushed": "2026-06-28",
+      "license": "MIT",
+      "description": "A set of over 6000 free MIT-licensed high-quality SVG icons for you to use in your web projects.",
+      "candidate_files": [
+        "pnpm-lock.yaml",
+        "pnpm-workspace.yaml"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "netbox",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/netbox-community/netbox/main/LICENSE.txt",
+      "enabled": false,
+      "stars": 21067,
+      "last_pushed": "2026-07-11",
+      "license": "Apache-2.0",
+      "description": "The premier source of truth powering network automation. Open source under Apache 2. Try NetBox Cloud free: https://netboxlabs.com/products/free-netbox-cloud/",
+      "candidate_files": [
+        ".pre-commit-config.yaml",
+        ".readthedocs.yaml",
+        "LICENSE.txt",
+        "base_requirements.txt",
+        "mkdocs.yml",
+        "requirements.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    },
+    {
+      "name": "xbmc",
+      "type": "github_raw",
+      "url": "https://raw.githubusercontent.com/xbmc/xbmc/master/CMakeLists.txt",
+      "enabled": false,
+      "stars": 20948,
+      "last_pushed": "2026-07-11",
+      "license": "NOASSERTION",
+      "description": "Kodi is an award-winning free and open source home theater/media center software and entertainment hub for digital media. With its beautiful interface and powerful skinning engine, it's available for Android, BSD, Linux, macOS, iOS, tvOS and Windows.",
+      "candidate_files": [
+        ".kodiai.yml",
+        "CMakeLists.txt",
+        "privacy-policy.txt",
+        "version.txt"
+      ],
+      "note": "Discovered 2026-07-11 via GitHub Search."
+    }
+  ]
+}

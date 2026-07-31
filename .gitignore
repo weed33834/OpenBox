@@ -1,0 +1,93 @@
+# ===== Node / 前端 (FreeAPI) =====
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build output
+dist
+dist-ssr
+*.local
+
+# pnpm 本地配置
+.npmrc
+
+# 开发脚本生成的临时数据（sites.json / check-result 等）
+api/
+
+# TypeScript 增量缓存
+*.tsbuildinfo
+package-lock.json
+
+# ===== Python (FreeNode) =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# 测试覆盖率
+coverage
+*.lcov
+.coverage
+htmlcov/
+
+# ===== 环境变量与密钥（切勿提交）=====
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+*.env
+.env.*
+!/.env.example
+*.pem
+*.key
+secrets/
+.secrets
+
+# ===== IDE / 编辑器 =====
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*.swo
+*~
+
+# ===== 操作系统 =====
+.DS_Store
+Thumbs.db
+
+# ===== TRAE IDE / AI 助手规则文件（本地开发辅助，不入公开仓库）=====
+.trae/
+AGENTS.md
+provenance/
+
+# ===== FreeNode 流水线临时产物 =====
+nodes/*.tmp
+nodes/*.bak
+nodes/archive/
+nohup.out
+
+# ===== Jekyll 本地构建产物 =====
+docs/_site/
+docs/.jekyll-cache/
+docs/.jekyll-metadata
+docs/.sass-cache/

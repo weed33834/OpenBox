@@ -1,0 +1,56 @@
+[
+  {
+    "id": "vmess",
+    "name": "VMess",
+    "icon": "🌀",
+    "tagline": "V2Ray native protocol",
+    "description": "Native V2Ray protocol. Supports dynamic ports and transport-layer obfuscation. More complex to configure but feature-rich.",
+    "pros": "Strong anti-censorship, flexible transport",
+    "cons": "Complex client config, slightly slower than ss"
+  },
+  {
+    "id": "vless",
+    "name": "VLESS",
+    "icon": "✨",
+    "tagline": "Lightweight VMess",
+    "description": "Lightweight VMess variant. Drops timestamp auth for better performance. Often paired with REALITY/TLS.",
+    "pros": "High performance, strong obfuscation (with REALITY)",
+    "cons": "Needs server-side support, sensitive to clock sync"
+  },
+  {
+    "id": "ss",
+    "name": "Shadowsocks",
+    "icon": "🔐",
+    "tagline": "Classic lightweight cipher",
+    "description": "The original lightweight proxy protocol. Wide client support, good performance. Anti-censorship is average.",
+    "pros": "Many clients, fast, simple config",
+    "cons": "Distinct traffic fingerprint, easy to detect"
+  },
+  {
+    "id": "trojan",
+    "name": "Trojan",
+    "icon": "🐎",
+    "tagline": "TLS camouflaged",
+    "description": "Camouflages as normal HTTPS traffic, secured by TLS. Requires a domain and certificate.",
+    "pros": "Good obfuscation, wide client support",
+    "cons": "Requires domain + certificate"
+  },
+  {
+    "id": "hysteria2",
+    "name": "Hysteria2",
+    "icon": "⚡",
+    "tagline": "QUIC high-speed",
+    "description": "High-speed protocol built on QUIC. Performs well on lossy networks. Good for mobile.",
+    "pros": "Fast on weak networks, packet-loss resistant",
+    "cons": "Fewer clients, UDP-dependent"
+  },
+  {
+    "id": "tuic",
+    "name": "TUIC",
+    "icon": "🚀",
+    "tagline": "QUIC lightweight",
+    "description": "Another QUIC-based protocol, lighter than Hysteria with simpler config.",
+    "pros": "Lightweight, low latency",
+    "cons": "Few clients, small ecosystem"
+  }
+]
