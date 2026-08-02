@@ -1,15 +1,15 @@
 {
-  "name": "FreeAPI - AI API 导航",
-  "short_name": "FreeAPI",
+  "name": "OpenBox - AI API 导航",
+  "short_name": "OpenBox",
   "description": "全网 AI 公益站与中转站导航目录",
-  "start_url": "/FreeAPI/",
-  "scope": "/FreeAPI/",
+  "start_url": "/OpenBox/",
+  "scope": "/OpenBox/",
   "display": "standalone",
   "background_color": "#0a0e14",
   "theme_color": "#0a0e14",
   "icons": [
     {
-      "src": "/FreeAPI/favicon.svg",
+      "src": "/OpenBox/favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"

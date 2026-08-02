@@ -1,6 +1,6 @@
-// 顶部导航栏：桌面端横向链接 + 移动端汉堡底部弹层
+// 顶部导航栏：桌面端横向链接 + 搜索入口 + 移动端汉堡底部弹层
 // 承载 语言切换 / 主题切换 / 登录(或用户菜单)，让 Hero 保持简洁
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import {
   Menu,
   X,
@@ -11,6 +11,7 @@ import {
   ShieldOff,
   Star,
   LogIn,
+  Search,
 } from "lucide-react";
 import LangSwitcher from "@/components/LangSwitcher";
 import UserMenu from "@/components/UserMenu";
@@ -18,25 +19,13 @@ import Logo from "@/components/Logo";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useFavoritesStore } from "@/store/useFavoritesStore";
 import { useThemeStore } from "@/hooks/useTheme";
+import { useHashRoute } from "@/hooks/useHashRoute";
 import { useT, useI18n, translate } from "@/i18n/useI18n";
 import { AUTH_ENABLED } from "@/lib/supabase";
 import { cn } from "@/lib/utils";
 
 // 稳定的空数组引用，避免 Zustand selector 每次返回新 [] 导致无限重渲染
 const EMPTY_FAVORITES: string[] = [];
-
-/** 监听 hash 变化，返回当前路由（用于高亮当前导航项） */
-function useHashRoute(): string {
-  const [hash, setHash] = useState(() =>
-    typeof window === "undefined" ? "#/" : window.location.hash || "#/",
-  );
-  useEffect(() => {
-    const onHash = () => setHash(window.location.hash || "#/");
-    window.addEventListener("hashchange", onHash);
-    return () => window.removeEventListener("hashchange", onHash);
-  }, []);
-  return hash;
-}
 
 interface NavLinkDef {
   href: string;
@@ -50,10 +39,10 @@ interface NavLinkDef {
 
 const NAV_LINKS: NavLinkDef[] = [
   {
-    href: "#/",
+    href: "#/home",
     labelKey: "nav.home",
     icon: HomeIcon,
-    match: (h) => h === "" || h === "#/" || h.startsWith("#/?"),
+    match: (h) => h.startsWith("#/home") || h.startsWith("#/category/"),
     show: true,
   },
   {
@@ -82,7 +71,7 @@ const NAV_LINKS: NavLinkDef[] = [
 
 function Brand() {
   return (
-    <a href="#/" className="flex shrink-0 items-center gap-2 group">
+    <a href="#/home" className="flex shrink-0 items-center gap-2 group">
       <Logo size={32} className="rounded-lg" />
       <span className="font-display text-base font-bold tracking-tight text-cyber-text">
         AI <span className="text-cyber-cyan">导航</span>
@@ -147,6 +136,31 @@ function NavBar() {
   });
   const [open, setOpen] = useState(false);
 
+  // 滚动折叠：记录上次滚动位置和方向
+  const [navHidden, setNavHidden] = useState(false);
+  const lastScrollRef = useRef(0);
+  useEffect(() => {
+    let ticking = false;
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const sy = window.scrollY;
+        const delta = sy - lastScrollRef.current;
+        // 向下滚动超过 80px 且已经滚动了一段距离
+        if (delta > 10 && sy > 80) {
+          setNavHidden(true);
+        } else if (delta < -10 || sy < 80) {
+          setNavHidden(false);
+        }
+        lastScrollRef.current = sy;
+        ticking = false;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   // 移动端弹层：锁定滚动 + ESC 关闭
   useEffect(() => {
     if (!open) return;
@@ -164,7 +178,10 @@ function NavBar() {
   const visibleLinks = NAV_LINKS.filter((l) => l.show);
 
   return (
-    <header className="sticky top-[env(safe-area-inset-top)] z-40 border-b border-cyber-border bg-cyber-bg/90 backdrop-blur-xl">
+    <header data-no-swipe
+      className={`sticky top-[env(safe-area-inset-top)] z-40 border-b border-cyber-border bg-cyber-bg/90 backdrop-blur-xl transition-transform duration-300 ${
+        navHidden ? "-translate-y-full" : "translate-y-0"
+      }`}>
       <div className="container flex h-14 items-center gap-4">
         <Brand />
 
@@ -192,6 +209,20 @@ function NavBar() {
             );
           })}
         </nav>
+
+        {/* 桌面端搜索入口 */}
+        <div className="relative hidden md:block md:w-56 lg:w-64">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-cyber-muted/50" />
+          <a
+            href="#/search"
+            className="flex h-8 w-full items-center rounded-lg border border-cyber-border/60 bg-cyber-surface/50 pl-9 pr-3 font-mono text-xs text-cyber-muted/50 transition-colors hover:border-cyber-cyan/30 hover:text-cyber-muted"
+          >
+            搜索站点...
+            <kbd className="ml-auto rounded border border-cyber-border/50 bg-cyber-bg/50 px-1.5 py-0.5 font-mono text-[10px] text-cyber-muted/40">
+              /
+            </kbd>
+          </a>
+        </div>
 
         {/* 右侧操作区 */}
         <div className="ml-auto flex items-center gap-2">

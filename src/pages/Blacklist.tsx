@@ -1,11 +1,13 @@
 import { useMemo } from "react";
 import {
   ShieldOff, AlertTriangle, Skull, Clock, Globe,
-  FileX, ServerCrash, ArrowLeft, Ban,
+  FileX, ServerCrash, ArrowLeft, Ban, ExternalLink,
 } from "lucide-react";
 import { sites, CATEGORY_META, TYPE_META } from "@/data/sites";
 import type { Site, BlacklistReasonType } from "@/data/sites";
 import { useT, useI18n, translate } from "@/i18n/useI18n";
+import { useFilterStore } from "@/store/useFilterStore";
+import DetailDrawer from "@/components/DetailDrawer";
 
 // 黑名单站点为静态数据，模块级计算一次即可，无需每次渲染 useMemo
 const BLACKLIST_SITES = sites.filter((s) => s.category === "blacklist");
@@ -66,6 +68,7 @@ for (const s of BLACKLIST_SITES) {
 
 export default function Blacklist() {
   const groups = useMemo(() => groupByReasonType(BLACKLIST_SITES), []);
+  const setSelectedId = useFilterStore((s) => s.setSelectedId);
 
   const meta = CATEGORY_META.blacklist;
   const t = useT();
@@ -75,7 +78,7 @@ export default function Blacklist() {
     <div className="mx-auto max-w-6xl px-4 py-6 sm:py-8">
       {/* 返回首页 */}
       <a
-        href="#/"
+        href="#/home"
         className="mb-4 inline-flex items-center gap-1.5 font-mono text-xs text-cyber-muted transition-colors hover:text-cyber-cyan"
       >
         <ArrowLeft className="h-3.5 w-3.5" />
@@ -144,10 +147,11 @@ export default function Blacklist() {
               {group.sites.map((site) => (
                 <div
                   key={site.id}
-                  className="group rounded-lg border border-cyber-border/50 bg-cyber-bg/50 p-3 transition-all hover:border-cyber-dead/50"
+                  onClick={() => setSelectedId(site.id)}
+                  className="group cursor-pointer rounded-lg border border-cyber-border/50 bg-cyber-bg/50 p-3 transition-all hover:border-cyber-dead/50"
                 >
                   <div className="mb-1 flex items-center gap-2">
-                    <span className="truncate font-display text-sm font-semibold text-cyber-text">{site.name}</span>
+                    <span className="truncate font-display text-sm font-semibold text-cyber-text group-hover:text-cyber-dead transition-colors">{site.name}</span>
                     <span
                       className="shrink-0 rounded px-1.5 py-0.5 font-mono text-[10px]"
                       style={{
@@ -157,6 +161,16 @@ export default function Blacklist() {
                     >
                       {translate(lang, site.type === "free" ? "bl.free" : "bl.paid")}
                     </span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        window.open(site.url, "_blank", "noopener,noreferrer");
+                      }}
+                      className="ml-auto flex shrink-0 items-center justify-center rounded p-1 text-cyber-muted/40 opacity-0 transition-all hover:text-cyber-cyan group-hover:opacity-100"
+                      title="访问站点"
+                    >
+                      <ExternalLink className="h-3.5 w-3.5" />
+                    </button>
                   </div>
                   <div className="mb-2 truncate font-mono text-[11px] text-cyber-muted">{site.url}</div>
                   <div className="font-mono text-[11px] leading-relaxed text-cyber-muted/80">{site.desc}</div>
@@ -176,6 +190,8 @@ export default function Blacklist() {
       <div className="mt-6 rounded-lg border border-cyber-border bg-cyber-elevated/30 p-3 text-center font-mono text-[11px] leading-relaxed text-cyber-muted sm:mt-8 sm:p-4 sm:text-xs">
         {t("bl.footer")}
       </div>
+
+      <DetailDrawer />
     </div>
   );
 }

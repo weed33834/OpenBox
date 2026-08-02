@@ -1,13 +1,11 @@
 import { memo, useMemo } from "react";
-import { ExternalLink, KeyRound, ChevronRight, Lock, Heart, GitCompare } from "lucide-react";
+import { ExternalLink, KeyRound, ChevronRight, Heart, GitCompare } from "lucide-react";
 import type { Site } from "@/data/sites";
 import { CATEGORY_META, TYPE_META, deriveFeatures } from "@/data/sites";
 import { useFilterStore } from "@/store/useFilterStore";
-import { useAuthStore } from "@/store/useAuthStore";
 import { useFavoritesStore } from "@/store/useFavoritesStore";
 import { useCompareStore } from "@/store/useCompareStore";
 import { useToastStore } from "@/store/useToastStore";
-import { AUTH_ENABLED } from "@/lib/supabase";
 import { FEATURE_COLOR, LIVE_COLOR } from "@/lib/constants";
 import { useT, useI18n, translate, translateFeature } from "@/i18n/useI18n";
 import { cn } from "@/lib/utils";
@@ -26,8 +24,6 @@ function SiteCard({ site, index, onReport }: Props) {
   const lang = useI18n((s) => s.lang);
   const t = useT();
 
-  const user = useAuthStore((s) => s.user);
-  const openAuthModal = useAuthStore((s) => s.openAuthModal);
   const isFav = useFavoritesStore((s) => s.isFavorite(site.id));
   const toggleFavorite = useFavoritesStore((s) => s.toggle);
   const isComparing = useCompareStore((s) => s.isInCompare(site.id));
@@ -39,8 +35,8 @@ function SiteCard({ site, index, onReport }: Props) {
   const liveColor = LIVE_COLOR[live];
   const liveLabel = translate(lang, `live.${live}`);
 
-  // 特点标签（显式优先，缺失时自动从 type/billing/note 推导）
-  const features = useMemo(() => deriveFeatures(site).slice(0, 5), [site]);
+  // 特点标签（显式优先，缺失时自动从 type/billing/note 推导）— 最多展示3个，避免视觉过载
+  const features = useMemo(() => deriveFeatures(site).slice(0, 3), [site]);
   // 名字下方的简短介绍：优先 tagline，回退到 desc
   const tagline = site.tagline ?? site.desc;
 
@@ -54,10 +50,12 @@ function SiteCard({ site, index, onReport }: Props) {
   const typeLabel = translate(lang, `type.${site.type}`);
 
   const handleCardClick = () => {
-    if (AUTH_ENABLED && !user) {
-      openAuthModal();
-      return;
-    }
+    // 点击卡片展开详情抽屉，在详情中可查看完整信息并点击"访问"按钮跳转
+    setSelectedId(site.id);
+  };
+
+  const handleOpenDetail = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setSelectedId(site.id);
   };
 
@@ -75,7 +73,7 @@ function SiteCard({ site, index, onReport }: Props) {
       onClick={handleCardClick}
       onKeyDown={onKey}
       aria-label={t("card.ariaTemplate", { name: site.name, cat: catLabel, live: liveLabel })}
-      className="group relative flex cursor-pointer flex-col gap-3 rounded-xl border border-cyber-border bg-cyber-surface/70 p-4 transition-all duration-200 card-enter card-glow hover:-translate-y-0.5 hover:border-cyber-cyan/40 hover:bg-cyber-elevated hover:shadow-card"
+      className="group relative flex cursor-pointer flex-col gap-2.5 rounded-xl border border-cyber-border bg-cyber-surface/70 p-3.5 md:p-4 transition-all duration-200 card-enter card-glow hover:-translate-y-0.5 hover:border-cyber-cyan/40 hover:bg-cyber-elevated hover:shadow-card"
       style={{ ["--i" as string]: Math.min(index, 16) }}
     >
         {/* 顶部色条 */}
@@ -150,7 +148,7 @@ function SiteCard({ site, index, onReport }: Props) {
                   toast.success(wasFav ? t("toast.favorite.removed") : t("toast.favorite.added"));
                 }}
                 className={cn(
-                  "flex min-h-[44px] min-w-[44px] items-center justify-center rounded p-2 transition-all",
+                  "flex items-center justify-center rounded p-1.5 transition-all md:p-1",
                   isFav
                     ? "text-cyber-dead hover:text-cyber-dead/80"
                     : "text-cyber-muted/40 hover:text-cyber-dead",
@@ -173,7 +171,7 @@ function SiteCard({ site, index, onReport }: Props) {
                   toast.success(wasComparing ? t("toast.compare.removed") : t("toast.compare.added"));
                 }}
                 className={cn(
-                  "flex min-h-[44px] min-w-[44px] items-center justify-center rounded p-2 transition-all",
+                  "flex items-center justify-center rounded p-1.5 transition-all md:p-1",
                   isComparing
                     ? "text-cyber-violet hover:text-cyber-violet/80"
                     : "text-cyber-muted/40 hover:text-cyber-violet",
@@ -185,7 +183,7 @@ function SiteCard({ site, index, onReport }: Props) {
               </button>
               <button
                 onClick={handleOpen}
-                className="flex min-h-[44px] min-w-[44px] items-center justify-center rounded p-2 text-cyber-muted transition-all hover:bg-cyber-elevated hover:text-cyber-cyan"
+                className="flex items-center justify-center rounded p-1.5 text-cyber-muted transition-all hover:bg-cyber-elevated hover:text-cyber-cyan md:p-1"
                 aria-label={visitAria}
                 title={live === "down" ? t("card.downHint") : visitAria}
               >
@@ -195,7 +193,7 @@ function SiteCard({ site, index, onReport }: Props) {
           </div>
         </div>
 
-        {/* 特点标签：免费 / 签到 / 免费额度 / 国产 / 低延迟 …（用户最关心的痛点） */}
+        {/* 特点标签：免费 / 签到 / 免费额度 …（用户最关心的痛点，最多3个） */}
         {features.length > 0 && (
           <div className="flex flex-wrap gap-1">
             {features.map((f, i) => {
@@ -213,24 +211,24 @@ function SiteCard({ site, index, onReport }: Props) {
           </div>
         )}
 
-        {/* 描述（详细） */}
-        <p className="line-clamp-2 text-sm leading-relaxed text-cyber-text/80">
+        {/* 描述（详细）— 使用更紧凑的行高 */}
+        <p className="line-clamp-2 text-[13px] leading-snug text-cyber-text/80">
           {site.desc}
         </p>
 
-        {/* 模型标签 */}
+        {/* 模型标签（最多3个，避免视觉噪音） */}
         <div className="flex flex-wrap gap-1">
-          {site.models.slice(0, 4).map((m, i) => (
+          {site.models.slice(0, 3).map((m, i) => (
             <span
               key={i}
-              className="rounded border border-cyber-border bg-cyber-bg/50 px-1.5 py-0.5 font-mono text-[11px] text-cyber-muted"
+              className="rounded border border-cyber-border/50 bg-cyber-bg/40 px-1.5 py-0.5 font-mono text-[10px] text-cyber-muted"
             >
               {m}
             </span>
           ))}
-          {site.models.length > 4 && (
-            <span className="rounded border border-cyber-border bg-cyber-bg/50 px-1.5 py-0.5 font-mono text-[11px] text-cyber-muted">
-              +{site.models.length - 4}
+          {site.models.length > 3 && (
+            <span className="rounded border border-cyber-border/50 bg-cyber-bg/40 px-1.5 py-0.5 font-mono text-[10px] text-cyber-muted">
+              +{site.models.length - 3}
             </span>
           )}
         </div>
@@ -238,19 +236,17 @@ function SiteCard({ site, index, onReport }: Props) {
         {/* 底部信息：常显 affordance（移动端友好） */}
         <div className="mt-auto flex items-center justify-between border-t border-cyber-border/60 pt-2">
           <div className="flex min-w-0 items-center gap-2 font-mono text-[11px] text-cyber-muted sm:gap-3">
+            <span className="truncate text-cyber-cyan/60" title={site.url}>
+              {site.url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+            </span>
             {site.apiBase && (
               <span className="flex shrink-0 items-center gap-1 text-cyber-green/80">
                 <KeyRound className="h-3 w-3" />
                 {t("card.api")}
               </span>
             )}
-            {site.billing && (
-              <span className="truncate" title={site.billing}>
-                {site.billing}
-              </span>
-            )}
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -260,19 +256,13 @@ function SiteCard({ site, index, onReport }: Props) {
             >
               {t("gate.reportIssue")}
             </button>
-            <span className="flex shrink-0 items-center gap-0.5 font-mono text-[11px] text-cyber-cyan/70 group-hover:text-cyber-cyan">
-              {user ? (
-                <>
-                  {t("card.detail")}
-                  <ChevronRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
-                </>
-              ) : (
-                <>
-                  <Lock className="h-3 w-3" />
-                  {t("gate.loginBtn")}
-                </>
-              )}
-            </span>
+            <button
+              onClick={handleOpenDetail}
+              className="flex shrink-0 items-center gap-0.5 rounded-lg border border-cyber-border/60 bg-cyber-surface/60 px-2 py-1 font-mono text-[11px] text-cyber-cyan/70 transition-all hover:border-cyber-cyan/40 hover:bg-cyber-cyan/5 hover:text-cyber-cyan"
+            >
+              {t("card.detail")}
+              <ChevronRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+            </button>
           </div>
         </div>
     </article>

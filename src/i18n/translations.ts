@@ -97,6 +97,7 @@ export const translations: Dict = {
   "nav.blacklist": { zh: "黑名单", en: "Blacklist", ja: "ブラックリスト" },
   "nav.favorites": { zh: "我的收藏", en: "Favorites", ja: "お気に入り" },
   "nav.menu": { zh: "菜单", en: "Menu", ja: "メニュー" },
+  "nav.search": { zh: "搜索", en: "Search", ja: "検索" },
 
   // ===== SiteGrid =====
   "grid.empty.title": { zh: "未匹配到任何站点", en: "No sites matched", ja: "該当サイトなし" },

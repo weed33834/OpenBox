@@ -14,4 +14,4 @@ export const supabase: SupabaseClient | null = hasSupabase
  * - true：显示登录/注册入口，用户需登录才能查看站点详情。
  * - false：隐藏登录入口，所有功能对匿名用户开放。
  */
-export const AUTH_ENABLED = true;
+export const AUTH_ENABLED = false;

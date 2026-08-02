@@ -247,6 +247,12 @@
   .route-fade {
     animation: content-fade 0.3s ease-out both;
   }
+  .route-slide-forward {
+    animation: slide-page-left 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  .route-slide-back {
+    animation: slide-page-right 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
 
   /* 卡片悬停光晕效果 */
   .card-glow {
@@ -320,6 +326,48 @@
 @keyframes content-fade {
   0% { opacity: 0; transform: translateY(8px); }
   100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 页面滑动转场 - 进入：从右侧滑入 + 淡入 */
+@keyframes slide-page-left {
+  0% { opacity: 0; transform: translateX(30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* 页面滑动转场 - 后退进入：从左侧滑入 + 淡入 */
+@keyframes slide-page-right {
+  0% { opacity: 0; transform: translateX(-30px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+/* 页面退出动画 - 前进时旧页面向右滑出 + 淡出 */
+@keyframes slide-out-left {
+  0% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(-30px); }
+}
+
+/* 页面退出动画 - 后退时旧页面向左滑出 + 淡出 */
+@keyframes slide-out-right {
+  0% { opacity: 1; transform: translateX(0); }
+  100% { opacity: 0; transform: translateX(30px); }
+}
+
+/* 隐藏滚动条但保留滚动功能（用于分类切换栏等） */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* 工具栏折叠动画 */
+@keyframes toolbar-collapse {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-100%); opacity: 0; }
+}
+@keyframes toolbar-expand {
+  0% { transform: translateY(-100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
 }
 
 /* 尊重用户的减少动效偏好 */

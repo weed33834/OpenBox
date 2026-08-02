@@ -106,7 +106,7 @@ export default function Guide() {
     <div className="mx-auto max-w-3xl px-4 py-6 sm:py-8">
       {/* 返回首页 */}
       <a
-        href="#/"
+        href="#/home"
         className="mb-4 inline-flex items-center gap-1.5 font-mono text-xs text-cyber-muted transition-colors hover:text-cyber-cyan"
       >
         <ArrowLeft className="h-3.5 w-3.5" />

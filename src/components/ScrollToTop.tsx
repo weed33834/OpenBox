@@ -29,7 +29,7 @@ function ScrollToTop() {
   return (
     <button
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className="scroll-top-btn fixed bottom-[calc(1.5rem+env(safe-area-inset-bottom))] right-[calc(1.5rem+env(safe-area-inset-right))] z-40 flex h-11 w-11 items-center justify-center rounded-full border border-cyber-cyan/30 bg-cyber-surface/90 text-cyber-cyan shadow-lg backdrop-blur-sm transition-all hover:border-cyber-cyan/60 hover:bg-cyber-cyan/10 hover:shadow-[0_0_20px_rgba(0,229,255,0.2)]"
+      className="scroll-top-btn fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] right-[calc(1.5rem+env(safe-area-inset-right))] z-40 flex h-11 w-11 items-center justify-center rounded-full border border-cyber-cyan/30 bg-cyber-surface/90 text-cyber-cyan shadow-lg backdrop-blur-sm transition-all hover:border-cyber-cyan/60 hover:bg-cyber-cyan/10 hover:shadow-[0_0_20px_rgba(0,229,255,0.2)] md:bottom-[calc(1.5rem+env(safe-area-inset-bottom))]"
       aria-label={t("scrollToTop")}
     >
       <ArrowUp className="h-5 w-5" />

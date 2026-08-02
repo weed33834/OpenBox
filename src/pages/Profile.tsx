@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useFavoritesStore } from "@/store/useFavoritesStore";
+import { useFilterStore } from "@/store/useFilterStore";
 import { useToastStore } from "@/store/useToastStore";
 import { sites as ALL_SITES, CATEGORY_META } from "@/data/sites";
 import { deriveUserDisplay } from "@/hooks/useUserProfile";
 import { formatDate } from "@/lib/date-utils";
 import { useT, useI18n, translate } from "@/i18n/useI18n";
+import DetailDrawer from "@/components/DetailDrawer";
 import {
   ArrowLeft,
   User,
@@ -25,6 +27,7 @@ export default function Profile() {
   const user = useAuthStore((s) => s.user);
   const signOut = useAuthStore((s) => s.signOut);
   const openAuthModal = useAuthStore((s) => s.openAuthModal);
+  const setSelectedId = useFilterStore((s) => s.setSelectedId);
   const favorites = useFavoritesStore((s) => {
     const uid = user?.id ?? "__anon__";
     return s.userFavorites[uid] ?? EMPTY_FAVORITES;
@@ -55,7 +58,7 @@ export default function Profile() {
           </button>
           <button
             onClick={() => {
-              window.location.hash = "#/";
+              window.location.hash = "#/home";
             }}
             className="font-mono text-sm text-cyber-cyan underline"
           >
@@ -110,7 +113,7 @@ export default function Profile() {
     <main className="container min-h-[100dvh] px-4 py-6 md:py-10">
       <button
         onClick={() => {
-          window.location.hash = "#/";
+          window.location.hash = "#/home";
         }}
         className="mb-6 inline-flex items-center gap-2 rounded-lg border border-cyber-border bg-cyber-surface px-3 py-2 font-mono text-sm text-cyber-muted transition-colors hover:text-cyber-cyan"
       >
@@ -203,11 +206,12 @@ export default function Profile() {
               return (
                 <div
                   key={site.id}
-                  className="flex items-center justify-between rounded-lg border border-cyber-border bg-cyber-surface/60 px-4 py-3 transition-all hover:border-cyber-cyan/30"
+                  onClick={() => setSelectedId(site.id)}
+                  className="flex cursor-pointer items-center justify-between rounded-lg border border-cyber-border bg-cyber-surface/60 px-4 py-3 transition-all hover:border-cyber-cyan/30"
                 >
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
-                      <p className="truncate font-medium text-cyber-text">
+                      <p className="truncate font-medium text-cyber-text group-hover:text-cyber-cyan transition-colors">
                         {site.name}
                       </p>
                       <span
@@ -230,12 +234,16 @@ export default function Profile() {
                       href={site.url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
                       className="rounded-lg border border-cyber-border p-1.5 text-cyber-muted transition-all hover:border-cyber-cyan/40 hover:text-cyber-cyan"
                     >
                       <ExternalLink className="h-4 w-4" />
                     </a>
                     <button
-                      onClick={() => toggleFavorite(site.id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavorite(site.id);
+                      }}
                       className="rounded-lg p-1.5 text-cyber-dead transition-all hover:bg-cyber-dead/10"
                       aria-label={t("favorite.remove")}
                     >
@@ -252,13 +260,15 @@ export default function Profile() {
       <button
         onClick={() => {
           signOut();
-          window.location.hash = "#/";
+          window.location.hash = "#/home";
         }}
         className="inline-flex items-center gap-2 rounded-lg border border-cyber-dead/40 bg-cyber-dead/10 px-4 py-2.5 text-sm text-cyber-dead transition-all hover:bg-cyber-dead/20"
       >
         <LogOut className="h-4 w-4" />
         {t("profile.signOut")}
       </button>
+
+      <DetailDrawer />
     </main>
   );
 }
