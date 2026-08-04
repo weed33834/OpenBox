@@ -2,31 +2,29 @@
   "name": "openbox",
   "private": true,
   "version": "1.0.0",
-  "description": "OpenBox · 聚合 AI 时代免费、可白嫖资源的开源导航站：免费 API、中转站、代理节点、AI 应用、实用工具与学习资料。",
+  "description": "OpenBox · 开源 AI 资源导航 — 聚合免费 API、中转站、代理节点、AI 应用、工具与学习资料。三语界面、支持登录云同步与匿名反馈。",
   "license": "MIT",
   "type": "module",
-  "author": "weed",
+  "author": "badhope",
   "keywords": [
-    "导航",
-    "navigation",
+    "AI资源",
+    "免费API",
+    "中转站",
+    "AI应用",
     "开源导航",
-    "ai",
+    "OpenBox",
     "free-api",
-    "relay",
-    "proxy",
-    "ai-apps",
-    "tools",
-    "learning",
-    "directory",
-    "OpenBox"
+    "ai-tools",
+    "resource-directory",
+    "白嫖"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/weed33834/OpenBox.git"
+    "url": "https://gitcode.com/badhope/OpenBox.git"
   },
-  "homepage": "https://weed33834.github.io/OpenBox/",
+  "homepage": "https://9edf5f8b5d15451aa0d3e5de1aa647ac.sh3.agentos-app.net",
   "bugs": {
-    "url": "https://github.com/weed33834/OpenBox/issues"
+    "url": "https://gitcode.com/badhope/OpenBox/issues"
   },
   "scripts": {
     "dev": "vite",
