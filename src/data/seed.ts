@@ -104,11 +104,11 @@ const curated: Resource[] = [
     tags: ['官方', '海外', 'OpenAI兼容'], models: ['Mistral', 'Codestral'], pros: ['欧洲合规', '免费档'],
   }),
   mk('free-api', 'DeepSeek API', 'https://platform.deepseek.com', {
-    type: 'freemium', status: 'ok', official: true, featured: true,
-    summary: 'DeepSeek 官方 API，价格极低 + 注册赠送额度，OpenAI 兼容。',
-    description: 'DeepSeek 官方开放 API 提供 V3/R1 等强模型，定价远低于同档，注册送额度，兼容 OpenAI SDK。',
-    tags: ['官方', '国产', 'OpenAI兼容'], models: ['DeepSeek V3', 'DeepSeek R1'],
-    pros: ['极便宜', '推理强'], cons: ['高峰限速'],
+    type: 'trial', status: 'ok', official: true, featured: true,
+    summary: '注册赠送试用额度，非永久免费，OpenAI 兼容。',
+    description: 'DeepSeek 官方开放 API 提供 V3/R1 等强模型，新用户赠送试用 tokens，按量计费后价格仍低。',
+    tags: ['官方', '国产', 'OpenAI兼容'], models: ['DeepSeek-V3', 'DeepSeek-R1'],
+    pros: ['极便宜', '推理强'], cons: ['非永久免费', '高峰限速'],
   }),
   mk('free-api', 'SiliconFlow (硅基流动)', 'https://siliconflow.cn', {
     type: 'freemium', status: 'ok', official: true,
@@ -188,7 +188,7 @@ const curated: Resource[] = [
     tags: ['核心', '开源', '跨平台'], protocols: ['vmess', 'vless', 'trojan', 'ss', 'hysteria', 'tuic'],
     pros: ['协议新', '性能高'], cons: ['配置门槛较高'],
   }),
-  mk('proxy-nodes', 'NekoBox', 'https://github.com/MatsuriDayo/NeKoBox', {
+  mk('proxy-nodes', 'NekoBox', 'https://github.com/MatsuriDayo/NekoBoxForAndroid', {
     type: 'free', status: 'ok',
     summary: 'Android/iOS 上的 sing-box 图形客户端。',
     description: 'NekoBox 基于 sing-box，提供移动端友好的订阅与分流体验。',
@@ -203,16 +203,16 @@ const curated: Resource[] = [
     pros: ['多端一致', '易用'], cons: ['体积偏大'],
   }),
   mk('proxy-nodes', 'freefq/freefq', 'https://github.com/freefq/freefq', {
-    type: 'free', status: 'unknown',
-    summary: 'GitHub 上的免费节点订阅聚合仓库（链接有时效性）。',
-    description: 'freefq 等开源仓库会整理并发布免费节点订阅地址，但节点有效性随时间变化，请自行甄别。',
-    tags: ['订阅聚合', '开源'], protocols: ['vmess', 'vless', 'trojan', 'ss'],
-    pros: ['免费', '更新频繁'], cons: ['节点易失效', '需自担风险'],
-    tips: '仅作技术学习用途，注意合规与隐私。',
+    type: 'free', status: 'dead',
+    summary: '原 GitHub 免费节点聚合仓库，已于 2026 年下线。',
+    description: 'freefq 仓库已不可访问（404）。寻找替代请关注其他仍在维护的节点聚合项目。',
+    tags: ['订阅聚合', '已失效'], protocols: ['vmess', 'vless', 'trojan', 'ss'],
+    pros: [], cons: ['仓库已删', '不可用'],
+    tips: '建议移步其他仍在更新的节点聚合源。',
   }),
 
   // ===== AI 应用 =====
-  mk('ai-apps', 'ChatGPT', 'https://chat.openai.com', {
+  mk('ai-apps', 'ChatGPT', 'https://chatgpt.com', {
     type: 'freemium', status: 'ok', official: true,
     summary: 'OpenAI 对话式 AI，免费版可用 GPT-4o mini。',
     description: 'ChatGPT 是目前使用最广的 AI 对话产品，免费层提供基础模型与有限额度。',
@@ -233,7 +233,7 @@ const curated: Resource[] = [
     tags: ['对话', '多模态', '官方'], models: ['Gemini Pro', 'Gemini Flash'],
     pros: ['多模态', '免费额度'], cons: ['地区限制'],
   }),
-  mk('ai-apps', 'Perplexity', 'https://www.perplexity.ai', {
+  mk('ai-apps', 'Perplexity', 'https://perplexity.ai', {
     type: 'freemium', status: 'ok',
     summary: 'AI 搜索问答引擎，附带来源引用。',
     description: 'Perplexity 将搜索与生成结合，回答自带引用链接，适合研究型查询。',
@@ -245,13 +245,13 @@ const curated: Resource[] = [
     description: 'Poe 由 Quora 出品，单站可用多家模型，免费版每日有限点数。',
     tags: ['聚合', '海外'], models: ['GPT', 'Claude', 'Llama'], pros: ['多模型', '入口统一'],
   }),
-  mk('ai-apps', 'Cursor', 'https://cursor.com', {
+  mk('tools', 'Cursor', 'https://cursor.com', {
     type: 'freemium', status: 'ok',
     summary: 'AI 原生代码编辑器，免费版可用基础模型。',
     description: 'Cursor 基于 VS Code 分支，内置代码补全与对话式改写，极大提升编码效率。',
     tags: ['编程', '海外'], pros: ['编码强', '免费档可用'], cons: ['高级模型需订阅'],
   }),
-  mk('ai-apps', 'v0', 'https://v0.dev', {
+  mk('tools', 'v0', 'https://v0.dev', {
     type: 'freemium', status: 'ok',
     summary: 'Vercel 出品的 AI 界面生成器，文本即前端。',
     description: 'v0 可根据提示生成 React/Tailwind 组件与页面，适合快速原型。',
@@ -294,10 +294,10 @@ const curated: Resource[] = [
     tags: ['对话', '国产'], pros: ['生态全', '有API'], cons: ['限额'],
   }),
   mk('ai-apps', '文心一言', 'https://yiyan.baidu.com', {
-    type: 'freemium', status: 'ok', official: true,
+    type: 'freemium', status: 'unstable', official: true,
     summary: '百度大模型，中文理解扎实。',
-    description: '文心一言覆盖对话、创作、多模态，企业级应用广泛。',
-    tags: ['对话', '国产'], pros: ['中文强'], cons: ['限额'],
+    description: '文心一言覆盖对话、创作、多模态，企业级应用广泛。⚠ 2026.06 起服务升级迁移中，可能间歇不可用。',
+    tags: ['对话', '国产'], pros: ['中文强'], cons: ['限额', '服务迁移中'],
   }),
   mk('ai-apps', 'DeepSeek Chat', 'https://chat.deepseek.com', {
     type: 'freemium', status: 'ok', official: true, featured: true,
@@ -374,7 +374,7 @@ const curated: Resource[] = [
     description: 'Open WebUI 提供多模型对话、RAG、插件，可私有化部署。',
     tags: ['界面', '开源', '自托管'], pros: ['体验好', '可私有'], cons: ['需部署'],
   }),
-  mk('tools', 'ComfyUI', 'https://github.com/comfyanonymous/ComfyUI', {
+  mk('tools', 'ComfyUI', 'https://github.com/Comfy-Org/ComfyUI', {
     type: 'free', status: 'ok',
     summary: '节点式 Stable Diffusion 工作流引擎。',
     description: 'ComfyUI 以可视化节点编排图像生成流程，适合进阶生图与视频。',
@@ -398,7 +398,7 @@ const curated: Resource[] = [
     description: 'LiteLLM 提供 OpenAI 兼容接口，统一各家模型鉴权与计费，便于切换。',
     tags: ['网关', '开源'], pros: ['统一接口'], cons: ['需自部署'],
   }),
-  mk('tools', 'V2Ray 官网', 'https://www.v2ray.com', {
+  mk('proxy-nodes', 'V2Ray 官网', 'https://www.v2ray.com', {
     type: 'free', status: 'ok',
     summary: 'V2Ray 项目文档与核心下载。',
     description: 'V2Ray 是主流代理核心，官网提供文档与版本说明。',
@@ -411,10 +411,10 @@ const curated: Resource[] = [
     tags: ['编程', '官方'], pros: ['生态好', '免费档'], cons: ['高级模型需订阅'],
   }),
   mk('tools', 'Codeium', 'https://codeium.com', {
-    type: 'freemium', status: 'ok',
-    summary: '免费代码补全，支持主流 IDE。',
-    description: 'Codeium 提供免费无限代码补全与聊天，覆盖多种语言与编辑器。',
-    tags: ['编程'], pros: ['免费档强'],
+    type: 'freemium', status: 'unstable',
+    summary: '原免费代码补全工具，已并入 Devin 平台（devin.ai）。',
+    description: 'Codeium/Windsurf 团队已并入 Devin，原 codeium.com 跳转至 devin.ai，产品形态可能变化。',
+    tags: ['编程'], pros: ['曾是免费标杆'], cons: ['已合并', '服务变更中'],
   }),
   mk('tools', 'Windsurf', 'https://windsurf.com', {
     type: 'freemium', status: 'ok',
@@ -422,13 +422,13 @@ const curated: Resource[] = [
     description: 'Windsurf 以 Cascade Agent 实现多文件编辑与命令执行，免费档可用基础模型。',
     tags: ['编程'], pros: ['Agent 强'], cons: ['高级模型需订阅'],
   }),
-  mk('tools', 'Bolt.new', 'https://bolt.new', {
+  mk('ai-apps', 'Bolt.new', 'https://bolt.new', {
     type: 'freemium', status: 'ok',
     summary: '浏览器内一句话生成全栈应用。',
     description: 'Bolt.new 可在浏览器里从提示直接生成并运行 React/全栈项目，适合快速原型。',
     tags: ['编程', '前端'], pros: ['出原型快'], cons: ['需登录'],
   }),
-  mk('tools', 'Lovable', 'https://lovable.dev', {
+  mk('ai-apps', 'Lovable', 'https://lovable.dev', {
     type: 'freemium', status: 'ok',
     summary: '自然语言到 Web 应用，接 Supabase 后端。',
     description: 'Lovable 用对话式生成可部署的 Web 应用，内置 Supabase 集成，免费档有限额度。',
@@ -441,10 +441,10 @@ const curated: Resource[] = [
     tags: ['RAG', '自托管', '开源'], pros: ['可私有', '易用'], cons: ['需资源'],
   }),
   mk('tools', 'Continue', 'https://continue.dev', {
-    type: 'free', status: 'ok',
-    summary: '开源 AI 编程插件，VS Code/JetBrains 通用。',
-    description: 'Continue 是开源的 IDE AI 助手，可接任意模型与本地推理，灵活可定制。',
-    tags: ['编程', '开源'], pros: ['开源', '多模型'],
+    type: 'free', status: 'unstable',
+    summary: '开源 AI 编程插件，已被 Cursor 收购。',
+    description: 'Continue 是开源 IDE AI 助手，可接任意模型。已被 Cursor 团队收购，后续走向待观察。',
+    tags: ['编程', '开源'], pros: ['开源', '多模型'], cons: ['被收购', '未来不确定'],
   }),
   mk('tools', 'Hugging Face', 'https://huggingface.co', {
     type: 'free', status: 'ok', official: true,
@@ -452,7 +452,7 @@ const curated: Resource[] = [
     description: 'Hugging Face 托管海量开源模型与数据集，提供 Inference、Spaces 与课程，是开源 AI 中心。',
     tags: ['模型库', '开源'], pros: ['资源海量'],
   }),
-  mk('tools', 'Replit', 'https://replit.com', {
+  mk('ai-apps', 'Replit', 'https://replit.com', {
     type: 'freemium', status: 'ok',
     summary: '云端 IDE，内置 AI Agent 与部署。',
     description: 'Replit 提供浏览器内开发环境与 Agent，可直接运行与部署应用，免费档可用。',
@@ -465,10 +465,10 @@ const curated: Resource[] = [
     tags: ['编程', '开源'], pros: ['轻量', '强控制'], cons: ['需命令行'],
   }),
   mk('tools', 'Roo Code', 'https://roocode.com', {
-    type: 'free', status: 'ok',
-    summary: 'VS Code 中的 AI Agent 扩展，多模式协作。',
-    description: 'Roo Code 提供 Code/Architect/Ask 等模式，可接多种模型，开源免费。',
-    tags: ['编程', '开源'], pros: ['开源', '灵活'],
+    type: 'free', status: 'dead',
+    summary: '原 VS Code AI Agent 扩展，已于 2026.05.15 正式关停。',
+    description: 'Roo Code 提供 Code/Architect/Ask 等模式的开源 AI Agent，官方公告 2026 年 5 月 15 日起停止服务。',
+    tags: ['编程', '开源', '已关停'], pros: [], cons: ['已关停'],
   }),
   mk('tools', 'CrewAI', 'https://crewai.com', {
     type: 'free', status: 'ok',
@@ -490,7 +490,7 @@ const curated: Resource[] = [
     description: 'Learn Prompting 提供从入门到进阶的提示词教程，中英双语。',
     tags: ['课程', '提示词'], pros: ['体系全', '免费'],
   }),
-  mk('learn', 'FlowGPT', 'https://flowgpt.com', {
+  mk('ai-apps', 'FlowGPT', 'https://flowgpt.com', {
     type: 'free', status: 'ok',
     summary: '海量提示词社区与模板库。',
     description: 'FlowGPT 汇集用户分享的提示词，覆盖写作、编程、角色扮演等场景。',
@@ -520,11 +520,11 @@ const curated: Resource[] = [
     description: 'Hugging Face 提供 NLP、Diffusers、Web 端推理等多门免费课。',
     tags: ['课程', '开源'], pros: ['体系全'],
   }),
-  mk('learn', 'PromptPerfect', 'https://promptperfect.jina.ai', {
-    type: 'freemium', status: 'ok',
-    summary: '一键优化提示词，提升模型表现。',
-    description: 'PromptPerfect 自动改写并翻译提示词，支持多模型适配。',
-    tags: ['提示词', '工具'], pros: ['易用'], cons: ['免费有限'],
+  mk('tools', 'PromptPerfect', 'https://promptperfect.jina.ai', {
+    type: 'freemium', status: 'unstable',
+    summary: '一键优化提示词，提升模型表现。⚠ 将于 2026.09.01 停止服务。',
+    description: 'PromptPerfect 自动改写并翻译提示词，支持多模型适配。官方公告 2026 年 9 月 1 日起关停。',
+    tags: ['提示词', '工具'], pros: ['易用'], cons: ['免费有限', '即将关停'],
   }),
   mk('learn', 'DeepLearning.AI', 'https://www.deeplearning.ai', {
     type: 'free', status: 'ok', official: true,
@@ -544,7 +544,7 @@ const curated: Resource[] = [
     description: '微软出品的生成式 AI 入门仓库，含示例与中文友好内容，适合系统学习。',
     tags: ['课程', '开源', '中文'], pros: ['体系全', '免费'],
   }),
-  mk('learn', 'Anthropic 提示工程教程', 'https://docs.anthropic.com', {
+  mk('learn', 'Anthropic 提示工程教程', 'https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview', {
     type: 'free', status: 'ok', official: true,
     summary: 'Claude 官方提示工程交互教程。',
     description: 'Anthropic 文档提供提示工程、工具调用与最佳实践的交互式教程。',
@@ -586,13 +586,13 @@ const curated: Resource[] = [
     description: 'Simplilearn SkillUp 提供提示工程入门到进阶的免费自定进度课程与证书。',
     tags: ['课程'], pros: ['免费证书'],
   }),
-  mk('learn', '2026 AI 免费资源地图', 'https://yangmao.ai/en/free-map', {
+  mk('tools', '2026 AI 免费资源地图', 'https://yangmao.ai/en/free-map', {
     type: 'free', status: 'ok',
     summary: '汇总免费 GPU/API/工具/课程的资源地图。',
     description: 'yangmao.ai 持续追踪并整理免费算力、API 额度、开发工具与课程，适合按图索骥。',
     tags: ['资源地图', '汇总'], pros: ['持续更新'],
   }),
-  mk('learn', 'aifreeplan', 'https://aifreeplan.com', {
+  mk('tools', 'aifreeplan', 'https://aifreeplan.com', {
     type: 'free', status: 'ok',
     summary: '对比 91+ AI 工具的免费额度与限制。',
     description: 'aifreeplan 整理各 AI 产品的免费档、信用点与试用细节，便于选型。',
