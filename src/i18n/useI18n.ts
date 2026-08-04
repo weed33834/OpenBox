@@ -1,73 +1,42 @@
-// 轻量 i18n：zustand store + useT hook，持久化到 localStorage
-import { useCallback } from "react";
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { translations, format, type Lang } from "./translations";
+import { create } from 'zustand';
+import { dict, type Lang } from './translations';
+import type { LocalizedText } from '@/lib/types';
 
 interface I18nState {
   lang: Lang;
   setLang: (l: Lang) => void;
 }
 
-export const useI18n = create<I18nState>()(
-  persist(
-    (set) => ({
-      lang: "zh",
-      setLang: (l) => set({ lang: l }),
-    }),
-    {
-      name: "FreeAPI-lang",
-      // 只持久化语言偏好
-      partialize: (s) => ({ lang: s.lang }),
-    },
-  ),
-);
-
-// 从 URL 参数读取语言偏好（支持 ?lang=en / ?lang=ja）
-function getLangFromUrl(): Lang | null {
-  if (typeof window === "undefined") return null;
-  const params = new URLSearchParams(window.location.search);
-  const lang = params.get("lang");
-  if (lang === "zh" || lang === "en" || lang === "ja") return lang;
-  return null;
+function initLang(): Lang {
+  if (typeof window === 'undefined') return 'zh';
+  const saved = localStorage.getItem('ob_lang');
+  return saved === 'en' || saved === 'ja' ? saved : 'zh';
 }
 
-// 初始化：URL 参数优先于 localStorage
-const initialLang = getLangFromUrl();
-if (initialLang) {
-  useI18n.getState().setLang(initialLang);
+export const useI18nStore = create<I18nState>((set) => ({
+  lang: initLang(),
+  setLang: (lang) => {
+    localStorage.setItem('ob_lang', lang);
+    set({ lang });
+  },
+}));
+
+/** 支持的语言列表（LangSwitcher 循环切换用） */
+export const LANGS: Lang[] = ['zh', 'en', 'ja'];
+
+/** 返回绑定当前语言的翻译函数（语言切换时组件会重新渲染） */
+export function useT(): (key: string) => string {
+  const lang = useI18nStore((s) => s.lang);
+  return (key: string) => dict[lang][key] ?? dict.zh[key] ?? key;
 }
 
-/**
- * 翻译 hook：const t = useT(); t("hero.title")
- * 支持模板变量：t("hero.subtitle", { total: 200 })
- * 缺失键回退到中文，再回退到键本身
- */
-export function useT() {
-  const lang = useI18n((s) => s.lang);
-  // 用 useCallback 稳定翻译函数引用，避免依赖 useT 的组件因每次渲染拿到新函数而重渲染
-  return useCallback(
-    (key: string, vars?: Record<string, string | number>): string => {
-      const entry = translations[key];
-      if (!entry) return key;
-      const text = entry[lang] ?? entry.zh ?? key;
-      return vars ? format(text, vars) : text;
-    },
-    [lang],
-  );
+/** 将 LocalizedText（分类/场景名）解析为当前语言文本 */
+export function localize(text: LocalizedText, lang: Lang): string {
+  return text[lang] ?? text.zh;
 }
 
-/** 非 hook 版本：用于无法调用 hook 的场景（极少用） */
-export function translate(lang: Lang, key: string, vars?: Record<string, string | number>): string {
-  const entry = translations[key];
-  if (!entry) return key;
-  const text = entry[lang] ?? entry.zh ?? key;
-  return vars ? format(text, vars) : text;
-}
-
-/** 特点标签翻译：feat.<中文标签>，只调用一次 translate 并比较回退 */
-export function translateFeature(lang: Lang, feature: string): string {
-  const key = `feat.${feature}`;
-  const translated = translate(lang, key);
-  return translated === key ? feature : translated;
+/** 绑定当前语言的 localize，组件内直接 localize(name) 即可 */
+export function useLocalize(): (text: LocalizedText) => string {
+  const lang = useI18nStore((s) => s.lang);
+  return (text: LocalizedText) => localize(text, lang);
 }

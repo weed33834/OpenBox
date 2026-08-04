@@ -1,30 +1,32 @@
 {
-  "name": "FreeAPI",
+  "name": "openbox",
   "private": true,
   "version": "1.0.0",
-  "description": "全网 AI 公益站与中转站导航 · 278 站点收录 · 实时可用性检测 · 深度 API 端点验证 · 三语言（中/英/日）· 移动端适配 · 站点对比 · 使用指南",
+  "description": "OpenBox · 聚合 AI 时代免费、可白嫖资源的开源导航站：免费 API、中转站、代理节点、AI 应用、实用工具与学习资料。",
   "license": "MIT",
   "type": "module",
   "author": "weed",
   "keywords": [
-    "ai",
+    "导航",
     "navigation",
-    "api",
-    "relay",
+    "开源导航",
+    "ai",
     "free-api",
-    "linuxdo",
-    "claude",
-    "gpt",
+    "relay",
+    "proxy",
+    "ai-apps",
+    "tools",
+    "learning",
     "directory",
-    "FreeAPI"
+    "OpenBox"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/weed33834/FreeAPI.git"
+    "url": "https://github.com/weed33834/OpenBox.git"
   },
   "homepage": "https://weed33834.github.io/OpenBox/",
   "bugs": {
-    "url": "https://github.com/weed33834/FreeAPI/issues"
+    "url": "https://github.com/weed33834/OpenBox/issues"
   },
   "scripts": {
     "dev": "vite",

@@ -1,114 +1,65 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { useAuthStore } from "./useAuthStore";
-import { supabase, hasSupabase } from "@/lib/supabase";
+// 收藏仓库
+// 设计：对外 API（ids / toggle / has / clear）保持不变，组件无需改动。
+// - 未登录：纯本地（localStorage，key=ob_favorites），行为与重构前一致。
+// - 已登录：本地状态仍为主，同时把每次变更镜像到 Supabase favorites 表（云端收藏）；
+//   登录成功时自动把云端收藏合并进本地（并集，本地优先），实现跨设备同步且不丢本地已有项。
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { supabase, hasSupabase, AUTH_ENABLED } from '@/lib/supabase';
+import { useAuthStore } from './useAuthStore';
 
-// persist 使用的 localStorage 键名，跨标签同步时用于匹配 storage 事件
-const STORAGE_KEY = "freeapi-favorites";
+const authOn = AUTH_ENABLED && hasSupabase;
 
 interface FavoritesState {
-  userFavorites: Record<string, string[]>;
-  toggle: (siteId: string) => Promise<void>;
-  isFavorite: (siteId: string) => boolean;
-  syncFromDb: () => Promise<void>;
-}
-
-function getUserId(): string {
-  return useAuthStore.getState().user?.id ?? "__anon__";
+  ids: string[];
+  toggle: (id: string) => void;
+  has: (id: string) => boolean;
+  clear: () => void;
+  /** 登录后从云端合并收藏（本地优先，并集） */
+  syncFromCloud: () => Promise<void>;
 }
 
 export const useFavoritesStore = create<FavoritesState>()(
   persist(
     (set, get) => ({
-      userFavorites: {},
-      toggle: async (siteId) => {
-        const uid = getUserId();
-        const current = get().userFavorites[uid] ?? [];
-        const isFav = current.includes(siteId);
-
-        // 乐观更新 localStorage
-        set({
-          userFavorites: {
-            ...get().userFavorites,
-            [uid]: isFav
-              ? current.filter((id) => id !== siteId)
-              : [...current, siteId],
-          },
-        });
-
-        // 已登录用户同步到数据库
-        if (uid !== "__anon__" && hasSupabase && supabase) {
-          try {
-            if (isFav) {
-              await supabase
-                .from("user_favorites")
-                .delete()
-                .eq("user_id", uid)
-                .eq("site_id", siteId);
-            } else {
-              await supabase
-                .from("user_favorites")
-                .insert({ user_id: uid, site_id: siteId });
-            }
-          } catch {
-            // 数据库操作失败，回滚 localStorage：直接恢复操作前的快照（避免重复/漏删）
-            set({
-              userFavorites: {
-                ...get().userFavorites,
-                [uid]: current,
-              },
-            });
+      ids: [],
+      toggle: (id) => {
+        const ids = get().ids;
+        const added = !ids.includes(id);
+        const next = added ? [...ids, id] : ids.filter((x) => x !== id);
+        set({ ids: next });
+        // 登录态：镜像到云端收藏表（匿名 key + 用户会话，受 RLS 约束只能改自己的行）
+        const uid = useAuthStore.getState().user?.id;
+        if (authOn && supabase && uid) {
+          if (added) {
+            void supabase.from('favorites').upsert({ user_id: uid, resource_id: id });
+          } else {
+            void supabase.from('favorites').delete().eq('user_id', uid).eq('resource_id', id);
           }
         }
       },
-      isFavorite: (siteId) => {
-        const uid = getUserId();
-        return (get().userFavorites[uid] ?? []).includes(siteId);
-      },
-      syncFromDb: async () => {
-        const uid = getUserId();
-        if (uid === "__anon__" || !hasSupabase || !supabase) return;
-        try {
-          const { data, error } = await supabase
-            .from("user_favorites")
-            .select("site_id")
-            .eq("user_id", uid);
-          if (!error && data) {
-            const dbFavorites = data.map((r) => r.site_id);
-            // 数据库为唯一真实来源：直接用 DB 收藏覆盖本地。
-            // 本地-only 的收藏在 toggle 时已同步到 DB，因此直接替换是安全的。
-            set({
-              userFavorites: {
-                ...get().userFavorites,
-                [uid]: dbFavorites,
-              },
-            });
-          }
-        } catch {
-          // 数据库不可用，继续使用 localStorage
-        }
+      has: (id) => get().ids.includes(id),
+      clear: () => set({ ids: [] }),
+      syncFromCloud: async () => {
+        const uid = useAuthStore.getState().user?.id;
+        if (!authOn || !supabase || !uid) return;
+        const { data, error } = await supabase.from('favorites').select('resource_id').eq('user_id', uid);
+        if (error || !data) return;
+        const cloudIds = (data as { resource_id: string }[]).map((r) => r.resource_id);
+        // 并集：本地已有项优先保留，云端补充
+        const merged = Array.from(new Set([...get().ids, ...cloudIds]));
+        set({ ids: merged });
       },
     }),
-    {
-      name: STORAGE_KEY,
-      version: 1,
-      migrate: (persisted: unknown) => {
-        const p = persisted as { favorites?: string[]; userFavorites?: Record<string, string[]> };
-        if (Array.isArray(p?.favorites)) {
-          return { userFavorites: { __anon__: p.favorites } };
-        }
-        return { userFavorites: p?.userFavorites ?? {} };
-      },
-    },
+    { name: 'ob_favorites' },
   ),
 );
 
-// ===== 跨标签同步：监听 storage 事件，其他标签修改收藏后重新水合本标签状态 =====
-if (typeof window !== "undefined") {
-  window.addEventListener("storage", (e) => {
-    if (e.key === STORAGE_KEY) {
-      // persist 中间件提供的 rehydrate：从 localStorage 重新读取并合并
-      useFavoritesStore.persist.rehydrate();
+// 登录成功后自动从云端合并收藏（单向并集，不覆盖本地已有）
+if (authOn) {
+  useAuthStore.subscribe((state, prev) => {
+    if (state.user && !prev.user) {
+      void useFavoritesStore.getState().syncFromCloud();
     }
   });
 }

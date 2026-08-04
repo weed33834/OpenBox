@@ -2,63 +2,66 @@
 <html lang="zh-CN" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="manifest" href="./manifest.json" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-    <!-- 防止主题闪烁（FOUC）：在 React 挂载前同步读取 localStorage 并应用主题 class -->
+    <!-- 防止主题闪烁（FOUC）：React 挂载前同步读取 localStorage(ob_theme) 并应用 .dark -->
     <script>
       (function () {
         try {
-          var stored = localStorage.getItem("FreeAPI-theme");
-          if (stored) {
-            var theme = JSON.parse(stored);
-            var isDark = theme.state ? theme.state.theme === "dark" : true;
-            document.documentElement.classList.toggle("dark", isDark);
+          var raw = localStorage.getItem('ob_theme');
+          var isDark = true;
+          if (raw) {
+            var parsed = JSON.parse(raw);
+            var t = parsed && parsed.state && parsed.state.theme;
+            if (t === 'light' || t === 'dark') isDark = t === 'dark';
+          } else {
+            isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
           }
+          document.documentElement.classList.toggle('dark', isDark);
         } catch (e) {
-          document.documentElement.classList.add("dark");
+          document.documentElement.classList.add('dark');
         }
       })();
     </script>
 
     <!-- Primary Meta -->
-    <title>AI API 导航 · 全网公益站 / 中转站目录 | FreeAPI</title>
-    <meta name="description" content="收录 278+ AI API 站点，含公益中转站、免费中继、付费代理、国内/海外/工具站。支持实时健康检测、深度 API 验证、Supabase 登录收藏、中/英/日三语。一站筛选，快速找到可用 API。" />
-    <meta name="keywords" content="AI API,免费API,中转站,公益站,API导航,FreeAPI,OpenAI代理,Claude API,Gemini API,AI代理站,ChatGPT API,大模型API,国内AI中转,海外AI中转" />
-    <meta name="author" content="FreeAPI" />
+    <title>OpenBox · 开源 AI 资源导航</title>
+    <meta name="description" content="OpenBox 聚合 AI 时代免费、可白嫖的实用资源：免费 API、中转站、代理节点、AI 应用、实用工具与学习资料。内容持续收录，一处直达。" />
+    <meta name="keywords" content="开源导航,AI资源,免费API,中转站,代理节点,AI应用,AI工具,学习资源,白嫖,OpenBox" />
+    <meta name="author" content="OpenBox" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-    <meta name="theme-color" content="#0a0e14" />
+    <meta name="theme-color" content="#0b0f17" />
     <link rel="canonical" href="https://weed33834.github.io/OpenBox/" />
 
     <!-- hreflang -->
     <link rel="alternate" hreflang="zh-Hans" href="https://weed33834.github.io/OpenBox/" />
     <link rel="alternate" hreflang="en" href="https://weed33834.github.io/OpenBox/?lang=en" />
-    <link rel="alternate" hreflang="ja" href="https://weed33834.github.io/OpenBox/?lang=ja" />
     <link rel="alternate" hreflang="x-default" href="https://weed33834.github.io/OpenBox/" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://weed33834.github.io/OpenBox/" />
-    <meta property="og:title" content="AI API 导航 · 全网公益站 / 中转站目录" />
-    <meta property="og:description" content="收录 278+ AI API 站点，公益中转站、免费中继、付费代理一站筛选。实时健康检测+深度API验证，支持收藏与中英日三语。" />
+    <meta property="og:title" content="OpenBox · 开源 AI 资源导航" />
+    <meta property="og:description" content="聚合 AI 时代免费、可白嫖的实用资源：免费 API、中转站、代理节点、AI 应用、工具与学习资料。" />
     <meta property="og:image" content="https://weed33834.github.io/OpenBox/og-image.jpg" />
-    <meta property="og:site_name" content="FreeAPI" />
+    <meta property="og:site_name" content="OpenBox" />
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:locale:alternate" content="en_US" />
-    <meta property="og:locale:alternate" content="ja_JP" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://weed33834.github.io/OpenBox/" />
-    <meta name="twitter:title" content="AI API 导航 · 全网公益站 / 中转站目录" />
-    <meta name="twitter:description" content="收录 278+ AI API 站点，公益中转站、免费中继、付费代理一站筛选。实时健康检测+深度API验证，支持收藏与中英日三语。" />
+    <meta name="twitter:title" content="OpenBox · 开源 AI 资源导航" />
+    <meta name="twitter:description" content="聚合 AI 时代免费、可白嫖的实用资源：免费 API、中转站、代理节点、AI 应用、工具与学习资料。" />
     <meta name="twitter:image" content="https://weed33834.github.io/OpenBox/og-image.jpg" />
 
-    <!-- 字体：使用国内可访问的 Google Fonts 镜像（fonts.loli.net），CSS 中有系统字体兜底 -->
-    <link rel="preconnect" href="https://fonts.loli.net" />
+    <!-- 字体：Inter + Noto Sans SC（系统中文字体兜底） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.loli.net/css2?family=Chakra+Petch:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
 
@@ -67,10 +70,10 @@
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
-      "name": "OpenBox - AI API 导航",
+      "name": "OpenBox - 开源 AI 资源导航",
       "url": "https://weed33834.github.io/OpenBox/",
-      "description": "收录 278+ AI API 站点，含公益中转站、免费中继、付费代理、国内/海外/工具站。实时健康检测+深度API验证，中/英/日三语。",
-      "inLanguage": ["zh-Hans", "en", "ja"]
+      "description": "聚合 AI 时代免费、可白嫖的实用资源：免费 API、中转站、代理节点、AI 应用、工具与学习资料。",
+      "inLanguage": ["zh-Hans", "en"]
     }
     </script>
   </head>

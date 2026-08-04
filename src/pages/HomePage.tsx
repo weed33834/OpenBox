@@ -1,0 +1,157 @@
+import { useEffect, useMemo, useState } from 'react';
+import type { Resource } from '@/lib/types';
+import { useT, useLocalize } from '@/i18n/useI18n';
+import { getResources } from '@/lib/data';
+import { buildScenarioTree } from '@/data/taxonomy';
+import { SearchBox } from '@/components/SearchBox';
+import { CategoryCard } from '@/components/CategoryCard';
+import { ResourceList } from '@/components/ResourceList';
+import { Icon } from '@/components/Icon';
+import { navigate } from '@/hooks/useHashRoute';
+import { RankingList } from '@/components/RankingList';
+import { TagCloud } from '@/components/TagCloud';
+import { StatusMonitor } from '@/components/StatusMonitor';
+import { WeeklyUpdates } from '@/components/WeeklyUpdates';
+
+export function HomePage() {
+  const t = useT();
+  const localize = useLocalize();
+  const [resources, setResources] = useState<Resource[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let m = true;
+    getResources({ sort: 'default' }).then((list) => {
+      if (m) {
+        setResources(list);
+        setLoading(false);
+      }
+    });
+    return () => {
+      m = false;
+    };
+  }, []);
+
+  const featured = useMemo(() => resources.filter((r) => r.featured), [resources]);
+  const recent = useMemo(
+    () =>
+      [...resources]
+        .sort((a, b) => {
+          const au = a.updatedAt ?? '';
+          const bu = b.updatedAt ?? '';
+          if (au !== bu) return bu.localeCompare(au);
+          return a.name.localeCompare(b.name);
+        })
+        .slice(0, 12),
+    [resources],
+  );
+  const tree = useMemo(() => buildScenarioTree(resources), [resources]);
+
+  // 场景 → 子类型 的资源计数（用于场景树上的角标）
+  const scenarioCounts = useMemo(() => {
+    const m: Record<string, number> = {};
+    for (const r of resources) {
+      for (const sc of r.scenarios ?? []) {
+        const k = `${sc}:${r.subType}`;
+        m[k] = (m[k] ?? 0) + 1;
+      }
+    }
+    return m;
+  }, [resources]);
+
+  return (
+    <div className="space-y-14">
+      {/* 紧凑头部：标题 + 搜索 + 统计 */}
+      <section className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-10 text-center sm:px-12">
+        <div
+          className="absolute inset-x-0 -z-10 opacity-60"
+          style={{ background: 'radial-gradient(40rem 18rem at 50% -30%, var(--color-primary-soft), transparent 70%)' }}
+        />
+        <h1 className="text-3xl font-bold tracking-tight text-[var(--color-fg)] sm:text-4xl">{t('home.title')}</h1>
+        <p className="mx-auto mt-3 max-w-xl text-[var(--color-muted)]">{t('home.subtitle')}</p>
+        <div className="mx-auto mt-6 max-w-xl">
+          <SearchBox big />
+        </div>
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-sm text-[var(--color-muted)]">
+          <span>{t('home.stats')}：</span>
+          <span className="font-semibold text-[var(--color-primary)]">{resources.length}</span>
+          <span>·</span>
+          <span>
+            {tree.length} {t('nav.categories')}
+          </span>
+        </div>
+      </section>
+
+      {/* 精选推荐 */}
+      {featured.length > 0 && (
+        <section>
+          <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-[var(--color-fg)]">
+            <Icon name="Star" size={18} className="text-[var(--color-primary)]" /> {t('home.featured')}
+          </h2>
+          <ResourceList resources={featured} />
+        </section>
+      )}
+
+      {/* 最新收录 */}
+      <section>
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-[var(--color-fg)]">{t('home.recent')}</h2>
+          <button className="btn btn-ghost btn-sm" onClick={() => navigate('/search')}>
+            {t('common.search')} <Icon name="ChevronRight" size={15} />
+          </button>
+        </div>
+        <ResourceList resources={recent} loading={loading} />
+      </section>
+
+      {/* 全部分类：场景树（一级场景 → 二级子类型，数据驱动） */}
+      <section>
+        <h2 className="mb-1 text-lg font-semibold text-[var(--color-fg)]">{t('home.allCategories')}</h2>
+        <p className="mb-5 text-sm text-[var(--color-muted)]">{t('scenario.subtitle')}</p>
+        <div className="space-y-8">
+          {tree.map((node) => (
+            <div key={node.scenario.slug}>
+              <div className="mb-3 flex items-center gap-2">
+                <span
+                  className="flex h-8 w-8 items-center justify-center rounded-lg"
+                  style={{ background: `${node.scenario.color}1a`, color: node.scenario.color }}
+                >
+                  <Icon name={node.scenario.icon} size={17} />
+                </span>
+                <button
+                  className="text-base font-semibold text-[var(--color-fg)] hover:text-[var(--color-primary)]"
+                  onClick={() => navigate(`/scenario/${node.scenario.slug}`)}
+                >
+                  {localize(node.scenario.name)}
+                </button>
+                <span className="text-sm text-[var(--color-muted)]">{node.count}</span>
+                <button
+                  className="ml-auto text-xs text-[var(--color-primary)] hover:underline"
+                  onClick={() => navigate(`/scenario/${node.scenario.slug}`)}
+                >
+                  {t('scenario.viewAll')}
+                </button>
+              </div>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {node.subTypes.map((st) => (
+                  <CategoryCard
+                    key={st.slug}
+                    subType={st}
+                    count={scenarioCounts[`${node.scenario.slug}:${st.slug}`] ?? 0}
+                  />
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* 增强模块（配置/数据驱动骨架） */}
+      <div className="grid gap-10 lg:grid-cols-2">
+        <RankingList resources={resources} />
+        <StatusMonitor resources={resources} />
+      </div>
+      <TagCloud resources={resources} />
+      <WeeklyUpdates />
+    </div>
+  );
+}

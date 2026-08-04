@@ -1,20 +1,16 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { Resource, ResourceStatus, ResourceType } from '@/lib/types';
-import { useT, useLocalize } from '@/i18n/useI18n';
+import { useT } from '@/i18n/useI18n';
 import { getResources } from '@/lib/data';
-import { getSubType } from '@/data/taxonomy';
 import { useHashRoute } from '@/hooks/useHashRoute';
+import { SearchBox } from '@/components/SearchBox';
 import { ResourceList } from '@/components/ResourceList';
 import { FilterBar } from '@/components/FilterBar';
-import { EmptyState } from '@/components/EmptyState';
-import { Icon } from '@/components/Icon';
 
-export function CategoryPage() {
+export function SearchPage() {
   const t = useT();
-  const localize = useLocalize();
   const route = useHashRoute();
-  const slug = route.slug ?? '';
-  const cat = getSubType(slug);
+  const q = route.q ?? '';
 
   const [all, setAll] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
@@ -24,7 +20,7 @@ export function CategoryPage() {
   useEffect(() => {
     let m = true;
     setLoading(true);
-    getResources({ subType: slug }).then((list) => {
+    getResources({ q }).then((list) => {
       if (m) {
         setAll(list);
         setLoading(false);
@@ -33,33 +29,19 @@ export function CategoryPage() {
     return () => {
       m = false;
     };
-  }, [slug]);
+  }, [q]);
 
   const filtered = useMemo(
     () => all.filter((r) => (type === 'all' || r.type === type) && (status === 'all' || r.status === status)),
     [all, type, status],
   );
 
-  if (!cat) return <EmptyState icon="Search" title={t('common.empty')} />;
-
   return (
     <div className="space-y-5">
-      <div className="flex items-center gap-3">
-        <span
-          className="flex h-11 w-11 items-center justify-center rounded-xl"
-          style={{ background: `${cat.color}1a`, color: cat.color }}
-        >
-          <Icon name={cat.icon} size={22} />
-        </span>
-        <div>
-          <h1 className="text-2xl font-bold text-[var(--color-fg)]">{localize(cat.name)}</h1>
-          <p className="text-sm text-[var(--color-muted)]">{localize(cat.description)}</p>
-        </div>
-      </div>
-
+      <SearchBox initial={q} autoFocus big />
       <FilterBar type={type} status={status} onType={setType} onStatus={setStatus} />
       <p className="text-sm text-[var(--color-muted)]">
-        {filtered.length} {t('category.resources')}
+        {filtered.length} {t('common.results')}
       </p>
       <ResourceList resources={filtered} loading={loading} />
     </div>

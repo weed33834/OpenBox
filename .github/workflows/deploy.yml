@@ -22,10 +22,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
-      - run: npm ci --legacy-peer-deps
-        env:
-          PUPPETEER_SKIP_DOWNLOAD: "true"
+      - run: npm install --legacy-peer-deps
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:

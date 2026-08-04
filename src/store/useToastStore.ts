@@ -1,40 +1,29 @@
-import { create } from "zustand";
+import { create } from 'zustand';
 
-export type ToastType = "success" | "error" | "info" | "warning";
+export type ToastType = 'info' | 'success' | 'error';
 
 export interface Toast {
-  id: string;
-  type: ToastType;
+  id: number;
   message: string;
-  duration?: number;
+  type: ToastType;
 }
 
 interface ToastState {
   toasts: Toast[];
-  add: (type: ToastType, message: string, duration?: number) => void;
-  remove: (id: string) => void;
-  success: (message: string) => void;
-  error: (message: string) => void;
-  info: (message: string) => void;
-  warning: (message: string) => void;
+  push: (message: string, type?: ToastType) => void;
+  remove: (id: number) => void;
 }
 
-let toastId = 0;
+let seq = 0;
 
-export const useToastStore = create<ToastState>((set, get) => ({
+export const useToastStore = create<ToastState>((set) => ({
   toasts: [],
-  add: (type, message, duration = 4000) => {
-    const id = `toast-${++toastId}`;
-    set((state) => ({
-      toasts: [...state.toasts, { id, type, message, duration }],
-    }));
-    if (duration > 0) {
-      setTimeout(() => get().remove(id), duration);
-    }
+  push: (message, type = 'info') => {
+    const id = ++seq;
+    set((s) => ({ toasts: [...s.toasts, { id, message, type }] }));
+    setTimeout(() => {
+      set((s) => ({ toasts: s.toasts.filter((t) => t.id !== id) }));
+    }, 3200);
   },
-  remove: (id) => set((state) => ({ toasts: state.toasts.filter((t) => t.id !== id) })),
-  success: (message) => get().add("success", message),
-  error: (message) => get().add("error", message, 6000),
-  info: (message) => get().add("info", message),
-  warning: (message) => get().add("warning", message, 5000),
+  remove: (id) => set((s) => ({ toasts: s.toasts.filter((t) => t.id !== id) })),
 }));

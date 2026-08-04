@@ -1,8 +1,0 @@
----
-layout: null
----
-{% assign base = site.data.site.pages_url | default: site.url %}
-User-agent: *
-Allow: /
-
-Sitemap: {{ base }}/sitemap.xml

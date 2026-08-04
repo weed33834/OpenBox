@@ -1,4 +1,0 @@
-source "https://rubygems.org"
-
-# Gem used by GitHub Pages auto-build; optional for local builds.
-gem "github-pages", group: :jekyll_plugins
