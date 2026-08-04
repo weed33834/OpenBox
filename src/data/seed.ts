@@ -46,7 +46,39 @@ function mapLegacy(s: Site): Resource | null {
   };
 }
 
+// ---- 免费中转站存活白名单（2026-08-04 HTTP 实跳验证）----
+// 原 sites.ts 中 160+ 个免费镜像/公益站已不可达（超时/404/关站），
+// 此类站点生命周期极短，仅保留经 curl -L 实测可访问的。
+const ALIVE_LEGACY_URLS = new Set([
+  'https://1.bixin123.com', 'https://1000zhen.com', 'https://4router.net',
+  'https://80aj.com', 'https://ai.huaibao.top', 'https://ai.huan666.de',
+  'https://ai.qaq.al', 'https://ai.wendabao.net', 'https://ai.wisech.com',
+  'https://aifast.com', 'https://aigc2d.com', 'https://aigcbar.com',
+  'https://aiproxy.best', 'https://aiproxy.io', 'https://anticode.cn',
+  'https://api.aizzz.xyz', 'https://api.bltcy.ai', 'https://api.gemai.cc',
+  'https://api.honglin.asia', 'https://api.lmuai.com', 'https://api.rcouyi.com',
+  'https://api.whatai.cc', 'https://api2d.com', 'https://api2gpt.com',
+  'https://apikeyfun.com', 'https://apinav.cc', 'https://apiyi.com',
+  'https://bailian.console.aliyun.com', 'https://cgs.skybyte.me/',
+  'https://chat5.aiyunos.top', 'https://chatgptplus.cn',
+  'https://chatz.free2gpt.com', 'https://clawapi.fulitimes.com',
+  'https://closeai.us', 'https://cloud.tencent.com/product/hunyuan',
+  'https://code.wenwen-ai.com', 'https://cubence.com',
+  'https://developers.cloudflare.com/workers-ai', 'https://duckllm.com',
+  'https://eapi.host', 'https://freeapi.ai', 'https://freeapi.chat',
+  'https://gemini.chat', 'https://gptapi.us', 'https://keylabs.ai',
+  'https://kimi.ai', 'https://new.uiuiapi.com', 'https://ohmygpt.com',
+  'https://oneapi.nsdd.top', 'https://openrouter.ai',
+  'https://platform.openai.com', 'https://ppn.apiyi.com',
+  'https://qwen.ai', 'https://replicate.com', 'https://siliconflow.cn',
+  'https://sora.chat', 'https://talentlms.com',
+  'https://tencentcloud.com', 'https://together.ai',
+  'https://vip.dckcloud.com', 'https://wzw.de5.net',
+  'https://xfyun.cn', 'https://zerooneai.com',
+]);
+
 const legacyResources: Resource[] = sites
+  .filter((s) => ALIVE_LEGACY_URLS.has(s.url))
   .map(mapLegacy)
   .filter((r): r is Resource => r !== null);
 
@@ -275,7 +307,7 @@ const curated: Resource[] = [
     description: 'HuggingChat 直接调用开源模型（如 Llama、Mistral），无需密钥。',
     tags: ['对话', '开源'], models: ['Llama', 'Mistral'], pros: ['真免费', '开源'],
   }),
-  mk('ai-apps', 'Kimi', 'https://kimi.moonshot.cn', {
+  mk('ai-apps', 'Kimi', 'https://kimi.com', {
     type: 'freemium', status: 'ok', official: true,
     summary: '月之暗面出品，长文本处理强。',
     description: 'Kimi 支持超长上下文，适合读论文、长文档总结。',
@@ -502,7 +534,7 @@ const curated: Resource[] = [
     description: 'OpenAI Cookbook 提供大量可运行示例，覆盖检索、微调、函数调用等。',
     tags: ['文档', '示例', '开源'], pros: ['权威', '实用'],
   }),
-  mk('learn', 'Anthropic 文档', 'https://docs.anthropic.com', {
+  mk('learn', 'Anthropic 文档', 'https://platform.claude.com/docs', {
     type: 'free', status: 'ok',
     summary: 'Claude 官方 API 与最佳实践文档。',
     description: 'Anthropic 文档详述提示工程、工具使用与模型能力边界。',
@@ -544,7 +576,7 @@ const curated: Resource[] = [
     description: '微软出品的生成式 AI 入门仓库，含示例与中文友好内容，适合系统学习。',
     tags: ['课程', '开源', '中文'], pros: ['体系全', '免费'],
   }),
-  mk('learn', 'Anthropic 提示工程教程', 'https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview', {
+  mk('learn', 'Anthropic 提示工程教程', 'https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview', {
     type: 'free', status: 'ok', official: true,
     summary: 'Claude 官方提示工程交互教程。',
     description: 'Anthropic 文档提供提示工程、工具调用与最佳实践的交互式教程。',
