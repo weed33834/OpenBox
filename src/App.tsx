@@ -34,38 +34,45 @@ function Router() {
     case 'favorites':
       return <FavoritesPage />;
     default:
+      // home / 未匹配 → 主页
       return <HomePage />;
   }
 }
 
 export default function App() {
   const route = useHashRoute();
-
-  // 引导页独立全屏，不渲染导航与页脚
-  if (route.name === 'landing') {
-    return (
-      <div className="flex min-h-[100dvh] flex-col">
-        <Router />
-        <ToastContainer />
-        <AuthModal />
-      </div>
-    );
-  }
+  const isLanding = route.name === 'landing';
 
   // 路由切换时滚动到顶部
   useEffect(() => {
-    window.scrollTo({ top: 0 });
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, [route.name, route.slug, route.id, route.q]);
 
   return (
     <div className="flex min-h-[100dvh] flex-col">
-      <NavBar />
-      <main className="container flex-1 py-6">
-        <div key={`${route.name}-${route.slug ?? ''}-${route.id ?? ''}`} className="route-fade">
+      {/* 导航栏：非引导页显示；首次进入时由上滑入 */}
+      {!isLanding && (
+        <div style={{ animation: 'slide-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both' }}>
+          <NavBar />
+        </div>
+      )}
+
+      {/* 内容区：引导页全屏无边距，内页标准容器。route-fade + key 驱动所有页面过渡 */}
+      <main className={`flex-1 ${isLanding ? '' : 'container py-6'}`}>
+        <div
+          key={`${route.name}-${route.slug ?? ''}-${route.id ?? ''}`}
+          style={{ animation: 'fade-in 0.28s ease-out both' }}
+        >
           <Router />
         </div>
       </main>
-      <Footer />
+
+      {!isLanding && (
+        <footer style={{ animation: 'fade-in 0.35s ease-out both', animationDelay: '0.1s' }}>
+          <Footer />
+        </footer>
+      )}
+
       <ToastContainer />
       <AuthModal />
     </div>
