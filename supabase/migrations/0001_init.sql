@@ -83,6 +83,11 @@ create table if not exists public.submissions (
 
 create index if not exists idx_submissions_status on public.submissions(status);
 
+-- 修复旧表结构：此前部分执行的残留表可能缺少 subType 列
+alter table public.submissions add column if not exists subType text not null default 'free-api';
+alter table public.submissions add column if not exists scenarios text[] default '{}';
+alter table public.submissions alter column subType drop default;
+
 -- ---------- 用户资料（未来登录预留）----------
 create table if not exists public.profiles (
   id         uuid primary key references auth.users(id) on delete cascade,
