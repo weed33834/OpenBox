@@ -143,3 +143,5 @@ create policy "favorites_all" on public.favorites for all
 -- 举报：任何登录用户可提交（未来登录）
 create policy "reports_insert" on public.reports for insert to authenticated with check (true);
 create policy "reports_read"   on public.reports for select to authenticated using (true);
+-- 匿名用户也可提交反馈报告（资源失效/链接错误等无需登录即可上报）
+create policy "reports_insert_anon" on public.reports for insert with check (true);

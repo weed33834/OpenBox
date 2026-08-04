@@ -191,6 +191,28 @@ export async function submitResource(
   }
 }
 
+/** 匿名反馈报告：写入 reports 表（无需登录） */
+export async function submitReport(
+  resourceId: string,
+  reason: string,
+  note?: string,
+): Promise<{ ok: boolean; message?: string }> {
+  if (!(hasSupabase && supabase)) {
+    return { ok: false, message: '反馈功能需要配置 Supabase' };
+  }
+  try {
+    const { error } = await supabase.from('reports').insert({
+      resource_id: resourceId,
+      reason: note ? `${reason} | ${note}` : reason,
+      created_at: new Date().toISOString(),
+    });
+    if (error) return { ok: false, message: error.message };
+    return { ok: true, message: '感谢反馈！' };
+  } catch {
+    return { ok: false, message: '提交失败，请稍后再试。' };
+  }
+}
+
 /** 当前数据模式（用于页脚提示「本地演示 / 已连接 Supabase」） */
 export function dataSourceMode(): 'supabase' | 'local' {
   return hasSupabase && supabase ? 'supabase' : 'local';

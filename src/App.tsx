@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useHashRoute } from '@/hooks/useHashRoute';
 import { NavBar } from '@/components/NavBar';
 import { Footer } from '@/components/Footer';
@@ -34,7 +34,6 @@ function Router() {
     case 'favorites':
       return <FavoritesPage />;
     default:
-      // home / 未匹配 → 主页
       return <HomePage />;
   }
 }
@@ -42,33 +41,64 @@ function Router() {
 export default function App() {
   const route = useHashRoute();
   const isLanding = route.name === 'landing';
+  const [showOverlay, setShowOverlay] = useState(false);
+  const prevKey = useRef('');
 
-  // 路由切换时滚动到顶部
+  // 路由切换时触发过渡图案并滚动到顶部
+  useEffect(() => {
+    const key = `${route.name}-${route.slug ?? ''}-${route.id ?? ''}`;
+    if (prevKey.current && prevKey.current !== key) {
+      setShowOverlay(true);
+      const t = setTimeout(() => setShowOverlay(false), 700);
+      return () => clearTimeout(t);
+    }
+    prevKey.current = key;
+  }, [route.name, route.slug, route.id]);
+
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, [route.name, route.slug, route.id, route.q]);
 
   return (
     <div className="flex min-h-[100dvh] flex-col">
+      {/* 路由切换过渡图案：OpenBox O 标志居中脉冲 */}
+      {showOverlay && (
+        <div
+          className="transition-overlay fixed inset-0 z-50 flex items-center justify-center"
+          style={{ background: 'var(--color-bg)' }}
+        >
+          <div
+            className="flex h-20 w-20 items-center justify-center rounded-2xl text-3xl font-black"
+            style={{
+              background: 'var(--color-primary)',
+              color: 'var(--color-primary-fg)',
+              animation: 'pulse-glow 1.2s ease-in-out infinite',
+            }}
+          >
+            O
+          </div>
+        </div>
+      )}
+
       {/* 导航栏：非引导页显示；首次进入时由上滑入 */}
       {!isLanding && (
-        <div style={{ animation: 'slide-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both' }}>
+        <div style={{ animation: 'slide-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both' }}>
           <NavBar />
         </div>
       )}
 
-      {/* 内容区：引导页全屏无边距，内页标准容器。route-fade + key 驱动所有页面过渡 */}
+      {/* 内容区：引导页全屏无边距，内页标准容器；key 驱动淡入过渡 */}
       <main className={`flex-1 ${isLanding ? '' : 'container py-6'}`}>
         <div
           key={`${route.name}-${route.slug ?? ''}-${route.id ?? ''}`}
-          style={{ animation: 'fade-in 0.28s ease-out both' }}
+          style={{ animation: 'fade-in 0.5s ease-out both' }}
         >
           <Router />
         </div>
       </main>
 
       {!isLanding && (
-        <footer style={{ animation: 'fade-in 0.35s ease-out both', animationDelay: '0.1s' }}>
+        <footer style={{ animation: 'fade-in 0.5s ease-out both', animationDelay: '0.15s' }}>
           <Footer />
         </footer>
       )}

@@ -32,11 +32,12 @@
   --font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
 
   /* 动画 */
-  --animate-fade-in: fade-in 0.3s ease-out both;
-  --animate-slide-up: slide-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-  --animate-card-in: card-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fade-in 0.6s ease-out both;
+  --animate-slide-up: slide-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-card-in: card-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-sheet-up: sheet-up 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-shimmer: shimmer 1.5s ease-in-out infinite;
+  --animate-pulse-glow: pulse-glow 1.2s ease-in-out infinite;
 }
 
 /* 暗色覆写 */
@@ -231,10 +232,10 @@
     display: inline-block;
   }
 
-  /* 入场动画（用 --i 传延迟） */
+  /* 入场动画（用 --i 传延迟，卡片依次入场，间隔放大到 40ms） */
   .card-in {
-    animation: card-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-    animation-delay: calc(var(--i, 0) * 12ms);
+    animation: card-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i, 0) * 40ms);
   }
 
   /* 骨架屏 */
@@ -250,9 +251,15 @@
     border-radius: 8px;
   }
 
-  /* 路由内容淡入 */
+  /* 路由内容淡入（较长，配合过渡图案） */
   .route-fade {
-    animation: fade-in 0.25s ease-out both;
+    animation: fade-in 0.6s ease-out both;
+  }
+
+  /* 路由切换过渡图案：OpenBox Logo 中心脉冲 */
+  .transition-overlay {
+    animation: fade-in 0.2s ease-out both, fade-out 0.3s ease-in 0.6s forwards;
+    pointer-events: none;
   }
 
   /* 底部抽屉（移动端筛选/详情） */
@@ -289,6 +296,14 @@
 @keyframes sheet-up {
   0% { transform: translateY(100%); }
   100% { transform: translateY(0); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+@keyframes fade-out {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

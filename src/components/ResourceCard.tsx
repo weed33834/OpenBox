@@ -1,11 +1,14 @@
 import type { CSSProperties } from 'react';
+import { useState } from 'react';
 import type { Resource } from '@/lib/types';
 import { useT, useLocalize } from '@/i18n/useI18n';
 import { navigate } from '@/hooks/useHashRoute';
 import { getSubType } from '@/data/taxonomy';
 import { useFavoritesStore } from '@/store/useFavoritesStore';
+import { submitReport } from '@/lib/data';
 import { Icon } from './Icon';
 import { StatusBadge, TypeBadge } from './Badge';
+import { ReportModal } from './ReportModal';
 
 export function ResourceCard({ resource, index = 0 }: { resource: Resource; index?: number }) {
   const t = useT();
@@ -13,6 +16,7 @@ export function ResourceCard({ resource, index = 0 }: { resource: Resource; inde
   const cat = getSubType(resource.subType);
   const fav = useFavoritesStore((s) => s.ids.includes(resource.id));
   const toggleFav = useFavoritesStore((s) => s.toggle);
+  const [showReport, setShowReport] = useState(false);
 
   return (
     <div
@@ -47,6 +51,14 @@ export function ResourceCard({ resource, index = 0 }: { resource: Resource; inde
         >
           <Icon name="Heart" size={18} fill={fav ? 'var(--color-primary)' : 'none'} color={fav ? 'var(--color-primary)' : undefined} />
         </button>
+        <button
+          onClick={(e) => { e.stopPropagation(); setShowReport(true); }}
+          aria-label={t('report.button')}
+          className="shrink-0 text-[var(--color-muted)] transition-colors hover:text-orange-500"
+          title={t('report.button')}
+        >
+          <Icon name="AlertTriangle" size={17} />
+        </button>
       </div>
 
       <p className="mt-3 line-clamp-2 text-sm text-[var(--color-muted)]">
@@ -72,6 +84,18 @@ export function ResourceCard({ resource, index = 0 }: { resource: Resource; inde
           {t('common.visit')}
         </a>
       </div>
+
+      {showReport && (
+        <ReportModal
+          resourceName={resource.name}
+          resourceId={resource.id}
+          onClose={() => setShowReport(false)}
+          onSubmit={async (id, reason, note) => {
+            const res = await submitReport(id, reason, note);
+            return res.ok;
+          }}
+        />
+      )}
     </div>
   );
 }
