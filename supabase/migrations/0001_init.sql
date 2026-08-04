@@ -118,30 +118,42 @@ alter table public.favorites  enable row level security;
 alter table public.reports    enable row level security;
 
 -- 分类：公开可读
+drop policy if exists "categories_read" on public.categories;
 create policy "categories_read" on public.categories for select using (true);
 
 -- 资源：公开可读（云端可编辑来源；写权限留给未来服务端/管理员）
+drop policy if exists "resources_read" on public.resources;
 create policy "resources_read"  on public.resources for select using (true);
 
 -- 投稿：
 --   任何人（含匿名 anon key）可插入 -> 进入审核队列
+drop policy if exists "submissions_insert" on public.submissions;
 create policy "submissions_insert" on public.submissions for insert with check (true);
 --   匿名用户仅可读取「已通过」的投稿（前端据此展示社区资源）
+drop policy if exists "submissions_read_public" on public.submissions;
 create policy "submissions_read_public" on public.submissions for select using (status = 'approved');
 --   登录用户可读取全部投稿（用于后台审核）
+drop policy if exists "submissions_read_auth" on public.submissions;
 create policy "submissions_read_auth" on public.submissions for select to authenticated using (true);
 
 -- 资料：用户仅访问/修改自己（未来登录）
+drop policy if exists "profiles_read" on public.profiles;
 create policy "profiles_read"   on public.profiles for select using (true);
+drop policy if exists "profiles_upsert" on public.profiles;
 create policy "profiles_upsert" on public.profiles for insert with check (auth.uid() = id);
+drop policy if exists "profiles_update" on public.profiles;
 create policy "profiles_update" on public.profiles for update using (auth.uid() = id);
 
 -- 收藏：用户仅操作自己（未来登录）
+drop policy if exists "favorites_all" on public.favorites;
 create policy "favorites_all" on public.favorites for all
   using (auth.uid() = user_id) with check (auth.uid() = user_id);
 
 -- 举报：任何登录用户可提交（未来登录）
+drop policy if exists "reports_insert" on public.reports;
 create policy "reports_insert" on public.reports for insert to authenticated with check (true);
+drop policy if exists "reports_read" on public.reports;
 create policy "reports_read"   on public.reports for select to authenticated using (true);
 -- 匿名用户也可提交反馈报告（资源失效/链接错误等无需登录即可上报）
+drop policy if exists "reports_insert_anon" on public.reports;
 create policy "reports_insert_anon" on public.reports for insert with check (true);
