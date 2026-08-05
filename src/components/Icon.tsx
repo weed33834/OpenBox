@@ -35,6 +35,7 @@ import {
   RefreshCw,
   Newspaper,
   Users,
+  ListOrdered,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -74,6 +75,7 @@ const MAP: Record<string, LucideIcon> = {
   RefreshCw,
   Newspaper,
   Users,
+  ListOrdered,
 };
 
 export function Icon({ name, size, ...props }: { name: string; size?: number } & SVGProps<SVGSVGElement>) {

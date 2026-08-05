@@ -9,6 +9,7 @@ import { submitReport } from '@/lib/data';
 import { Icon } from './Icon';
 import { StatusBadge, TypeBadge } from './Badge';
 import { ReportModal } from './ReportModal';
+import { VerifyWidget } from './VerifyWidget';
 
 /** 把 ISO 日期或短日期统一显示为 MM-DD（baipiao 式「更新 08-04」） */
 function fmtUpdatedAt(s?: string): string {
@@ -80,6 +81,10 @@ export function ResourceCard({ resource, index = 0 }: { resource: Resource; inde
             {tag}
           </span>
         ))}
+      </div>
+
+      <div className="mt-3">
+        <VerifyWidget resourceId={resource.id} />
       </div>
 
       <div className="mt-4 flex items-center gap-2">

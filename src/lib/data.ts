@@ -217,3 +217,92 @@ export async function submitReport(
 export function dataSourceMode(): 'supabase' | 'local' {
   return hasSupabase && supabase ? 'supabase' : 'local';
 }
+
+// ============================================================
+// 社区验证投票（参考 baipiao「还能不能薅」机制）
+// - Supabase 可用：投票写入 verifications 表，统计来自云端（跨用户共享）。
+// - 本地模式：投票记 localStorage，仅本设备可见（降级可用）。
+// - 本设备投票记录始终存 localStorage，用于防重复 + 乐观计数。
+// ============================================================
+export interface VerificationStats {
+  ok: number;
+  dead: number;
+  total: number;
+  lastAt: string | null;
+}
+
+const VKEY = 'ob_verifications';
+
+/** 读取本设备的投票记录（未投返回 null） */
+function localVote(resourceId: string): { result: 'ok' | 'dead'; at: string } | null {
+  try {
+    const m = JSON.parse(localStorage.getItem(VKEY) ?? '{}') as Record<string, { result: 'ok' | 'dead'; at: string }>;
+    return m[resourceId] ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/** 记录本设备投票 */
+function saveLocalVote(resourceId: string, result: 'ok' | 'dead') {
+  try {
+    const m = JSON.parse(localStorage.getItem(VKEY) ?? '{}') as Record<string, { result: 'ok' | 'dead'; at: string }>;
+    m[resourceId] = { result, at: new Date().toISOString() };
+    localStorage.setItem(VKEY, JSON.stringify(m));
+  } catch {
+    /* localStorage 不可用时静默降级 */
+  }
+}
+
+/** 提交一次验证投票：'ok'=还能用，'dead'=已失效 */
+export async function submitVerification(
+  resourceId: string,
+  result: 'ok' | 'dead',
+): Promise<{ ok: boolean; message?: string }> {
+  saveLocalVote(resourceId, result);
+  if (hasSupabase && supabase) {
+    try {
+      const { error } = await supabase
+        .from('verifications')
+        .insert({ resource_id: resourceId, result, created_at: new Date().toISOString() });
+      if (error) return { ok: false, message: error.message };
+    } catch {
+      /* 云端失败不阻塞：本地已记录，下次可重试 */
+    }
+  }
+  return { ok: true };
+}
+
+/** 读取某资源的验证统计（总票数 / 可用票 / 失效票 / 最近验证时间） */
+export async function getVerificationStats(resourceId: string): Promise<VerificationStats> {
+  const local = localVote(resourceId);
+  const base = { ok: 0, dead: 0, total: 0, lastAt: null as string | null };
+  // 本地票并入统计（乐观展示；云端模式也计入本设备这一次）
+  if (local) {
+    if (local.result === 'ok') base.ok += 1;
+    else base.dead += 1;
+    base.lastAt = local.at;
+  }
+  if (!(hasSupabase && supabase)) {
+    return { ...base, total: base.ok + base.dead };
+  }
+  try {
+    const { data, error } = await supabase
+      .from('verifications')
+      .select('result, created_at')
+      .eq('resource_id', resourceId);
+    if (error || !data) return { ...base, total: base.ok + base.dead };
+    const rows = data as { result: string; created_at: string }[];
+    let ok = base.ok;
+    let dead = base.dead;
+    let lastAt = base.lastAt;
+    for (const r of rows) {
+      if (r.result === 'ok') ok += 1;
+      else if (r.result === 'dead') dead += 1;
+      if (!lastAt || r.created_at > lastAt) lastAt = r.created_at;
+    }
+    return { ok, dead, total: ok + dead, lastAt };
+  } catch {
+    return { ...base, total: base.ok + base.dead };
+  }
+}

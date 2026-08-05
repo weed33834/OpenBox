@@ -108,6 +108,11 @@ const curated: Resource[] = [
     description: 'AI Studio 是体验 Gemini 系列最便捷入口，免费层提供 Flash 大模型与可观额度，支持函数调用与多模态输入。',
     tags: ['官方', '多模态', '海外'], models: ['Gemini 2.5/3 Flash', 'Gemini Pro'],
     pros: ['官方免费', '上下文长'], cons: ['区域限制'], tips: '免费版足够日常原型验证。',
+    steps: [
+      '打开 AI Studio 并用 Google 账号登录（免费），无需绑卡',
+      '左侧「Get API key」创建一个 API key（仅首次需要）',
+      '在 API 设置中选择可用区域，按 OpenAI 兼容格式调用 Gemini API 即可',
+    ],
   }),
   mk('free-api', 'Groq', 'https://groq.com', {
     type: 'freemium', status: 'ok', official: true,

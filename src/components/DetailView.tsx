@@ -6,6 +6,7 @@ import { useFavoritesStore } from '@/store/useFavoritesStore';
 import { useToastStore } from '@/store/useToastStore';
 import { Icon } from './Icon';
 import { StatusBadge, TypeBadge } from './Badge';
+import { VerifyWidget } from './VerifyWidget';
 
 function Field({ label, value }: { label: string; value?: string }) {
   if (!value) return null;
@@ -60,7 +61,30 @@ export function ResourceDetail({ resource }: { resource: Resource }) {
         )}
       </div>
 
+      {/* 社区验证投票（baipiao 式「还能不能薅」） */}
+      <div className="mt-4">
+        <VerifyWidget resourceId={resource.id} big />
+      </div>
+
       <p className="mt-4 text-sm leading-relaxed text-[var(--color-fg)]">{resource.description}</p>
+
+      {resource.steps?.length ? (
+        <div className="mt-5 rounded-xl border border-[var(--color-border)] p-3">
+          <p className="mb-2 flex items-center gap-1.5 text-sm font-semibold text-[var(--color-fg)]">
+            <Icon name="ListOrdered" size={15} /> {t('detail.steps')}
+          </p>
+          <ol className="space-y-1.5 text-sm text-[var(--color-muted)]">
+            {resource.steps.map((s, i) => (
+              <li key={i} className="flex gap-2">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary-soft)] text-xs font-semibold text-[var(--color-primary)]">
+                  {i + 1}
+                </span>
+                <span>{s}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ) : null}
 
       {(resource.pros?.length || resource.cons?.length) && (
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
