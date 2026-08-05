@@ -49,7 +49,7 @@ export default function App() {
     const key = `${route.name}-${route.slug ?? ''}-${route.id ?? ''}`;
     if (prevKey.current && prevKey.current !== key) {
       setShowOverlay(true);
-      const t = setTimeout(() => setShowOverlay(false), 700);
+      const t = setTimeout(() => setShowOverlay(false), 400);
       return () => clearTimeout(t);
     }
     prevKey.current = key;
@@ -61,19 +61,15 @@ export default function App() {
 
   return (
     <div className="flex min-h-[100dvh] flex-col">
-      {/* 路由切换过渡图案：OpenBox O 标志居中脉冲 */}
+      {/* 路由切换过渡图案：极简 O 标记，快速淡入淡出（去 AI 脉冲炫技） */}
       {showOverlay && (
         <div
           className="transition-overlay fixed inset-0 z-50 flex items-center justify-center"
           style={{ background: 'var(--color-bg)' }}
         >
           <div
-            className="flex h-20 w-20 items-center justify-center rounded-2xl text-3xl font-black"
-            style={{
-              background: 'var(--color-primary)',
-              color: 'var(--color-primary-fg)',
-              animation: 'pulse-glow 1.2s ease-in-out infinite',
-            }}
+            className="flex h-12 w-12 items-center justify-center rounded-lg text-xl font-bold"
+            style={{ background: 'var(--color-primary)', color: 'var(--color-primary-fg)' }}
           >
             O
           </div>

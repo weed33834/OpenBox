@@ -25,7 +25,7 @@ export function NavBar() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[color-mix(in_srgb,var(--color-bg)_85%,transparent)] backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-bg)]">
       <div className="container flex h-14 items-center gap-3">
         <Logo />
         <nav className="ml-2 hidden items-center gap-1 sm:flex">

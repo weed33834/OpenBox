@@ -10,6 +10,13 @@ import { Icon } from './Icon';
 import { StatusBadge, TypeBadge } from './Badge';
 import { ReportModal } from './ReportModal';
 
+/** 把 ISO 日期或短日期统一显示为 MM-DD（baipiao 式「更新 08-04」） */
+function fmtUpdatedAt(s?: string): string {
+  if (!s) return '';
+  const m = s.match(/^\d{4}-(\d{2}-\d{2})/);
+  return m ? m[1] : s.slice(0, 5);
+}
+
 export function ResourceCard({ resource, index = 0 }: { resource: Resource; index?: number }) {
   const t = useT();
   const localize = useLocalize();
@@ -76,6 +83,15 @@ export function ResourceCard({ resource, index = 0 }: { resource: Resource; inde
       </div>
 
       <div className="mt-4 flex items-center gap-2">
+        {resource.updatedAt && (
+          <span
+            className="mr-auto inline-flex items-center gap-1 text-xs text-[var(--color-muted)]"
+            title={resource.updatedAt}
+          >
+            <Icon name="Clock" size={13} />
+            {t('card.updated')} {fmtUpdatedAt(resource.updatedAt)}
+          </span>
+        )}
         <button className="btn btn-primary btn-sm" onClick={() => navigate(`/resource/${resource.id}`)}>
           {t('common.viewDetail')}
         </button>

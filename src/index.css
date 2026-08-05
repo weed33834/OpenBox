@@ -11,22 +11,24 @@
 }
 
 @theme {
-  /* ---- 语义化设计令牌（浅色为默认，.dark 下覆写） ---- */
-  --color-bg: #f6f7f9;
+  /* ---- 语义化设计令牌（浅色为默认，.dark 下覆写） ----
+     去 AI 味：弃用通用靛蓝 #4f46e5 / 冷灰 AI 渐变套路，
+     改用「暖纸墨 + 深青绿」——更接近内容型工具站（如 baipiao）的克制、务实观感。 */
+  --color-bg: #f6f5f2;
   --color-surface: #ffffff;
   --color-elevated: #ffffff;
-  --color-border: #e7e9ee;
-  --color-fg: #0f172a;
-  --color-muted: #64748b;
-  --color-primary: #4f46e5;
+  --color-border: #e7e4de;
+  --color-fg: #1b1d1f;
+  --color-muted: #6a7280;
+  --color-primary: #0f766e;
   --color-primary-fg: #ffffff;
-  --color-primary-soft: rgba(79, 70, 229, 0.08);
+  --color-primary-soft: rgba(15, 118, 110, 0.08);
 
-  /* 圆角与阴影 */
-  --radius-card: 16px;
+  /* 圆角与阴影：更紧的圆角 + 更硬的轻阴影（GitHub 卡片式），去掉大模糊浮空感 */
+  --radius-card: 12px;
   --radius-pill: 999px;
-  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px rgba(15, 23, 42, 0.06);
-  --shadow-card-hover: 0 2px 4px rgba(15, 23, 42, 0.06), 0 12px 32px rgba(15, 23, 42, 0.10);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-card-hover: 0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.08);
 
   /* 字体 */
   --font-sans: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
@@ -42,18 +44,18 @@
 
 /* 暗色覆写 */
 .dark {
-  --color-bg: #0b0f17;
-  --color-surface: #11161f;
-  --color-elevated: #161d29;
-  --color-border: #1f2733;
-  --color-fg: #e6edf3;
-  --color-muted: #94a3b8;
-  --color-primary: #818cf8;
-  --color-primary-fg: #0b0f17;
-  --color-primary-soft: rgba(129, 140, 248, 0.12);
+  --color-bg: #0d1117;
+  --color-surface: #161b22;
+  --color-elevated: #1c2128;
+  --color-border: #30363d;
+  --color-fg: #e6e6e3;
+  --color-muted: #8b949e;
+  --color-primary: #2dd4bf;
+  --color-primary-fg: #0d1117;
+  --color-primary-soft: rgba(45, 212, 191, 0.12);
 
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
-  --shadow-card-hover: 0 2px 4px rgba(0, 0, 0, 0.45), 0 12px 32px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 1px 2px rgba(0, 0, 0, 0.45), 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
 @layer base {
@@ -129,7 +131,7 @@
     padding: 0.55rem 1rem;
     font-size: 0.9rem;
     font-weight: 600;
-    border-radius: 10px;
+    border-radius: 8px;
     border: 1px solid transparent;
     cursor: pointer;
     transition: all 0.15s ease;
@@ -166,8 +168,7 @@
   }
   .card-hover:hover {
     box-shadow: var(--shadow-card-hover);
-    border-color: color-mix(in srgb, var(--color-primary) 40%, var(--color-border));
-    transform: translateY(-2px);
+    border-color: color-mix(in srgb, var(--color-fg) 18%, var(--color-border));
   }
 
   /* 输入框 */
@@ -176,7 +177,7 @@
     padding: 0.6rem 0.85rem;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: 10px;
+    border-radius: 8px;
     color: var(--color-fg);
     font-size: 0.95rem;
     transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -256,9 +257,9 @@
     animation: fade-in 0.6s ease-out both;
   }
 
-  /* 路由切换过渡图案：OpenBox Logo 中心脉冲 */
+  /* 路由切换过渡图案：极简快速淡入淡出（去 AI 脉冲炫技） */
   .transition-overlay {
-    animation: fade-in 0.2s ease-out both, fade-out 0.3s ease-in 0.6s forwards;
+    animation: fade-in 0.1s ease-out both, fade-out 0.22s ease-in 0.22s forwards;
     pointer-events: none;
   }
 
