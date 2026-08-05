@@ -103,6 +103,18 @@ export const subTypes: SubType[] = [
     },
     sort: 8,
   },
+  {
+    slug: 'charity',
+    name: { zh: '公益站', en: 'Charity', ja: '公益' },
+    icon: 'Heart',
+    color: '#ec4899',
+    description: {
+      zh: '个人/社区运营的免费 AI 网关与公益站：每日签到领额度，只认 CLI 客户端。',
+      en: 'Community-run free AI gateways & charity relays: daily check-in quotas, CLI-friendly.',
+      ja: '個人・コミュニティ運営の無料AIゲートウェイ：毎日ログインで枠取得、CLI推奨。',
+    },
+    sort: 9,
+  },
 ];
 
 // ---- 场景（分类树一级，例如 小白白嫖 / 开发者 / 研究者 / 创作者） ----
@@ -168,6 +180,7 @@ export const SUBTYPE_SCENARIOS: Record<string, string[]> = {
   learn: ['newbie', 'developer', 'researcher', 'creator'],
   'free-server': ['newbie', 'developer'],
   'free-domain': ['newbie', 'developer'],
+  charity: ['newbie', 'developer'],
 };
 
 // ---- 快捷映射 ----
