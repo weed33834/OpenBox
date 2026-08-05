@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useHashRoute } from '@/hooks/useHashRoute';
+import { useT } from '@/i18n/useI18n';
 import { NavBar } from '@/components/NavBar';
 import { MobileTabBar } from '@/components/MobileTabBar';
 import { PageLoader } from '@/components/PageLoader';
@@ -42,10 +43,28 @@ function Router() {
 
 export default function App() {
   const route = useHashRoute();
+  const t = useT();
   const isLanding = route.name === 'landing';
   const [showOverlay, setShowOverlay] = useState(false);
   const prevKey = useRef('');
   const overlayMs = useRef(1500);
+
+  // SEO：路由变化时同步 document.title（利于搜索引擎收录与分享预览）
+  useEffect(() => {
+    const nameMap: Record<string, string> = {
+      home: t('nav.home'),
+      search: t('nav.search'),
+      submit: t('nav.submit'),
+      favorites: t('nav.favorites'),
+      about: t('nav.about'),
+      category: t('nav.categories'),
+      scenario: t('nav.categories'),
+      resource: '资源详情',
+    };
+    if (!isLanding) {
+      document.title = `${nameMap[route.name] ?? 'OpenBox'} · OpenBox 开源 AI 资源导航`;
+    }
+  }, [route.name, route.slug, route.q, route.id, t, isLanding]);
 
   // 路由切换时触发过渡加载层（引导页→主站长 2.8s 品牌露出，页面间 1.5s）并滚动到顶部
   useEffect(() => {

@@ -112,6 +112,8 @@ export const dict: Record<Lang, Record<string, string>> = {
     'submit.submit': '提交投稿',
     'submit.success': '提交成功！',
     'submit.fail': '提交失败，请稍后重试。',
+    'submit.invalidUrl': '请输入有效的 http(s) 链接',
+    'submit.cooldown': '投稿太频繁，请稍后再试',
     'submit.note': '未配置 Supabase 时，投稿仅保存在本机浏览器，不会进入审核库。',
     'submit.required': '请填写名称、链接与简介。',
 
@@ -263,6 +265,8 @@ export const dict: Record<Lang, Record<string, string>> = {
     'submit.submit': 'Submit',
     'submit.success': 'Submitted!',
     'submit.fail': 'Submission failed, please retry.',
+    'submit.invalidUrl': 'Enter a valid http(s) link',
+    'submit.cooldown': 'Too many submissions, please wait',
     'submit.note': 'Without Supabase configured, submissions are stored only in this browser.',
     'submit.required': 'Name, URL and summary are required.',
 
@@ -414,6 +418,8 @@ export const dict: Record<Lang, Record<string, string>> = {
     'submit.submit': '投稿する',
     'submit.success': '投稿しました！',
     'submit.fail': '投稿に失敗しました。再度お試しください。',
+    'submit.invalidUrl': '有効な http(s) リンクを入力してください',
+    'submit.cooldown': '投稿が多すぎます。しばらくお待ちください',
     'submit.note': 'Supabase 未設定時は、投稿はこのブラウザ内のみ保存されます。',
     'submit.required': '名称・リンク・紹介の入力が必要です。',
 

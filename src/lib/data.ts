@@ -161,9 +161,23 @@ export type SubmitResult = {
   message?: string;
 };
 
+/** 投稿数据校验（前端 + 数据层双重防线，防垃圾/畸形提交） */
+function validateSubmission(p: Omit<Submission, 'id' | 'status' | 'createdAt'>): string | null {
+  const name = p.name?.trim() ?? '';
+  const url = p.url?.trim() ?? '';
+  const summary = p.summary?.trim() ?? '';
+  if (!name || name.length > 80) return '名称需 1–80 个字符';
+  if (!/^https?:\/\/[^\s]+\.[^\s]{2,}$/i.test(url) || url.length > 500) return '请输入有效的 http(s) 链接';
+  if (!summary || summary.length > 200) return '简介需 1–200 个字符';
+  if (p.description && p.description.length > 1000) return '详细描述最多 1000 个字符';
+  return null;
+}
+
 export async function submitResource(
   payload: Omit<Submission, 'id' | 'status' | 'createdAt'>,
 ): Promise<SubmitResult> {
+  const err = validateSubmission(payload);
+  if (err) return { ok: false, mode: 'local', message: err };
   if (hasSupabase && supabase) {
     const { data, error } = await supabase
       .from('submissions')
