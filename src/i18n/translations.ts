@@ -133,6 +133,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     'auth.loginSuccess': '登录成功',
     'auth.signupSuccess': '注册成功，如开启邮箱验证请查收确认邮件',
     'auth.logoutSuccess': '已退出登录',
+    'auth.signupNeedConfirm': '注册成功，请查收确认邮件后登录',
   },
   en: {
     'nav.home': 'Home',
@@ -264,6 +265,7 @@ export const dict: Record<Lang, Record<string, string>> = {
     'auth.loginSuccess': 'Signed in successfully',
     'auth.signupSuccess': 'Signed up! Check email if confirmation is enabled',
     'auth.logoutSuccess': 'Signed out',
+    'auth.signupNeedConfirm': 'Signed up! Please confirm your email to continue',
   },
   ja: {
     'nav.home': 'ホーム',
@@ -395,5 +397,6 @@ export const dict: Record<Lang, Record<string, string>> = {
     'auth.loginSuccess': 'ログインしました',
     'auth.signupSuccess': '登録しました。メール確認が有効な場合はご確認ください',
     'auth.logoutSuccess': 'ログアウトしました',
+    'auth.signupNeedConfirm': '登録しました。メール確認後にログインしてください',
   },
 };

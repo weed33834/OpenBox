@@ -2,10 +2,8 @@
 
 > 聚合 **AI 时代免费、可白嫖资源** 的开源导航站。一处收录、随时直达：免费 API、中转站、代理节点、AI 应用、实用工具与学习资料。
 
-🌐 **主站（GitHub Pages）**：[weed33834.github.io/OpenBox](https://weed33834.github.io/OpenBox/)
-🌐 **国内镜像（待启用）**：Gitee Pages（去 Gitee 仓库点「服务 → Gitee Pages → 启动」）→ [badhope.gitee.io/OpenBox](https://badhope.gitee.io/OpenBox/)
-🌐 **海外备用（Vercel）**：[open-box-eight.vercel.app](https://open-box-eight.vercel.app)
-📂 **仓库**：[GitCode](https://gitcode.com/badhope/OpenBox) · [GitHub](https://github.com/weed33834/OpenBox) · [Gitee](https://gitee.com/badhope/OpenBox)
+🌐 **主站（GitHub Pages · 海外）**：[weed33834.github.io/OpenBox](https://weed33834.github.io/OpenBox/)
+📂 **代码仓库**：[GitHub](https://github.com/weed33834/OpenBox)（主）· [GitCode](https://gitcode.com/badhope/OpenBox) · [Gitee](https://gitee.com/badhope/OpenBox)（镜像：仅同步代码，未启用 Pages）
 
 ---
 

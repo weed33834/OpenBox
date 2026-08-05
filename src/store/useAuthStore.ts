@@ -51,9 +51,16 @@ export const useAuthStore = create<AuthState>()((set) => ({
   signUp: async (email, password) => {
     if (!supabase) return;
     set({ error: null, loading: true });
-    const { error } = await supabase.auth.signUp({ email, password });
+    const { data, error } = await supabase.auth.signUp({ email, password });
     set({ loading: false });
     if (error) { set({ error: error.message }); return; }
+    // Supabase 开启「邮箱确认」时，注册成功但无会话：提示去查收邮件；
+    // 关闭「确认邮箱」时直接返回 session，可立即登录。
+    if (!data.session) {
+      set({ showAuth: false, error: null });
+      useToastStore.getState().push(authT('auth.signupNeedConfirm'), 'success');
+      return;
+    }
     set({ showAuth: false, error: null });
     useToastStore.getState().push(authT('auth.signupSuccess'), 'success');
   },
