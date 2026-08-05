@@ -59,6 +59,13 @@ export function HomePage() {
     return m;
   }, [resources]);
 
+  // 状态聚合（baipiao 式「现在还能不能薅」的全局一眼观感）
+  const statusCounts = useMemo(() => {
+    const m: Record<string, number> = {};
+    for (const r of resources) m[r.status] = (m[r.status] ?? 0) + 1;
+    return m;
+  }, [resources]);
+
   return (
     <div className="space-y-14">
       {/* 紧凑头部：标题 + 搜索 + 统计 */}
@@ -78,6 +85,26 @@ export function HomePage() {
           <span>·</span>
           <span>
             {tree.length} {t('nav.categories')}
+          </span>
+        </div>
+
+        {/* 状态聚合条：一眼看到「现在还能不能薅」（参考 baipiao 首页） */}
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm">
+          <span className="inline-flex items-center gap-1.5 font-medium text-[#10b981]">
+            <span className="status-dot" style={{ background: '#10b981' }} />
+            {statusCounts.ok ?? 0} {t('status.ok')}
+          </span>
+          <span className="inline-flex items-center gap-1.5 font-medium text-[#f59e0b]">
+            <span className="status-dot" style={{ background: '#f59e0b' }} />
+            {statusCounts.unstable ?? 0} {t('status.unstable')}
+          </span>
+          <span className="inline-flex items-center gap-1.5 font-medium text-[#ef4444]">
+            <span className="status-dot" style={{ background: '#ef4444' }} />
+            {statusCounts.dead ?? 0} {t('status.dead')}
+          </span>
+          <span className="inline-flex items-center gap-1.5 font-medium text-[var(--color-muted)]">
+            <span className="status-dot" style={{ background: '#94a3b8' }} />
+            {statusCounts.unknown ?? 0} {t('status.unknown')}
           </span>
         </div>
       </section>

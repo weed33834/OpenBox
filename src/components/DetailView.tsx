@@ -7,6 +7,7 @@ import { useToastStore } from '@/store/useToastStore';
 import { Icon } from './Icon';
 import { StatusBadge, TypeBadge } from './Badge';
 import { VerifyWidget } from './VerifyWidget';
+import { CommentsWidget } from './CommentsWidget';
 
 function Field({ label, value }: { label: string; value?: string }) {
   if (!value) return null;
@@ -143,6 +144,9 @@ export function ResourceDetail({ resource }: { resource: Resource }) {
           {fav ? t('detail.unfavorite') : t('detail.favorite')}
         </button>
       </div>
+
+      {/* 社区留言区（参考 baipiao BBS：分享经验/避坑，匿名可留） */}
+      <CommentsWidget resourceId={resource.id} />
     </>
   );
 }

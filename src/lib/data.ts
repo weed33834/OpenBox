@@ -306,3 +306,95 @@ export async function getVerificationStats(resourceId: string): Promise<Verifica
     return { ...base, total: base.ok + base.dead };
   }
 }
+
+// ============================================================
+// 资源留言（参考 baipiao 社区 BBS：每个资源一个轻量评论区）
+// - Supabase 可用：写入 comments 表（匿名可留、带昵称），跨用户共享。
+// - 本地模式：存 localStorage（ob_comments_{id}），仅本设备可见（降级可用）。
+// ============================================================
+export interface CommentItem {
+  id: string;
+  resourceId: string;
+  content: string;
+  nickname: string;
+  createdAt: string;
+}
+
+function localComments(resourceId: string): CommentItem[] {
+  try {
+    return JSON.parse(localStorage.getItem(`ob_comments_${resourceId}`) ?? '[]') as CommentItem[];
+  } catch {
+    return [];
+  }
+}
+
+function saveLocalComment(resourceId: string, item: CommentItem) {
+  try {
+    const list = localComments(resourceId);
+    list.unshift(item);
+    localStorage.setItem(`ob_comments_${resourceId}`, JSON.stringify(list.slice(0, 100)));
+  } catch {
+    /* ignore */
+  }
+}
+
+/** 读取某资源的留言列表（云端在前，本地兜底并集去重） */
+export async function getComments(resourceId: string): Promise<CommentItem[]> {
+  const local = localComments(resourceId);
+  if (!(hasSupabase && supabase)) return local;
+  try {
+    const { data, error } = await supabase
+      .from('comments')
+      .select('id, resource_id, content, nickname, created_at')
+      .eq('resource_id', resourceId)
+      .order('created_at', { ascending: false })
+      .limit(50);
+    if (error || !data) return local;
+    const cloud = (data as { id: string; resource_id: string; content: string; nickname: string | null; created_at: string }[]).map(
+      (r) => ({
+        id: r.id,
+        resourceId: r.resource_id,
+        content: r.content,
+        nickname: r.nickname ?? '匿名',
+        createdAt: r.created_at,
+      }),
+    );
+    const cloudIds = new Set(cloud.map((c) => c.id));
+    return [...cloud, ...local.filter((l) => !cloudIds.has(l.id))];
+  } catch {
+    return local;
+  }
+}
+
+/** 发表一条留言（昵称可选，默认匿名） */
+export async function addComment(
+  resourceId: string,
+  content: string,
+  nickname?: string,
+): Promise<{ ok: boolean; message?: string }> {
+  const nick = nickname?.trim() || '匿名';
+  const item: CommentItem = {
+    id: `local-${Date.now()}`,
+    resourceId,
+    content,
+    nickname: nick,
+    createdAt: new Date().toISOString(),
+  };
+  if (hasSupabase && supabase) {
+    try {
+      const { error } = await supabase
+        .from('comments')
+        .insert({ resource_id: resourceId, content, nickname: nick, created_at: item.createdAt });
+      if (error) {
+        saveLocalComment(resourceId, item);
+        return { ok: false, message: error.message };
+      }
+      return { ok: true };
+    } catch {
+      saveLocalComment(resourceId, item);
+      return { ok: true };
+    }
+  }
+  saveLocalComment(resourceId, item);
+  return { ok: true };
+}

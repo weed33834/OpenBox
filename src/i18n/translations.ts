@@ -91,6 +91,13 @@ export const dict: Record<Lang, Record<string, string>> = {
     'verify.cta': '薅到或踩坑了？投一票帮后来人确认',
     'verify.thanks': '感谢你的验证反馈',
 
+    'comments.title': '留言',
+    'comments.placeholder': '分享你的经验或避坑心得…',
+    'comments.nickname': '昵称（可选）',
+    'comments.submit': '发表',
+    'comments.empty': '还没有留言，来抢沙发',
+    'comments.added': '已发表',
+
     'submit.title': '投稿资源',
     'submit.subtitle': '发现好用的免费资源？提交给我们，审核通过后展示在全站。',
     'submit.name': '名称',
@@ -232,6 +239,13 @@ export const dict: Record<Lang, Record<string, string>> = {
     'verify.cta': 'Scored or stuck? Vote to help others',
     'verify.thanks': 'Thanks for your feedback',
 
+    'comments.title': 'Comments',
+    'comments.placeholder': 'Share your experience or tips…',
+    'comments.nickname': 'Nickname (optional)',
+    'comments.submit': 'Post',
+    'comments.empty': 'No comments yet — be the first',
+    'comments.added': 'Posted',
+
     'submit.title': 'Submit a resource',
     'submit.subtitle': 'Found something useful? Send it in and we will review it.',
     'submit.name': 'Name',
@@ -372,6 +386,13 @@ export const dict: Record<Lang, Record<string, string>> = {
     'verify.recent': '最終検証',
     'verify.cta': '手に入れた？それとも失敗？後続の人のために投票',
     'verify.thanks': 'フィードバックありがとう',
+
+    'comments.title': 'コメント',
+    'comments.placeholder': '経験や注意点をシェア…',
+    'comments.nickname': 'ニックネーム（任意）',
+    'comments.submit': '投稿',
+    'comments.empty': 'まだコメントはありません。一番乗りしよう',
+    'comments.added': '投稿しました',
 
     'submit.title': 'リソースを投稿',
     'submit.subtitle': '便利な無料リソースを見つけましたか？送信してください。確認後に掲載します。',
