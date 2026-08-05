@@ -1,112 +1,105 @@
 # OpenBox · 开源 AI 资源导航
 
-> 聚合 **AI 时代免费、可白嫖资源** 的开源导航站。一处收录、随时直达：免费 API、中转站、代理节点、AI 应用、实用工具与学习资料。
+> **社区驱动的开源免费资源导航站** —— 聚合 AI 时代免费、可白嫖的资源：免费 API、中转站、代理节点、免费服务器、免费域名、AI 应用、实用工具与学习资料。内容由社区投稿 + 集体验证 + 人工精选共同维护，一处收录、随时直达。
 
-🌐 **主站（GitHub Pages · 海外）**：[weed33834.github.io/OpenBox](https://weed33834.github.io/OpenBox/)
-📂 **代码仓库**：[GitHub](https://github.com/weed33834/OpenBox)（主）· [GitCode](https://gitcode.com/badhope/OpenBox) · [Gitee](https://gitee.com/badhope/OpenBox)（镜像：仅同步代码，未启用 Pages）
+![MIT](https://img.shields.io/badge/license-MIT-green) ![GitHub Pages](https://img.shields.io/badge/status-online-2ea44f) ![React](https://img.shields.io/badge/React-19-61dafb) ![Vite](https://img.shields.io/badge/Vite-8-646cff) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)
 
----
-
-## ✨ 定位与特性
-
-OpenBox 是一个**内容型合集导航平台**：
-
-- **统一资源模型**：免费 API、中转站、代理节点、AI 应用、实用工具、学习资源全部归入同一套 `Resource` 结构，通过 `subType`（子类型）+ `scenarios`（场景，可多归属）两个维度归类。
-- **两级分类**：一级「场景」— 小白白嫖 / 开发者 / 研究者 / 创作者；二级「子类型」— 免费 API / 中转站 / 代理节点 / AI 应用 / 工具 / 学习。分类由 `src/data/taxonomy.ts` 单一配置驱动。
-- **~150 个精选资源**：含官方 API、AI 应用、开发工具、学习课程等，定期维护更新。旧中转站经 HTTP 实跳验证，死链已过滤。
-- **三语界面**（zh / en / ja）：导航、分类、按钮全三语覆盖；分类/场景名用 `LocalizedText`（数据即多语）。
-- **收藏与投稿**：浏览器本地收藏；投稿在未接数据库时存本地草稿，接入 Supabase 后进入云端审核库。
-- **资源反馈**：每个卡片可一键反馈（资源失效 / 链接错误等），报告入库供审核。
-- **用户系统（可选）**：配置 Supabase 后开启登录/注册，收藏上云跨设备同步。
-- **全站过渡动画**：页面淡入、卡片交错入场、路由切换脉冲 Logo、导航栏滑入。
-- **明暗主题**：跟随系统，可手动切换（FOUC 已处理）。
+🌐 **主站（GitHub Pages）**：[weed33834.github.io/OpenBox](https://weed33834.github.io/OpenBox/) · 📂 **代码仓库**：[GitHub](https://github.com/weed33834/OpenBox)（主）· [GitCode](https://gitcode.com/badhope/OpenBox) · [Gitee](https://gitee.com/badhope/OpenBox)（镜像）
 
 ---
+
+## ✨ 这是什么
+
+OpenBox 是一个**社区化的内容型资源导航平台**：任何人都可以投稿新资源、对已有资源投"还能用/已失效"票、留言分享避坑经验、一键报告失效链接——**每一条资源的状态都由社区共同维护**，不是站长一个人的事。
+
+**内容构成（透明）**：
+- 🧑‍🤝‍🧑 **社区投稿**：站内投稿页提交，审核后展示
+- ✅ **集体验证**：每条资源可投「还能用 / 已失效」，显示「N 人验证 · 最近验证」时间
+- ✍️ **精选收录**：人工挑选的官方免费层、永久免费、稳定项目（含免费服务器/域名/公益站等 9 大分类）
+- 📊 **实跳审计**：全部外链定期真实请求验证，死链过滤/标注，拒绝"点过去没用"
+
+## 🎯 核心特性
+
+- **9 大分类 · 200+ 精选资源**：免费 API / 中转站 / 代理节点 / 免费服务器 VPS / 免费域名 / AI 应用 / 实用工具 / 学习资源 / 公益站，外加「小白白嫖 / 开发者 / 研究者 / 创作者」四场景交叉筛选
+- **社区验证投票**：每张卡片「👍还能用 / ⚠已失效」+「N 人验证 · 最近验证 MM-DD」，匿名可投、云端共享、本地兜底
+- **评论区**：每个资源一个轻量评论区，分享经验与避坑（匿名可留）
+- **一键反馈**：卡片右上角 ⚠ 报告资源失效/链接错误，入库供审核
+- **投稿审核**：投稿进审核库（pending → approved），杜绝垃圾；URL 白名单校验 + 60s 提交冷却 + 双端长度校验
+- **登录/收藏（可选）**：配置 Supabase 后开启注册即登录，收藏上云跨设备同步
+- **三语界面**（zh / en / ja）：分类名、界面、语录全三语，语言一键切换
+- **双视图浏览**：网格卡 / 信息密集列表行，偏好本地记忆
+- **移动端专属设计**：底部 Tab 导航、触控优化、safe-area 适配，不压缩桌面布局
+- **品牌过渡**：路由切换 1.5s / 引导页进站 2.8s 圆形光环 + Logo + 随机语录加载
+- **SEO 就绪**：动态标题、OG/Twitter 卡片、结构化数据（SearchAction + WebApplication）、sitemap/robots
 
 ## 🧱 技术栈
 
 | 层 | 选型 |
 |----|------|
 | 框架 | React 19 + TypeScript（严格模式） |
-| 构建 | Vite 8（base: `/OpenBox/`） |
+| 构建 | Vite 8（base: `/OpenBox/`，产物提交 `docs/` 由 Pages 从分支部署） |
 | 样式 | Tailwind CSS v4（`@theme` 语义令牌 + `.dark` 覆写） |
 | 状态 | Zustand + `persist`（主题 / 收藏 / 提示 / 语言 / 会话） |
-| 路由 | 原生 Hash 路由（10 个路由：引导页 / 首页 / 分类 / 场景 / 资源 / 搜索 / 投稿 / 关于 / 收藏 / 登录） |
-| 数据 | Supabase（可选）+ 本地种子兜底（双模切换） |
-| 后端 | Supabase BaaS（Auth / Database / RLS） |
+| 路由 | 原生 Hash 路由（引导 / 首页 / 分类 / 场景 / 资源 / 搜索 / 投稿 / 关于 / 收藏 / 登录） |
+| 后端 | Supabase BaaS（可选：Auth / Database / RLS，本地种子兜底） |
 | 图标 | lucide-react 1.27 |
-
----
 
 ## 🚀 本地开发
 
 ```bash
-# 安装依赖
 npm install --legacy-peer-deps
-
-# 启动开发服务器
-npm run dev
-# 打开 http://localhost:5173/OpenBox/
-
-# 生产构建
-npm run build       # tsc -b && vite build
-npm run preview     # 本地预览 dist/
+npm run dev        # 开发服务器 http://localhost:5173/OpenBox/
+npm run build      # tsc -b && vite build（输出 docs/）
+npm run preview    # 本地预览
 ```
 
-> ⚠️ 注意：项目 `base` 设为 `/OpenBox/`，开发/预览均需通过 `/OpenBox/` 路径访问。
-
----
+> ⚠️ 项目 `base` 为 `/OpenBox/`，开发/预览均需通过 `/OpenBox/` 路径访问。
 
 ## 🗂️ 项目结构
 
 ```
 src/
 ├─ main.tsx                 # 入口（ErrorBoundary + App）
-├─ App.tsx                  # 路由分发 + 全局布局 + 过渡动画
+├─ App.tsx                  # 路由分发 + 全局布局 + 过渡加载层 + 动态标题
 ├─ index.css                # 设计系统（令牌 / 组件类 / 关键帧动画）
-├─ components/              # 通用组件（20+：NavBar / Card / Badge / Modal / AuthModal 等）
+├─ components/              # 通用组件（NavBar / ResourceCard / ResourceRow / FeaturedCard /
+│                           #  PageLoader / MobileTabBar / VerifyWidget / CommentsWidget ...）
 ├─ pages/                   # 页面（10 个）
 ├─ store/                   # Zustand 状态（theme / auth / favorites / toast / i18n）
 ├─ hooks/useHashRoute.ts    # Hash 路由解析
-├─ i18n/                    # 轻量三语（zh / en / ja，60+ 键）
-├─ lib/
-│  ├─ types.ts              # 核心数据模型（Resource / SubType / Scenario / Submission）
-│  ├─ data.ts               # 数据访问层（Supabase + 本地兜底，单一入口）
-│  ├─ supabase.ts           # Supabase 客户端（无凭证自动关闭 + 占位符守卫）
-│  └─ format.ts             # 类型/状态展示元数据
+├─ i18n/                    # 三语字典（zh / en / ja）+ 站点语录池
+├─ lib/                     # 数据模型 / 数据访问层（Supabase + 本地兜底）/ 校验
 └─ data/
    ├─ taxonomy.ts           # 两级分类单一数据源（配置驱动）
-   ├─ sites.ts              # 旧中转站原始数据
-   ├─ seed.ts               # 精选条目 + 存活白名单过滤 → seedResources
+   ├─ baipiao.ts            # 参考站整理收录（105 条稳定内容，含来源标注）
+   ├─ sites.ts / seed.ts    # 旧数据映射 + 存活白名单过滤 → seedResources
    └─ weekly.ts             # 每周更新 / 账号动态
-supabase/migrations/
-   └─ 0001_init.sql         # 建表 + RLS 策略（含匿名反馈）
+supabase/migrations/        # 0001 基础表 / 0002 验证投票表 / 0003 评论表（均含 RLS）
 ```
 
----
+## 🔌 接入 Supabase（可选，开箱即用）
 
-## 🔌 接入 Supabase（可选）
-
-本地种子即可运行。启用云后端（投稿审核 + 登录 + 云端收藏 + 反馈）：
+本地种子即可完整运行。启用云后端（投稿审核 / 登录 / 云端收藏 / 反馈 / 投票 / 评论）：
 
 1. 在 [Supabase](https://supabase.com) 新建项目
-2. SQL Editor 执行 `supabase/migrations/0001_init.sql`
-3. 复制 `.env.example` 为 `.env`，填入 `VITE_SUPABASE_URL` 和 `VITE_SUPABASE_ANON_KEY`
-4. 重启开发服务器，`dataSourceMode()` 返回 `'supabase'`
-5. 如需登录，在 Supabase Authentication 启用 Email 提供商
+2. SQL Editor 依次执行 `supabase/migrations/0001_init.sql` → `0002_verifications.sql` → `0003_comments.sql`
+3. 复制 `.env.example` 为 `.env`，填入 `VITE_SUPABASE_URL` 与 `VITE_SUPABASE_ANON_KEY`（anon 可公开，受 RLS 保护；service_role 严禁入前端）
+4. Authentication → Email 关闭「Confirm email」实现注册即登录
 
 详见 `SUPABASE_SETUP.md`。
 
----
+## 🤝 参与社区（欢迎所有人）
 
-## 🤝 贡献
+OpenBox 是社区项目，**任何人都可以贡献，不需要会写代码**：
 
-- **提交资源**：站点内「投稿」页填写名称/链接/子类型/简介，接入 Supabase 后进入审核库
-- **反馈问题**：每个资源卡片右上角「⚠」按钮可一键报告失效/错误等问题
-- **代码**：Fork → 分支 → PR（GitCode）
-
----
+- 📤 **投稿资源**：站内「投稿」页填名称/链接/分类/简介 → 审核通过后全站展示
+- 🗳️ **验证资源**：薅到了投「还能用」、踩坑了投「已失效」——你的票直接更新社区状态
+- 💬 **留言避坑**：在资源详情页评论区分享你的使用经验
+- ⚠️ **报告问题**：资源失效/链接错误，卡片右上角一键上报
+- 🌍 **翻译**：三语界面，欢迎补充改进 zh / en / ja 文案
+- 🧑‍💻 **代码**：Fork → 分支 → PR（GitHub / GitCode），修 bug、加功能、提优化
+- 📢 **反馈建议**：任何想法都可以开 Issue 讨论
 
 ## 📄 许可
 
-MIT © badhope
+MIT © badhope —— 自由使用、修改、分发，欢迎二次开发与部署。
