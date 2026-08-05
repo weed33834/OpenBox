@@ -79,6 +79,30 @@ export const subTypes: SubType[] = [
     },
     sort: 6,
   },
+  {
+    slug: 'free-server',
+    name: { zh: '免费服务器/VPS', en: 'Free Servers/VPS', ja: '無料サーバー/VPS' },
+    icon: 'Server',
+    color: '#06b6d4',
+    description: {
+      zh: '云厂商免费额度与永久免费小鸡：AWS / Oracle / GCP / 免费托管等。',
+      en: 'Free cloud tiers & always-free VPS: AWS, Oracle, GCP, free hosting and more.',
+      ja: 'クラウド無料枠・永久無料VPS：AWS/Oracle/GCP/無料ホスティングなど。',
+    },
+    sort: 7,
+  },
+  {
+    slug: 'free-domain',
+    name: { zh: '免费域名', en: 'Free Domains', ja: '無料ドメイン' },
+    icon: 'Globe',
+    color: '#8b5cf6',
+    description: {
+      zh: 'eu.org 等老牌免费二级域名，可指 NS / 托管到 Cloudflare 解析。',
+      en: 'Long-standing free subdomains like eu.org — custom NS, Cloudflare-friendly.',
+      ja: 'eu.org 等の老舗無料サブドメイン。NS 指定・Cloudflare 連携可。',
+    },
+    sort: 8,
+  },
 ];
 
 // ---- 场景（分类树一级，例如 小白白嫖 / 开发者 / 研究者 / 创作者） ----
@@ -142,6 +166,8 @@ export const SUBTYPE_SCENARIOS: Record<string, string[]> = {
   'ai-apps': ['newbie', 'creator', 'researcher'],
   tools: ['developer', 'researcher', 'creator'],
   learn: ['newbie', 'developer', 'researcher', 'creator'],
+  'free-server': ['newbie', 'developer'],
+  'free-domain': ['newbie', 'developer'],
 };
 
 // ---- 快捷映射 ----
