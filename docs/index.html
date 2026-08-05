@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="manifest" href="./manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <!-- 防止主题闪烁（FOUC）：React 挂载前同步读取 localStorage(ob_theme) 并应用 .dark -->
+    <script>
+      (function () {
+        try {
+          var raw = localStorage.getItem('ob_theme');
+          var isDark = true;
+          if (raw) {
+            var parsed = JSON.parse(raw);
+            var t = parsed && parsed.state && parsed.state.theme;
+            if (t === 'light' || t === 'dark') isDark = t === 'dark';
+          } else {
+            isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          }
+          document.documentElement.classList.toggle('dark', isDark);
+        } catch (e) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+
+    <!-- Primary Meta -->
+    <title>OpenBox · 开源 AI 资源导航</title>
+    <meta name="description" content="OpenBox 聚合 AI 时代免费、可白嫖的实用资源：免费 API、中转站、代理节点、AI 应用、实用工具与学习资料。内容持续收录，一处直达。" />
+    <meta name="keywords" content="开源导航,AI资源,免费API,中转站,代理节点,AI应用,AI工具,学习资源,白嫖,OpenBox" />
+    <meta name="author" content="OpenBox" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="theme-color" content="#0b0f17" />
+    <link rel="canonical" href="https://weed33834.github.io/OpenBox/" />
+
+    <!-- hreflang -->
+    <link rel="alternate" hreflang="zh-Hans" href="https://weed33834.github.io/OpenBox/" />
+    <link rel="alternate" hreflang="en" href="https://weed33834.github.io/OpenBox/?lang=en" />
+    <link rel="alternate" hreflang="x-default" href="https://weed33834.github.io/OpenBox/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://weed33834.github.io/OpenBox/" />
+    <meta property="og:title" content="OpenBox · 开源 AI 资源导航" />
+    <meta property="og:description" content="聚合 AI 时代免费、可白嫖的实用资源：免费 API、中转站、代理节点、AI 应用、工具与学习资料。" />
+    <meta property="og:image" content="https://weed33834.github.io/OpenBox/og-image.jpg" />
+    <meta property="og:site_name" content="OpenBox" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://weed33834.github.io/OpenBox/" />
+    <meta name="twitter:title" content="OpenBox · 开源 AI 资源导航" />
+    <meta name="twitter:description" content="聚合 AI 时代免费、可白嫖的实用资源：免费 API、中转站、代理节点、AI 应用、工具与学习资料。" />
+    <meta name="twitter:image" content="https://weed33834.github.io/OpenBox/og-image.jpg" />
+
+    <!-- 字体：Inter + Noto Sans SC（系统中文字体兜底） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "OpenBox - 开源 AI 资源导航",
+      "url": "https://weed33834.github.io/OpenBox/",
+      "description": "聚合 AI 时代免费、可白嫖的实用资源：免费 API、中转站、代理节点、AI 应用、工具与学习资料。",
+      "inLanguage": ["zh-Hans", "en"]
+    }
+    </script>
+    <script type="module" crossorigin src="/OpenBox/assets/index-Dvyqd-va.js"></script>
+    <link rel="modulepreload" crossorigin href="/OpenBox/assets/rolldown-runtime-Bh1tDfsg.js">
+    <link rel="modulepreload" crossorigin href="/OpenBox/assets/icons-DHd0kxG0.js">
+    <link rel="modulepreload" crossorigin href="/OpenBox/assets/react-vendor-CGg_K4LO.js">
+    <link rel="modulepreload" crossorigin href="/OpenBox/assets/vendor-BnzXFYaO.js">
+    <link rel="modulepreload" crossorigin href="/OpenBox/assets/i18n-C6NHaWXW.js">
+    <link rel="modulepreload" crossorigin href="/OpenBox/assets/supabase-Cr9fOzIL.js">
+    <link rel="modulepreload" crossorigin href="/OpenBox/assets/sites-data-DugU7q-G.js">
+    <link rel="stylesheet" crossorigin href="/OpenBox/assets/index-0kxmrnQu.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

@@ -5,6 +5,9 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: '/OpenBox/',
   build: {
+    // 构建产物输出到 docs/，随 main 分支一起提交，供 GitHub Pages / Gitee Pages
+    // 以「从分支部署」方式直接读取（两者都只需 main 一个分支，无需 gh-pages）
+    outDir: 'docs',
     sourcemap: 'hidden',
     rollupOptions: {
       output: {

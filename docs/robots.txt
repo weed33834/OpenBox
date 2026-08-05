@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://weed33834.github.io/OpenBox/sitemap.xml

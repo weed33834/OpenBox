@@ -1,0 +1,20 @@
+{
+  "name": "OpenBox · 开源 AI 资源导航",
+  "short_name": "OpenBox",
+  "description": "聚合 AI 时代免费、可白嫖的开源资源导航：免费 API、中转站、代理节点、AI 应用、工具与学习资料。",
+  "start_url": "/OpenBox/",
+  "scope": "/OpenBox/",
+  "display": "standalone",
+  "background_color": "#0b0f17",
+  "theme_color": "#0b0f17",
+  "icons": [
+    {
+      "src": "/OpenBox/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "lang": "zh-CN",
+  "categories": ["productivity", "utilities"]
+}
