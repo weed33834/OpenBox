@@ -92,26 +92,7 @@ export function NavBar() {
         </div>
       </div>
 
-      {/* 移动端导航 */}
-      <nav className="flex items-center gap-1 overflow-x-auto px-3 pb-2 sm:hidden scrollbar-none">
-        {links.map((l) => {
-          const active = route.name === l.name;
-          return (
-            <a
-              key={l.name}
-              href={l.href}
-              onClick={(e) => {
-                e.preventDefault();
-                navigate(l.href.replace('#', ''));
-              }}
-              className={`chip ${active ? '' : ''}`}
-              data-active={active}
-            >
-              {l.label}
-            </a>
-          );
-        })}
-      </nav>
+      {/* 移动端导航已由 MobileTabBar（底部 Tab）承担，顶部仅保留 Logo 与控件 */}
     </header>
   );
 }

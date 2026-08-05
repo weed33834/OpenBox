@@ -5,6 +5,7 @@ import { getResources } from '@/lib/data';
 import { buildScenarioTree } from '@/data/taxonomy';
 import { SearchBox } from '@/components/SearchBox';
 import { CategoryCard } from '@/components/CategoryCard';
+import { FeaturedCard } from '@/components/FeaturedCard';
 import { ResourceList } from '@/components/ResourceList';
 import { Icon } from '@/components/Icon';
 import { navigate } from '@/hooks/useHashRoute';
@@ -109,13 +110,17 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* 精选推荐 */}
+      {/* 精选推荐：横幅大卡（与普通网格卡差异化） */}
       {featured.length > 0 && (
         <section>
           <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-[var(--color-fg)]">
             <Icon name="Star" size={18} className="text-[var(--color-primary)]" /> {t('home.featured')}
           </h2>
-          <ResourceList resources={featured} />
+          <div className="space-y-3">
+            {featured.map((r) => (
+              <FeaturedCard key={r.id} resource={r} />
+            ))}
+          </div>
         </section>
       )}
 

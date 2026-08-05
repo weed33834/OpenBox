@@ -37,6 +37,9 @@ import {
   Users,
   ListOrdered,
   MessageSquare,
+  Home,
+  LayoutGrid,
+  List,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -78,6 +81,9 @@ const MAP: Record<string, LucideIcon> = {
   Users,
   ListOrdered,
   MessageSquare,
+  Home,
+  LayoutGrid,
+  List,
 };
 
 export function Icon({ name, size, ...props }: { name: string; size?: number } & SVGProps<SVGSVGElement>) {

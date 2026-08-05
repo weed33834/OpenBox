@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useHashRoute } from '@/hooks/useHashRoute';
 import { NavBar } from '@/components/NavBar';
+import { MobileTabBar } from '@/components/MobileTabBar';
 import { Footer } from '@/components/Footer';
 import { ToastContainer } from '@/components/ToastContainer';
 import { AuthModal } from '@/components/AuthModal';
@@ -83,8 +84,8 @@ export default function App() {
         </div>
       )}
 
-      {/* 内容区：引导页全屏无边距，内页标准容器；key 驱动淡入过渡 */}
-      <main className={`flex-1 ${isLanding ? '' : 'container py-6'}`}>
+      {/* 内容区：引导页全屏无边距，内页标准容器；底部为移动端 Tab 预留空间 */}
+      <main className={`flex-1 ${isLanding ? '' : 'container py-6 pb-24 sm:pb-6'}`}>
         <div
           key={`${route.name}-${route.slug ?? ''}-${route.id ?? ''}`}
           style={{ animation: 'fade-in 0.5s ease-out both' }}
@@ -98,6 +99,9 @@ export default function App() {
           <Footer />
         </footer>
       )}
+
+      {/* 移动端底部导航（仅 sm 以下显示） */}
+      {!isLanding && <MobileTabBar />}
 
       <ToastContainer />
       <AuthModal />
