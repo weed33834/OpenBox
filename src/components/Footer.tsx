@@ -1,5 +1,6 @@
 import { useT } from '@/i18n/useI18n';
 import { Logo } from './Logo';
+import { Icon } from './Icon';
 import { dataSourceMode } from '@/lib/data';
 import { navigate } from '@/hooks/useHashRoute';
 
@@ -17,12 +18,27 @@ export function Footer() {
             {mode === 'supabase' ? t('common.dataSource.supabase') : t('common.dataSource.local')}
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-8 text-sm sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-8 text-sm sm:grid-cols-4">
           <div>
             <p className="mb-2 font-semibold text-[var(--color-fg)]">{t('about.title')}</p>
             <ul className="space-y-1.5 text-[var(--color-muted)]">
               <li><a className="hover:text-[var(--color-primary)]" href="#/submit" onClick={(e)=>{e.preventDefault();navigate('/submit');}}>{t('nav.submit')}</a></li>
               <li><a className="hover:text-[var(--color-primary)]" href="#/about" onClick={(e)=>{e.preventDefault();window.location.hash='/about';}}>{t('nav.about')}</a></li>
+            </ul>
+          </div>
+          <div>
+            <p className="mb-2 font-semibold text-[var(--color-fg)]">{t('footer.github')}</p>
+            <ul className="space-y-1.5 text-[var(--color-muted)]">
+              <li>
+                <a className="inline-flex items-center gap-1 hover:text-[var(--color-primary)]" href="https://github.com/weed33834/OpenBox" target="_blank" rel="noreferrer">
+                  <Icon name="GitBranch" size={13} /> {t('about.source')}
+                </a>
+              </li>
+              <li>
+                <a className="inline-flex items-center gap-1 hover:text-[var(--color-primary)]" href="https://github.com/weed33834/OpenBox/issues/new" target="_blank" rel="noreferrer">
+                  <Icon name="AlertTriangle" size={13} /> {t('about.issue')}
+                </a>
+              </li>
             </ul>
           </div>
           <div>

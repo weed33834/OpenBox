@@ -67,6 +67,9 @@ export function HomePage() {
     return m;
   }, [resources]);
 
+  // 状态占比（健康度条形图）
+  const pct = (n?: number) => (resources.length ? Math.round(((n ?? 0) / resources.length) * 100) : 0);
+
   return (
     <div className="space-y-14">
       {/* 紧凑头部：标题 + 搜索 + 统计 */}
@@ -107,6 +110,14 @@ export function HomePage() {
             <span className="status-dot" style={{ background: '#94a3b8' }} />
             {statusCounts.unknown ?? 0} {t('status.unknown')}
           </span>
+        </div>
+
+        {/* 状态分布健康度条形（各状态占比，一眼看全局） */}
+        <div className="mx-auto mt-5 flex h-2 w-full max-w-md overflow-hidden rounded-full bg-[var(--color-border)]">
+          <span className="h-full transition-all" style={{ width: `${pct(statusCounts.ok)}%`, background: '#10b981' }} />
+          <span className="h-full transition-all" style={{ width: `${pct(statusCounts.unstable)}%`, background: '#f59e0b' }} />
+          <span className="h-full transition-all" style={{ width: `${pct(statusCounts.dead)}%`, background: '#ef4444' }} />
+          <span className="h-full transition-all" style={{ width: `${pct(statusCounts.unknown)}%`, background: '#94a3b8' }} />
         </div>
       </section>
 

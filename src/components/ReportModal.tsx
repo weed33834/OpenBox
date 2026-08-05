@@ -101,6 +101,16 @@ export function ReportModal({ resourceName, resourceId, onClose, onSubmit }: Rep
             >
               {submitting ? '…' : t('report.submit')}
             </button>
+
+            {/* 反馈直达 GitHub：站内提交失败或想深入沟通时，一键跳转提 Issue */}
+            <a
+              className="mt-3 block text-center text-xs text-[var(--color-muted)] underline-offset-2 hover:text-[var(--color-primary)] hover:underline"
+              href={`https://github.com/weed33834/OpenBox/issues/new?title=${encodeURIComponent(`[反馈] ${resourceName}`)}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {t('report.githubIssue')}
+            </a>
           </>
         )}
       </div>
