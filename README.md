@@ -71,7 +71,7 @@ src/
 ├─ lib/                     # 数据模型 / 数据访问层（Supabase + 本地兜底）/ 校验
 └─ data/
    ├─ taxonomy.ts           # 两级分类单一数据源（配置驱动）
-   ├─ baipiao.ts            # 参考站整理收录（105 条稳定内容，含来源标注）
+   ├─ curated.ts            # 社区整理收录（105 条稳定内容）
    ├─ sites.ts / seed.ts    # 旧数据映射 + 存活白名单过滤 → seedResources
    └─ weekly.ts             # 每周更新 / 账号动态
 supabase/migrations/        # 0001 基础表 / 0002 验证投票表 / 0003 评论表（均含 RLS）

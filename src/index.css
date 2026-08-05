@@ -13,7 +13,7 @@
 @theme {
   /* ---- 语义化设计令牌（浅色为默认，.dark 下覆写） ----
      去 AI 味：弃用通用靛蓝 #4f46e5 / 冷灰 AI 渐变套路，
-     改用「暖纸墨 + 深青绿」——更接近内容型工具站（如 baipiao）的克制、务实观感。 */
+     改用「暖纸墨 + 深青绿」——更接近内容型工具站的克制、务实观感。 */
   --color-bg: #f6f5f2;
   --color-surface: #ffffff;
   --color-elevated: #ffffff;

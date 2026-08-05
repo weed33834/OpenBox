@@ -3,7 +3,7 @@
 import type { Resource, ResourceType } from '@/lib/types';
 import { SUBTYPE_SCENARIOS } from './taxonomy';
 import { sites, deriveFeatures, type Site } from './sites';
-import { baipiaoResources } from './baipiao';
+import { curatedResources } from './curated';
 
 // ---- 旧 Category -> 新 slug 映射（黑名单整体丢弃） ----
 const LEGACY_MAP: Record<string, string> = {
@@ -661,8 +661,8 @@ const curatedRanked: Resource[] = curated.map((r) => ({
   popularity: POPULARITY_BY_NAME[r.name] ?? 0,
 }));
 
-/** 全站种子资源（旧数据映射 + 新分类精选 + baipiao 移植 + 人气分） */
-export const seedResources: Resource[] = [...legacyResources, ...curatedRanked, ...baipiaoResources];
+/** 全站种子资源（旧数据映射 + 社区精选 + 人气分） */
+export const seedResources: Resource[] = [...legacyResources, ...curatedRanked, ...curatedResources];
 
 /** 统计各子类型资源数（用于首页卡片角标） */
 export function countBySubType(): Record<string, number> {

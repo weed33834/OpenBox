@@ -60,7 +60,7 @@ export function HomePage() {
     return m;
   }, [resources]);
 
-  // 状态聚合（baipiao 式「现在还能不能薅」的全局一眼观感）
+  // 状态聚合（「现在还能不能薅」的全局一眼观感）
   const statusCounts = useMemo(() => {
     const m: Record<string, number> = {};
     for (const r of resources) m[r.status] = (m[r.status] ?? 0) + 1;
@@ -92,7 +92,7 @@ export function HomePage() {
           </span>
         </div>
 
-        {/* 状态聚合条：一眼看到「现在还能不能薅」（参考 baipiao 首页） */}
+        {/* 状态聚合条：一眼看到「现在还能不能薅」（全站健康度） */}
         <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm">
           <span className="inline-flex items-center gap-1.5 font-medium text-[#10b981]">
             <span className="status-dot" style={{ background: '#10b981' }} />

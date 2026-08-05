@@ -11,7 +11,7 @@ import { StatusBadge, TypeBadge } from './Badge';
 import { ReportModal } from './ReportModal';
 import { VerifyWidget } from './VerifyWidget';
 
-/** 把 ISO 日期或短日期统一显示为 MM-DD（baipiao 式「更新 08-04」） */
+/** 把 ISO 日期或短日期统一显示为 MM-DD（「更新 08-04」） */
 function fmtUpdatedAt(s?: string): string {
   if (!s) return '';
   const m = s.match(/^\d{4}-(\d{2}-\d{2})/);

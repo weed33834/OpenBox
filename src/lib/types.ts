@@ -84,7 +84,7 @@ export interface Resource {
   cons?: string[];
   /** 使用建议（详情页） */
   tips?: string;
-  /** 分步获取教程（详情页「怎么领」，参考 baipiao 攻略结构） */
+  /** 分步获取教程（详情页「怎么领」，攻略式结构） */
   steps?: string[];
   /** 是否官方出品 */
   official?: boolean;

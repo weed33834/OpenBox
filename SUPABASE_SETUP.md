@@ -16,11 +16,16 @@
 ## 二、初始化数据库
 
 1. 进入项目控制台 → **SQL Editor** → **New query**。
-2. 将本仓库 `supabase/migrations/0001_init.sql` 的全部内容粘贴进去。
-3. 点击 **Run** 执行。看到 `Success` 即完成建表与 RLS 策略。
+2. 按顺序依次执行本仓库 `supabase/migrations/` 下的三个迁移文件（每段 Run 一次）：
+   1. `0001_init.sql` — 基础表（投稿 / 资源 / 分类 / 用户 / 收藏 / 反馈 + RLS）
+   2. `0002_verifications.sql` — 社区验证投票表（匿名可投"还能用/已失效"）
+   3. `0003_comments.sql` — 资源评论区表（匿名可留言，带昵称）
+3. 每次执行看到 `Success` 即完成对应建表与 RLS 策略。
 
 表结构说明：
 - `submissions`：社区投稿（核心）。匿名可插入、匿名仅可读 `approved`、登录用户可读全部（用于审核）。
+- `verifications`：社区验证投票。任何人可匿名投「还能用 / 已失效」并读统计，驱动卡片上「N 人验证 · 最近验证」。
+- `comments`：资源评论区。匿名可留言（昵称可选），按资源聚合展示。
 - `resources` / `categories`：云端可编辑资源来源（预留，当前前端默认用本地种子）。
 - `profiles` / `favorites` / `reports`：登录功能预留，当前 `AUTH_ENABLED=false` 时不使用。
 

@@ -62,7 +62,7 @@ export function ResourceDetail({ resource }: { resource: Resource }) {
         )}
       </div>
 
-      {/* 社区验证投票（baipiao 式「还能不能薅」） */}
+      {/* 社区验证投票（「还能不能薅」） */}
       <div className="mt-4">
         <VerifyWidget resourceId={resource.id} big />
       </div>
@@ -145,7 +145,7 @@ export function ResourceDetail({ resource }: { resource: Resource }) {
         </button>
       </div>
 
-      {/* 社区留言区（参考 baipiao BBS：分享经验/避坑，匿名可留） */}
+      {/* 社区留言区（社区式：分享经验/避坑，匿名可留） */}
       <CommentsWidget resourceId={resource.id} />
     </>
   );

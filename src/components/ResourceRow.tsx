@@ -19,7 +19,7 @@ function fmtDate(s?: string): string {
 }
 
 /**
- * 列表行形态（baipiao 式信息密集行）：横向图标 + 标题/徽章/标签/摘要 + 底部操作。
+ * 列表行形态（信息密集行）：横向图标 + 标题/徽章/标签/摘要 + 底部操作。
  * 与 ResourceCard（网格卡）并存，由 ResourceList 的「网格/列表」视图切换使用。
  */
 export function ResourceRow({ resource, index = 0 }: { resource: Resource; index?: number }) {

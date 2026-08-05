@@ -233,7 +233,7 @@ export function dataSourceMode(): 'supabase' | 'local' {
 }
 
 // ============================================================
-// 社区验证投票（参考 baipiao「还能不能薅」机制）
+// 社区验证投票（「还能不能薅」社区验证机制）
 // - Supabase 可用：投票写入 verifications 表，统计来自云端（跨用户共享）。
 // - 本地模式：投票记 localStorage，仅本设备可见（降级可用）。
 // - 本设备投票记录始终存 localStorage，用于防重复 + 乐观计数。
@@ -322,7 +322,7 @@ export async function getVerificationStats(resourceId: string): Promise<Verifica
 }
 
 // ============================================================
-// 资源留言（参考 baipiao 社区 BBS：每个资源一个轻量评论区）
+// 资源留言（社区式：每个资源一个轻量评论区）
 // - Supabase 可用：写入 comments 表（匿名可留、带昵称），跨用户共享。
 // - 本地模式：存 localStorage（ob_comments_{id}），仅本设备可见（降级可用）。
 // ============================================================

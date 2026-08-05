@@ -19,7 +19,7 @@ function loadView(): ViewMode {
 }
 
 /**
- * 资源列表：支持「网格卡 / 信息密集列表行」两种形态（baipiao 式差异化），
+ * 资源列表：支持「网格卡 / 信息密集列表行」两种形态（差异化），
  * 视图偏好本地记忆；移动端网格单列、列表行自然纵向，不做强制压缩。
  */
 export function ResourceList({ resources, loading = false, allowViewSwitch = true }: { resources: Resource[]; loading?: boolean; allowViewSwitch?: boolean }) {

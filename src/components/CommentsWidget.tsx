@@ -16,7 +16,7 @@ function fmtTime(s: string): string {
 }
 
 /**
- * 资源评论区（参考 baipiao 社区：薅到/踩坑在此分享，帮后来人避坑）。
+ * 资源评论区（社区式：薅到/踩坑在此分享，帮后来人避坑）。
  * 匿名可留言（昵称可选），云端共享 + localStorage 兜底。
  */
 export function CommentsWidget({ resourceId }: { resourceId: string }) {
