@@ -10,6 +10,7 @@ export type RouteName =
   | 'submit'
   | 'about'
   | 'favorites'
+  | 'ranking'
   | 'notfound';
 
 export interface Route {
@@ -51,6 +52,8 @@ export function parseHash(): Route {
       return { name: 'about' };
     case 'favorites':
       return { name: 'favorites' };
+    case 'ranking':
+      return { name: 'ranking' };
     default:
       return { name: 'home' };
   }

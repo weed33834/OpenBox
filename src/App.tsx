@@ -16,6 +16,7 @@ import { ResourcePage } from '@/pages/ResourcePage';
 import { SubmitPage } from '@/pages/SubmitPage';
 import { AboutPage } from '@/pages/AboutPage';
 import { FavoritesPage } from '@/pages/FavoritesPage';
+import { RankingPage } from '@/pages/RankingPage';
 
 function Router() {
   const route = useHashRoute();
@@ -36,6 +37,8 @@ function Router() {
       return <AboutPage />;
     case 'favorites':
       return <FavoritesPage />;
+    case 'ranking':
+      return <RankingPage />;
     default:
       return <HomePage />;
   }

@@ -19,6 +19,7 @@ export function NavBar() {
 
   const links: { name: RouteName; label: string; href: string }[] = [
     { name: 'home', label: t('nav.home'), href: '#/home' },
+    { name: 'ranking', label: t('nav.ranking'), href: '#/ranking' },
     { name: 'submit', label: t('nav.submit'), href: '#/submit' },
     { name: 'favorites', label: t('nav.favorites'), href: '#/favorites' },
     { name: 'about', label: t('nav.about'), href: '#/about' },
