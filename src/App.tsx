@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useHashRoute } from '@/hooks/useHashRoute';
 import { NavBar } from '@/components/NavBar';
 import { MobileTabBar } from '@/components/MobileTabBar';
+import { PageLoader } from '@/components/PageLoader';
 import { Footer } from '@/components/Footer';
 import { ToastContainer } from '@/components/ToastContainer';
 import { AuthModal } from '@/components/AuthModal';
@@ -44,13 +45,15 @@ export default function App() {
   const isLanding = route.name === 'landing';
   const [showOverlay, setShowOverlay] = useState(false);
   const prevKey = useRef('');
+  const overlayMs = useRef(1500);
 
-  // 路由切换时触发过渡图案并滚动到顶部
+  // 路由切换时触发过渡加载层（引导页→主站长 2.8s 品牌露出，页面间 1.5s）并滚动到顶部
   useEffect(() => {
     const key = `${route.name}-${route.slug ?? ''}-${route.id ?? ''}`;
     if (prevKey.current && prevKey.current !== key) {
+      overlayMs.current = prevKey.current.startsWith('landing') && route.name !== 'landing' ? 2800 : 1500;
       setShowOverlay(true);
-      const t = setTimeout(() => setShowOverlay(false), 400);
+      const t = setTimeout(() => setShowOverlay(false), overlayMs.current);
       return () => clearTimeout(t);
     }
     prevKey.current = key;
@@ -62,20 +65,8 @@ export default function App() {
 
   return (
     <div className="flex min-h-[100dvh] flex-col">
-      {/* 路由切换过渡图案：极简 O 标记，快速淡入淡出（去 AI 脉冲炫技） */}
-      {showOverlay && (
-        <div
-          className="transition-overlay fixed inset-0 z-50 flex items-center justify-center"
-          style={{ background: 'var(--color-bg)' }}
-        >
-          <div
-            className="flex h-12 w-12 items-center justify-center rounded-lg text-xl font-bold"
-            style={{ background: 'var(--color-primary)', color: 'var(--color-primary-fg)' }}
-          >
-            O
-          </div>
-        </div>
-      )}
+      {/* 路由切换过渡加载层：圆形光环 + Logo + 语录（品牌露出） */}
+      {showOverlay && <PageLoader />}
 
       {/* 导航栏：非引导页显示；首次进入时由上滑入 */}
       {!isLanding && (
