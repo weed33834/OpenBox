@@ -4,7 +4,7 @@
 
 ![MIT](https://img.shields.io/badge/license-MIT-green) ![GitHub Pages](https://img.shields.io/badge/status-online-2ea44f) ![React](https://img.shields.io/badge/React-19-61dafb) ![Vite](https://img.shields.io/badge/Vite-8-646cff) ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)
 
-🌐 **主站（GitHub Pages）**：[weed33834.github.io/OpenBox](https://weed33834.github.io/OpenBox/) · 📂 **代码仓库**：[GitHub](https://github.com/weed33834/OpenBox)（主）· [GitCode](https://gitcode.com/badhope/OpenBox) · [Gitee](https://gitee.com/badhope/OpenBox)（镜像）
+🌐 **主站（GitHub Pages）**：[intelvor.github.io/OpenBox](https://intelvor.github.io/OpenBox/) · 📂 **代码仓库**：[GitHub](https://github.com/Intelvor/OpenBox)
 
 ---
 
@@ -90,7 +90,7 @@ supabase/migrations/        # 0001 基础表 / 0002 验证投票表 / 0003 评�
 
 ## 🤝 参与社区（欢迎所有人）
 
-OpenBox 是社区项目，**任何人都可以贡献，不需要会写代码**：
+OpenBox 是社区项目，**任何人都可以贡献，不需要会写代码**。详细的操作规范请参阅 [CONTRIBUTING.md](./CONTRIBUTING.md)，内含 AI 也能执行的标准操作流程。
 
 - 📤 **投稿资源**：站内「投稿」页填名称/链接/分类/简介 → 审核通过后全站展示
 - 🗳️ **验证资源**：薅到了投「还能用」、踩坑了投「已失效」——你的票直接更新社区状态
