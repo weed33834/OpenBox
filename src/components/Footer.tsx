@@ -30,12 +30,12 @@ export function Footer() {
             <p className="mb-2 font-semibold text-[var(--color-fg)]">{t('footer.github')}</p>
             <ul className="space-y-1.5 text-[var(--color-muted)]">
               <li>
-                <a className="inline-flex items-center gap-1 hover:text-[var(--color-primary)]" href="https://github.com/weed33834/OpenBox" target="_blank" rel="noreferrer">
+                <a className="inline-flex items-center gap-1 hover:text-[var(--color-primary)]" href="https://github.com/Intelvor/OpenBox" target="_blank" rel="noreferrer">
                   <Icon name="GitBranch" size={13} /> {t('about.source')}
                 </a>
               </li>
               <li>
-                <a className="inline-flex items-center gap-1 hover:text-[var(--color-primary)]" href="https://github.com/weed33834/OpenBox/issues/new" target="_blank" rel="noreferrer">
+                <a className="inline-flex items-center gap-1 hover:text-[var(--color-primary)]" href="https://github.com/Intelvor/OpenBox/issues/new" target="_blank" rel="noreferrer">
                   <Icon name="AlertTriangle" size={13} /> {t('about.issue')}
                 </a>
               </li>

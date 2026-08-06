@@ -2,10 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://weed33834.github.io/OpenBox/</loc>
-    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://weed33834.github.io/OpenBox/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://weed33834.github.io/OpenBox/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://weed33834.github.io/OpenBox/"/>
+    <loc>https://intelvor.github.io/OpenBox/</loc>
+    <xhtml:link rel="alternate" hreflang="zh-Hans" href="https://intelvor.github.io/OpenBox/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://intelvor.github.io/OpenBox/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://intelvor.github.io/OpenBox/"/>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <lastmod>2026-08-03</lastmod>

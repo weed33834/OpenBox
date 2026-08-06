@@ -5,7 +5,7 @@
   "description": "OpenBox · 开源 AI 资源导航 — 聚合免费 API、中转站、代理节点、AI 应用、工具与学习资料。三语界面、支持登录云同步与匿名反馈。",
   "license": "MIT",
   "type": "module",
-  "author": "badhope",
+  "author": "Intelvor Team",
   "keywords": [
     "AI资源",
     "免费API",
@@ -20,11 +20,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://gitcode.com/badhope/OpenBox.git"
+    "url": "https://github.com/Intelvor/OpenBox.git"
   },
-  "homepage": "https://weed33834.github.io/OpenBox/",
+  "homepage": "https://intelvor.github.io/OpenBox/",
   "bugs": {
-    "url": "https://gitcode.com/badhope/OpenBox/issues"
+    "url": "https://github.com/Intelvor/OpenBox/issues"
   },
   "scripts": {
     "dev": "vite",

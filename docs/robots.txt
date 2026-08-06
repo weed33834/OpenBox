@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://weed33834.github.io/OpenBox/sitemap.xml
+Sitemap: https://intelvor.github.io/OpenBox/sitemap.xml
