@@ -22,7 +22,7 @@ export function SearchBox({
 
   return (
     <form
-      className={big ? 'card flex items-center gap-2 p-2' : 'flex items-center gap-2'}
+      className={big ? 'card flex flex-col gap-2 p-2 sm:flex-row sm:items-center' : 'flex items-center gap-2'}
       onSubmit={(e) => {
         e.preventDefault();
         submit();
@@ -40,7 +40,7 @@ export function SearchBox({
           onChange={(e) => setQ(e.target.value)}
         />
       </div>
-      <button className="btn btn-primary btn-sm" type="submit">
+      <button className="btn btn-primary btn-sm w-full sm:w-auto" type="submit">
         {t('common.search')}
       </button>
     </form>

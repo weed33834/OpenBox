@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenBox 响应式测试</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 0; font-family: -apple-system, system-ui, sans-serif; background: #0a0e14; color: #e6e6e6; }
+  h1 { padding: 16px; margin: 0; background: #11151c; color: #5eead4; font-size: 16px; }
+  h2 { padding: 8px 16px; margin: 0; background: #1a1f2a; color: #9aa4b2; font-size: 12px; font-weight: 500; }
+  .row { display: flex; flex-wrap: wrap; gap: 16px; padding: 16px; align-items: flex-start; }
+  .frame { background: #11151c; border: 1px solid #2a313c; border-radius: 10px; padding: 8px; }
+  .label { font-size: 11px; color: #9aa4b2; margin-bottom: 6px; font-weight: 500; }
+  .label .size { color: #5eead4; font-weight: 700; }
+  iframe { display: block; border: 0; background: #fff; border-radius: 6px; }
+</style>
+</head>
+<body>
+<h1>📱 OpenBox 响应式适配测试</h1>
+
+<h2>引导页 Landing — 各尺寸</h2>
+<div class="row">
+  <div class="frame">
+    <div class="label"><span class="size">320</span> · iPhone SE 1st</div>
+    <iframe src="./" width="320" height="640"></iframe>
+  </div>
+  <div class="frame">
+    <div class="label"><span class="size">360</span> · 主流 Android</div>
+    <iframe src="./" width="360" height="640"></iframe>
+  </div>
+  <div class="frame">
+    <div class="label"><span class="size">390</span> · iPhone 13/14</div>
+    <iframe src="./" width="390" height="640"></iframe>
+  </div>
+  <div class="frame">
+    <div class="label"><span class="size">414</span> · iPhone Plus</div>
+    <iframe src="./" width="414" height="640"></iframe>
+  </div>
+</div>
+
+<h2>首页 Home — 各尺寸</h2>
+<div class="row">
+  <div class="frame">
+    <div class="label"><span class="size">320</span> · 首页</div>
+    <iframe src="./#/home" width="320" height="900"></iframe>
+  </div>
+  <div class="frame">
+    <div class="label"><span class="size">360</span> · 首页</div>
+    <iframe src="./#/home" width="360" height="900"></iframe>
+  </div>
+  <div class="frame">
+    <div class="label"><span class="size">390</span> · 首页</div>
+    <iframe src="./#/home" width="390" height="900"></iframe>
+  </div>
+  <div class="frame">
+    <div class="label"><span class="size">414</span> · 首页</div>
+    <iframe src="./#/home" width="414" height="900"></iframe>
+  </div>
+</div>
+
+<h2>排行榜 Ranking — 各尺寸</h2>
+<div class="row">
+  <div class="frame">
+    <div class="label"><span class="size">320</span> · 排行榜</div>
+    <iframe src="./#/ranking" width="320" height="900"></iframe>
+  </div>
+  <div class="frame">
+    <div class="label"><span class="size">360</span> · 排行榜</div>
+    <iframe src="./#/ranking" width="360" height="900"></iframe>
+  </div>
+  <div class="frame">
+    <div class="label"><span class="size">390</span> · 排行榜</div>
+    <iframe src="./#/ranking" width="390" height="900"></iframe>
+  </div>
+  <div class="frame">
+    <div class="label"><span class="size">414</span> · 排行榜</div>
+    <iframe src="./#/ranking" width="414" height="900"></iframe>
+  </div>
+</div>
+
+<h2>搜索/分类/关于/投稿 — 360 主流</h2>
+<div class="row">
+  <div class="frame">
+    <div class="label"><span class="size">360</span> · 搜索</div>
+    <iframe src="./#/search" width="360" height="700"></iframe>
+  </div>
+  <div class="frame">
+    <div class="label"><span class="size">360</span> · 分类</div>
+    <iframe src="./#/category" width="360" height="700"></iframe>
+  </div>
+  <div class="frame">
+    <div class="label"><span class="size">360</span> · 关于</div>
+    <iframe src="./#/about" width="360" height="700"></iframe>
+  </div>
+  <div class="frame">
+    <div class="label"><span class="size">360</span> · 投稿</div>
+    <iframe src="./#/submit" width="360" height="700"></iframe>
+  </div>
+</div>
+
+<h2>资源详情 — 360 主流</h2>
+<div class="row">
+  <div class="frame">
+    <div class="label"><span class="size">360</span> · 详情</div>
+    <iframe src="./#/resource/cur-free-api-deepseek-api" width="360" height="900"></iframe>
+  </div>
+  <div class="frame">
+    <div class="label"><span class="size">320</span> · 详情</div>
+    <iframe src="./#/resource/cur-free-api-deepseek-api" width="320" height="900"></iframe>
+  </div>
+</div>
+
+</body>
+</html>

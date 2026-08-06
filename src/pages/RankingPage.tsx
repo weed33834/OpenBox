@@ -94,12 +94,21 @@ export function RankingPage() {
                     {row.votes.ok + row.votes.dead > 0 && ` · ${t('lb.votes')} ${row.votes.ok + row.votes.dead}`}
                   </p>
                 </div>
-                <div className="flex shrink-0 flex-col gap-1.5">
+                <div className="flex shrink-0 flex-col gap-1.5 max-sm:hidden">
                   <a className="btn btn-ghost btn-sm" href={row.resource.url} target="_blank" rel="noreferrer">
                     <Icon name="ExternalLink" size={13} /> {t('common.visit')}
                   </a>
                 </div>
               </div>
+              {/* 移动端：访问按钮单独占满一行，避免挤掉名称 */}
+              <a
+                className="btn btn-primary btn-sm mt-2 hidden w-full justify-center max-sm:inline-flex"
+                href={row.resource.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Icon name="ExternalLink" size={14} /> {t('common.visit')}
+              </a>
             </li>
           ))}
         </ol>
