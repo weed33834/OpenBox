@@ -5,8 +5,6 @@ import { getResources } from '@/lib/data';
 import { buildScenarioTree } from '@/data/taxonomy';
 import { SearchBox } from '@/components/SearchBox';
 import { CategoryCard } from '@/components/CategoryCard';
-import { FeaturedCard } from '@/components/FeaturedCard';
-import { ResourceList } from '@/components/ResourceList';
 import { Icon } from '@/components/Icon';
 import { navigate } from '@/hooks/useHashRoute';
 import { RankingList } from '@/components/RankingList';
@@ -18,14 +16,12 @@ export function HomePage() {
   const t = useT();
   const localize = useLocalize();
   const [resources, setResources] = useState<Resource[]>([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let m = true;
     getResources({ sort: 'default' }).then((list) => {
       if (m) {
         setResources(list);
-        setLoading(false);
       }
     });
     return () => {
@@ -33,19 +29,6 @@ export function HomePage() {
     };
   }, []);
 
-  const featured = useMemo(() => resources.filter((r) => r.featured), [resources]);
-  const recent = useMemo(
-    () =>
-      [...resources]
-        .sort((a, b) => {
-          const au = a.updatedAt ?? '';
-          const bu = b.updatedAt ?? '';
-          if (au !== bu) return bu.localeCompare(au);
-          return a.name.localeCompare(b.name);
-        })
-        .slice(0, 12),
-    [resources],
-  );
   const tree = useMemo(() => buildScenarioTree(resources), [resources]);
 
   // 场景 → 子类型 的资源计数（用于场景树上的角标）
@@ -121,32 +104,7 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* 精选推荐：横幅大卡（与普通网格卡差异化） */}
-      {featured.length > 0 && (
-        <section>
-          <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-[var(--color-fg)]">
-            <Icon name="Star" size={18} className="text-[var(--color-primary)]" /> {t('home.featured')}
-          </h2>
-          <div className="space-y-3">
-            {featured.map((r) => (
-              <FeaturedCard key={r.id} resource={r} />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* 最新收录 */}
-      <section>
-        <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-[var(--color-fg)]">{t('home.recent')}</h2>
-          <button className="btn btn-ghost btn-sm" onClick={() => navigate('/search')}>
-            {t('common.search')} <Icon name="ChevronRight" size={15} />
-          </button>
-        </div>
-        <ResourceList resources={recent} loading={loading} />
-      </section>
-
-      {/* 全部分类：场景树（一级场景 → 二级子类型，数据驱动） */}
+      {/* 全部分类：搜索下方直接展示分类入口，具体资源在各分类页内 */}
       <section>
         <h2 className="mb-1 text-lg font-semibold text-[var(--color-fg)]">{t('home.allCategories')}</h2>
         <p className="mb-5 text-sm text-[var(--color-muted)]">{t('scenario.subtitle')}</p>
