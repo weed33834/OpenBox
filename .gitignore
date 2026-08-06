@@ -26,7 +26,6 @@ api/
 
 # TypeScript 增量缓存
 *.tsbuildinfo
-package-lock.json
 
 # ===== Python (FreeNode) =====
 __pycache__/
