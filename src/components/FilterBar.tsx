@@ -15,7 +15,7 @@ export function FilterBar({
 }) {
   const t = useT();
   return (
-    <div className="flex flex-wrap items-center gap-2">
+    <div className="flex flex-nowrap items-center gap-2 overflow-x-auto scrollbar-none sm:flex-wrap">
       <button className="chip" data-active={type === 'all'} onClick={() => onType('all')}>
         {t('common.all')}
       </button>

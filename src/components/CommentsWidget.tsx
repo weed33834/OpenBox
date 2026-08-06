@@ -65,7 +65,7 @@ export function CommentsWidget({ resourceId }: { resourceId: string }) {
       <form onSubmit={submit} className="space-y-2">
         <div className="flex items-center gap-2">
           <input
-            className="input max-w-[180px] !py-1.5 !text-sm"
+            className="input max-w-full !py-1.5 !text-sm sm:max-w-[180px]"
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
             placeholder={t('comments.nickname')}

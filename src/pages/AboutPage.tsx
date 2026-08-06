@@ -30,7 +30,7 @@ export function AboutPage() {
           <Icon name="GitBranch" size={18} className="text-[var(--color-primary)]" /> {t('about.github')}
         </h2>
         <p className="mt-1.5 text-sm text-[var(--color-muted)]">{t('about.githubDesc')}</p>
-        <div className="mt-4 grid grid-cols-2 gap-3">
+        <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {links.map((l) => (
             <a
               key={l.label}

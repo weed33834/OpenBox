@@ -88,7 +88,7 @@ export function ResourceDetail({ resource }: { resource: Resource }) {
       ) : null}
 
       {(resource.pros?.length || resource.cons?.length) && (
-        <div className="mt-5 grid gap-4 sm:grid-cols-2">
+        <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
           {resource.pros?.length ? (
             <div className="rounded-xl border border-[var(--color-border)] p-3">
               <p className="mb-2 flex items-center gap-1.5 text-sm font-semibold text-[#10b981]">
@@ -123,7 +123,7 @@ export function ResourceDetail({ resource }: { resource: Resource }) {
         </div>
       )}
 
-      <div className="mt-5 grid grid-cols-2 gap-4">
+      <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Field label={t('detail.models')} value={resource.models?.join('、')} />
         <Field label={t('detail.protocols')} value={resource.protocols?.join('、')} />
         <Field label={t('detail.region')} value={resource.region} />

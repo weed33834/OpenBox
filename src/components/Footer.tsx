@@ -18,7 +18,7 @@ export function Footer() {
             {mode === 'supabase' ? t('common.dataSource.supabase') : t('common.dataSource.local')}
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-8 text-sm sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-8 text-sm md:grid-cols-4">
           <div>
             <p className="mb-2 font-semibold text-[var(--color-fg)]">{t('about.title')}</p>
             <ul className="space-y-1.5 text-[var(--color-muted)]">

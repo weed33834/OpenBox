@@ -76,8 +76,18 @@ export function ResourceCard({ resource, index = 0 }: { resource: Resource; inde
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <TypeBadge type={resource.type} />
         <StatusBadge status={resource.status} />
+        {resource.tags.slice(0, 2).map((tag) => (
+          <span key={tag} className="chip hidden sm:inline-flex" data-active={false}>
+            {tag}
+          </span>
+        ))}
+        {resource.tags.length > 2 && (
+          <span className="inline-flex items-center rounded-md border border-[var(--color-border)] px-1.5 py-0.5 text-[0.7rem] text-[var(--color-muted)] sm:hidden">
+            +{resource.tags.length - 2}
+          </span>
+        )}
         {resource.tags.slice(0, 3).map((tag) => (
-          <span key={tag} className="chip" data-active={false}>
+          <span key={tag} className="chip max-sm:hidden" data-active={false}>
             {tag}
           </span>
         ))}
@@ -87,7 +97,7 @@ export function ResourceCard({ resource, index = 0 }: { resource: Resource; inde
         <VerifyWidget resourceId={resource.id} />
       </div>
 
-      <div className="mt-4 flex items-center gap-2">
+      <div className="mt-4 flex flex-wrap items-center gap-2">
         {resource.updatedAt && (
           <span
             className="mr-auto inline-flex items-center gap-1 text-xs text-[var(--color-muted)]"
@@ -97,10 +107,10 @@ export function ResourceCard({ resource, index = 0 }: { resource: Resource; inde
             {t('card.updated')} {fmtUpdatedAt(resource.updatedAt)}
           </span>
         )}
-        <button className="btn btn-primary btn-sm" onClick={() => navigate(`/resource/${resource.id}`)}>
+        <button className="btn btn-primary btn-sm flex-1 sm:flex-none" onClick={() => navigate(`/resource/${resource.id}`)}>
           {t('common.viewDetail')}
         </button>
-        <a className="btn btn-ghost btn-sm" href={resource.url} target="_blank" rel="noreferrer">
+        <a className="btn btn-ghost btn-sm flex-1 sm:flex-none" href={resource.url} target="_blank" rel="noreferrer">
           <Icon name="ExternalLink" size={15} />
           {t('common.visit')}
         </a>

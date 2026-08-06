@@ -10,6 +10,12 @@
   max-width: 1200px;
 }
 
+@media (max-width: 639px) {
+  .container {
+    padding-inline: 0.875rem;
+  }
+}
+
 @theme {
   /* ---- 语义化设计令牌（浅色为默认，.dark 下覆写） ----
      去 AI 味：弃用通用靛蓝 #4f46e5 / 冷灰 AI 渐变套路，
@@ -72,8 +78,13 @@
     height: 100%;
   }
 
+  html {
+    overflow-x: hidden;
+  }
+
   body {
     margin: 0;
+    overflow-x: hidden;
     background-color: var(--color-bg);
     color: var(--color-fg);
     font-family: var(--font-sans);

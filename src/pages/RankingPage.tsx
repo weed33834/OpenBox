@@ -63,17 +63,17 @@ export function RankingPage() {
                 </span>
                 <div className="min-w-0 flex-1">
                   {/* 名称 + 总分 */}
-                  <div className="flex flex-wrap items-center gap-2">
+                  <div className="flex items-center gap-2">
                     <button
-                      className="truncate font-semibold text-[var(--color-fg)] hover:text-[var(--color-primary)]"
+                      className="min-w-0 flex-1 truncate text-left font-semibold text-[var(--color-fg)] hover:text-[var(--color-primary)]"
                       onClick={() => navigate(`/resource/${row.resource.id}`)}
                     >
                       {row.resource.name}
                     </button>
                     {row.resource.official && (
-                      <Icon name="Check" size={14} className="text-[var(--color-primary)]" />
+                      <Icon name="Check" size={14} className="shrink-0 text-[var(--color-primary)]" />
                     )}
-                    <span className="ml-auto rounded-lg px-2 py-0.5 text-sm font-bold" style={{ background: 'var(--color-primary)', color: 'var(--color-primary-fg)' }}>
+                    <span className="shrink-0 rounded-lg px-2 py-0.5 text-sm font-bold" style={{ background: 'var(--color-primary)', color: 'var(--color-primary-fg)' }}>
                       {row.total}
                     </span>
                   </div>

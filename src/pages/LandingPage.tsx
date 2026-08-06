@@ -37,7 +37,7 @@ export function LandingPage() {
           <span className="text-3xl font-black">O</span>
         </span>
 
-        <h1 className="text-5xl font-black tracking-tight text-[var(--color-fg)] sm:text-6xl">OpenBox</h1>
+        <h1 className="text-4xl font-black tracking-tight text-[var(--color-fg)] sm:text-6xl">OpenBox</h1>
 
         <p className="mx-auto mt-4 max-w-md text-base text-[var(--color-muted)] sm:text-lg">{t('landing.slogan')}</p>
 

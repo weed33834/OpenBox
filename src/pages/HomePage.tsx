@@ -71,11 +71,11 @@ export function HomePage() {
   const pct = (n?: number) => (resources.length ? Math.round(((n ?? 0) / resources.length) * 100) : 0);
 
   return (
-    <div className="space-y-14">
+    <div className="space-y-10 sm:space-y-14">
       {/* 紧凑头部：标题 + 搜索 + 统计 */}
-      <section className="rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] px-6 py-10 text-center sm:px-12">
+      <section className="relative rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-8 text-center sm:px-12 sm:py-10">
         <div
-          className="absolute inset-x-0 -z-10 opacity-60"
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 opacity-60"
           style={{ background: 'radial-gradient(40rem 18rem at 50% -30%, var(--color-primary-soft), transparent 70%)' }}
         />
         <h1 className="text-3xl font-bold tracking-tight text-[var(--color-fg)] sm:text-4xl">{t('home.title')}</h1>

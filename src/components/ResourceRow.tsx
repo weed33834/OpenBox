@@ -104,10 +104,10 @@ export function ResourceRow({ resource, index = 0 }: { resource: Resource; index
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <VerifyWidget resourceId={resource.id} />
         <div className="ml-auto flex items-center gap-2">
-          <button className="btn btn-primary btn-sm" onClick={() => navigate(`/resource/${resource.id}`)}>
+          <button className="btn btn-primary btn-sm flex-1 sm:flex-none" onClick={() => navigate(`/resource/${resource.id}`)}>
             {t('common.viewDetail')}
           </button>
-          <a className="btn btn-ghost btn-sm" href={resource.url} target="_blank" rel="noreferrer">
+          <a className="btn btn-ghost btn-sm flex-1 sm:flex-none" href={resource.url} target="_blank" rel="noreferrer">
             <Icon name="ExternalLink" size={14} />
             {t('common.visit')}
           </a>

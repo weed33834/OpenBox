@@ -62,11 +62,11 @@ export function FeaturedCard({ resource }: { resource: Resource }) {
             )}
           </div>
         </div>
-        <div className="flex shrink-0 items-center gap-2 sm:flex-col">
-          <a className="btn btn-primary btn-sm w-full sm:w-auto" href={resource.url} target="_blank" rel="noreferrer">
+        <div className="flex shrink-0 items-center gap-2 max-sm:w-full sm:flex-col">
+          <a className="btn btn-primary btn-sm flex-1 sm:flex-none" href={resource.url} target="_blank" rel="noreferrer">
             <Icon name="ExternalLink" size={15} /> {t('common.visit')}
           </a>
-          <button className="btn btn-ghost btn-sm w-full sm:w-auto" onClick={() => navigate(`/resource/${resource.id}`)}>
+          <button className="btn btn-ghost btn-sm flex-1 sm:flex-none" onClick={() => navigate(`/resource/${resource.id}`)}>
             {t('common.viewDetail')}
           </button>
         </div>

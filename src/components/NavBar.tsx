@@ -52,7 +52,7 @@ export function NavBar() {
           })}
         </nav>
 
-        <div className="ml-auto flex items-center gap-1.5">
+        <div className="ml-auto flex shrink-0 items-center gap-1.5">
           <button
             className="btn btn-ghost btn-sm"
             onClick={() => navigate('/search')}
@@ -60,13 +60,15 @@ export function NavBar() {
           >
             <Icon name="Search" size={18} />
           </button>
-          <LangSwitcher />
+          <span className="hidden md:inline-flex">
+            <LangSwitcher />
+          </span>
           <ThemeToggle />
           {authOn && (
             user ? (
-              <div className="flex items-center gap-2">
+              <div className="hidden items-center gap-2 sm:flex">
                 <span
-                  className="hidden max-w-[140px] truncate text-sm text-[var(--color-muted)] sm:inline"
+                  className="hidden max-w-[140px] truncate text-sm text-[var(--color-muted)] lg:inline"
                   title={user.email ?? ''}
                 >
                   {user.email}
@@ -76,13 +78,13 @@ export function NavBar() {
                 </button>
               </div>
             ) : (
-              <button className="btn btn-primary btn-sm" onClick={() => openAuth('signin')}>
+              <button className="btn btn-primary btn-sm hidden sm:inline-flex" onClick={() => openAuth('signin')}>
                 {t('auth.login')}
               </button>
             )
           )}
           <a
-            className="btn btn-ghost btn-sm"
+            className="btn btn-ghost btn-sm hidden sm:inline-flex"
             href={GITHUB}
             target="_blank"
             rel="noreferrer"
