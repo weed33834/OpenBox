@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Build & Deploy
 
 on:
   push:
@@ -7,21 +7,16 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    name: Build & Deploy
+  build:
+    name: Build (tsc + vite)
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout
@@ -39,17 +34,8 @@ jobs:
       - name: TypeScript check
         run: npx tsc -b --noEmit
 
-      - name: Build
+      - name: Build (Vite → docs/)
         run: npm run build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Verify docs/index.html exists
+        run: test -f docs/index.html
