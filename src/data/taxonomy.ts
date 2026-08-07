@@ -115,6 +115,67 @@ export const subTypes: SubType[] = [
     },
     sort: 9,
   },
+  // ---- 邀请码/激活码（2026-08-06 新增） ----
+  {
+    slug: 'invite-system',
+    name: { zh: '系统软件', en: 'System Software', ja: 'システムソフト' },
+    icon: 'Monitor',
+    color: '#6366f1',
+    description: {
+      zh: 'Windows/macOS/Linux 系统工具、开发环境、实用软件的激活码与序列号。',
+      en: 'Activation keys for Windows/macOS/Linux system tools, dev environments and utilities.',
+      ja: 'Windows/macOS/Linux 向けシステムツール・開発環境・ユーティリティのアクティベーションキー。',
+    },
+    sort: 10,
+  },
+  {
+    slug: 'invite-professional',
+    name: { zh: '专业应用', en: 'Professional Apps', ja: 'プロフェッショナルアプリ' },
+    icon: 'Briefcase',
+    color: '#8b5cf6',
+    description: {
+      zh: '设计、办公、开发、视频剪辑等专业软件激活码与优惠码。',
+      en: 'Activation codes for design, office, development, video editing and other professional software.',
+      ja: 'デザイン・オフィス・開発・動画編集などのプロフェッショナルソフトのアクティベーションコード。',
+    },
+    sort: 11,
+  },
+  {
+    slug: 'invite-mobile',
+    name: { zh: '手机软件', en: 'Mobile Apps', ja: 'モバイルアプリ' },
+    icon: 'Smartphone',
+    color: '#ec4899',
+    description: {
+      zh: 'iOS/Android 应用的内测资格、邀请码与兑换码。',
+      en: 'Beta invites, invite codes and redemption codes for iOS/Android apps.',
+      ja: 'iOS/Android アプリのクローズドベータ招待コードと引き換えコード。',
+    },
+    sort: 12,
+  },
+  {
+    slug: 'invite-games',
+    name: { zh: '游戏', en: 'Games', ja: 'ゲーム' },
+    icon: 'Gamepad2',
+    color: '#10b981',
+    description: {
+      zh: '各类游戏激活码、内测资格、礼品码与福利码。',
+      en: 'Game activation keys, beta invites, gift codes and reward codes.',
+      ja: 'ゲームのアクティベーションキー・クローズドベータ招待・ギフトコード。',
+    },
+    sort: 13,
+  },
+  {
+    slug: 'invite-platform',
+    name: { zh: '平台邀请', en: 'Platform Invites', ja: 'プラットフォーム招待' },
+    icon: 'Globe',
+    color: '#0ea5e9',
+    description: {
+      zh: 'AI 平台、云服务、社区论坛、会员制平台的邀请码与注册码。',
+      en: 'Invite codes for AI platforms, cloud services, forums and membership sites.',
+      ja: 'AIプラットフォーム・クラウドサービス・コミュニティフォーラムの招待コード。',
+    },
+    sort: 14,
+  },
 ];
 
 // ---- 场景（分类树一级，例如 小白白嫖 / 开发者 / 研究者 / 创作者） ----
@@ -167,6 +228,19 @@ export const scenarios: Scenario[] = [
     },
     sort: 4,
   },
+  // ---- 邀请码/激活码场景（2026-08-06 新增） ----
+  {
+    slug: 'invite-codes',
+    name: { zh: '邀请码/激活码', en: 'Invite Codes', ja: '招待コード' },
+    icon: 'Key',
+    color: '#f59e0b',
+    description: {
+      zh: '各类软件、游戏、平台的邀请码与激活码，每日更新。',
+      en: 'Invite codes & activation keys for software, games, and platforms, updated daily.',
+      ja: 'ソフトウェア・ゲーム・プラットフォームの招待コードとアクティベーションキー。',
+    },
+    sort: 5,
+  },
 ];
 
 // ---- 子类型 → 默认归属场景（资源未显式声明 scenarios 时的回退） ----
@@ -181,6 +255,12 @@ export const SUBTYPE_SCENARIOS: Record<string, string[]> = {
   'free-server': ['newbie', 'developer'],
   'free-domain': ['newbie', 'developer'],
   charity: ['newbie', 'developer'],
+  // ---- 邀请码/激活码 ----
+  'invite-system': ['invite-codes'],
+  'invite-professional': ['invite-codes'],
+  'invite-mobile': ['invite-codes'],
+  'invite-games': ['invite-codes'],
+  'invite-platform': ['invite-codes'],
 };
 
 // ---- 快捷映射 ----

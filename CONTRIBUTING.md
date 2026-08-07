@@ -120,6 +120,11 @@ npm run preview
 | `free-server` | 免费服务器/VPS |
 | `free-domain` | 免费域名 |
 | `charity` | 公益站 |
+| `invite-system` | 邀请码/激活码 - 系统软件 |
+| `invite-professional` | 邀请码/激活码 - 专业应用 |
+| `invite-mobile` | 邀请码/激活码 - 手机软件 |
+| `invite-games` | 邀请码/激活码 - 游戏 |
+| `invite-platform` | 邀请码/激活码 - 平台邀请 |
 
 ### 3.2 编辑 `src/data/curated.ts`
 
