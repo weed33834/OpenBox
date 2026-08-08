@@ -57,7 +57,7 @@ export function ResourceDetail({ resource }: { resource: Resource }) {
         <StatusBadge status={resource.status} />
         {resource.official && (
           <span className="badge" style={{ color: 'var(--color-primary)', background: 'var(--color-primary-soft)' }}>
-            {t('detail.favorite')}
+            {t('common.official')}
           </span>
         )}
       </div>

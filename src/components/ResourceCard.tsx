@@ -76,8 +76,9 @@ export function ResourceCard({ resource, index = 0 }: { resource: Resource; inde
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <TypeBadge type={resource.type} />
         <StatusBadge status={resource.status} />
+        {/* 标签 chips：移动端最多 2 个 + 溢出计数，桌面端最多 3 个（两组互斥显示，避免重复渲染） */}
         {resource.tags.slice(0, 2).map((tag) => (
-          <span key={tag} className="chip hidden sm:inline-flex" data-active={false}>
+          <span key={`m-${tag}`} className="chip sm:hidden" data-active={false}>
             {tag}
           </span>
         ))}
@@ -87,7 +88,7 @@ export function ResourceCard({ resource, index = 0 }: { resource: Resource; inde
           </span>
         )}
         {resource.tags.slice(0, 3).map((tag) => (
-          <span key={tag} className="chip max-sm:hidden" data-active={false}>
+          <span key={`d-${tag}`} className="chip hidden sm:inline-flex" data-active={false}>
             {tag}
           </span>
         ))}

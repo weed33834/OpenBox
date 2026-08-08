@@ -14,7 +14,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
   js.configs.recommended,
-  { ignores: ['dist', 'scripts', 'api', '**/*.ts', '**/*.tsx', '*.mjs'] },
+  { ignores: ['dist', 'scripts', 'api', 'docs', 'public', '**/*.ts', '**/*.tsx', '*.mjs'] },
   {
     files: ['**/*.{js,mjs}'],
     languageOptions: {

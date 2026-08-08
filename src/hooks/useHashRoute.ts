@@ -31,7 +31,13 @@ export function parseHash(): Route {
   if (queryPart) {
     for (const pair of queryPart.split('&')) {
       const [k, v] = pair.split('=');
-      if (k) query[decodeURIComponent(k)] = decodeURIComponent(v ?? '');
+      if (!k) continue;
+      try {
+        query[decodeURIComponent(k)] = decodeURIComponent(v ?? '');
+      } catch {
+        // 非法的百分号编码（如手输 #/search?q=%zz）不阻塞路由，按原文保留
+        query[k] = v ?? '';
+      }
     }
   }
 

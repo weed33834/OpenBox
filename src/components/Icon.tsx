@@ -40,6 +40,7 @@ import {
   Home,
   LayoutGrid,
   List,
+  GitBranch,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -84,9 +85,11 @@ const MAP: Record<string, LucideIcon> = {
   Home,
   LayoutGrid,
   List,
+  GitBranch,
 };
 
 export function Icon({ name, size, ...props }: { name: string; size?: number } & SVGProps<SVGSVGElement>) {
   const Cmp = MAP[name] ?? Globe;
-  return <Cmp {...props} />;
+  // 注意：size 需显式传给图标组件，否则 lucide 默认 24px，调用方的 size 会被静默丢弃
+  return <Cmp size={size} {...props} />;
 }

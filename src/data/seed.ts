@@ -72,9 +72,25 @@ const legacyResources: Resource[] = sites
 
 // ---- 新分类精选条目（均为稳定、可公开验证的真实项目/产品） ----
 
+/** 已生成的 id 集合：中文名等非 ASCII 名称会被替换成纯连字符，导致多个资源共用同一 id（如
+ *  「通义千问/文心一言/智谱清言/讯飞星火」此前都是 `cur-ai-apps-----`），这里对冲突项追加
+ *  内容 hash 保证唯一，同时保持既有非冲突 id 不变（不影响已收藏/已投票数据）。 */
+const usedIds = new Set<string>();
+
+/** 简单稳定的字符串 hash（djb2），用于为冲突 id 追加唯一后缀 */
+function strHash(s: string): string {
+  let h = 5381;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0;
+  return h.toString(36);
+}
+
 function mk(subType: string, name: string, url: string, extra: Partial<Resource> = {}): Resource {
+  const base = `cur-${subType}-${name}`.replace(/[^a-zA-Z0-9\-]/g, '-').toLowerCase();
+  let id = base;
+  if (usedIds.has(id)) id = `${base}-${strHash(name)}`;
+  usedIds.add(id);
   return {
-    id: `cur-${subType}-${name}`.replace(/[^a-zA-Z0-9\-]/g, '-').toLowerCase(),
+    id,
     subType,
     scenarios: SUBTYPE_SCENARIOS[subType] ?? [],
     name,
@@ -663,9 +679,25 @@ const curatedRanked: Resource[] = curated.map((r) => ({
 }));
 
 /** 全站种子资源（旧数据映射 + 社区精选 + 人气分；黑名单死链一律过滤，防止回流） */
-export const seedResources: Resource[] = [...legacyResources, ...curatedRanked, ...curatedResources].filter(
-  (r) => !isBlacklisted(r.url),
-);
+export const seedResources: Resource[] = (() => {
+  // 统一保证 id 唯一：curated.ts 为手工维护，个别条目 id 曾重复（如两条 "ob-api-"），
+  // 重复会导致详情页/收藏/验证/评论按 id 关联时串数据。这里对重复项追加序号后缀，
+  // 使每个资源都有稳定唯一的 id（首个出现者保持原 id，不影响既有收藏）。
+  const seen = new Set<string>();
+  const dedupe = (r: Resource): Resource => {
+    let id = r.id;
+    if (seen.has(id)) {
+      let n = 2;
+      while (seen.has(`${id}-${n}`)) n++;
+      id = `${id}-${n}`;
+    }
+    seen.add(id);
+    return id === r.id ? r : { ...r, id };
+  };
+  return [...legacyResources, ...curatedRanked, ...curatedResources]
+    .filter((r) => !isBlacklisted(r.url))
+    .map(dedupe);
+})();
 
 /** 统计各子类型资源数（用于首页卡片角标） */
 export function countBySubType(): Record<string, number> {

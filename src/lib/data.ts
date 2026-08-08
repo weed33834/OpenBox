@@ -6,7 +6,7 @@
 //   - 投稿提交（submitResource）在配置 Supabase 时写入云端审核库，否则落本地草稿。
 // 上层页面只依赖本文件的异步接口，无需关心数据来自哪里 —— 单一入口、可替换、易测试。
 import { supabase, hasSupabase } from './supabase';
-import { subTypes, scenarios } from '@/data/taxonomy';
+import { subTypes, scenarios, resolveScenarios } from '@/data/taxonomy';
 import { seedResources } from '@/data/seed';
 import type { Resource, ResourceStatus, ResourceType, Scenario, SubType, Submission } from './types';
 
@@ -45,7 +45,10 @@ function filterResources(list: Resource[], query: ResourceQuery): Resource[] {
   let out = [...list];
 
   if (query.subType) out = out.filter((r) => r.subType === query.subType);
-  if (query.scenario) out = out.filter((r) => (r.scenarios ?? []).includes(query.scenario!));
+  // 场景过滤必须与首页场景树（buildScenarioTree 用 resolveScenarios）保持同一套判定：
+  // 资源未显式声明 scenarios（如 curated.ts 中 scenarios:[]）时回退到子类型默认映射，
+  // 否则这部分资源在场景页会全部丢失，造成首页计数与场景页内容严重不符。
+  if (query.scenario) out = out.filter((r) => resolveScenarios(r).includes(query.scenario!));
   if (query.q) {
     const q = query.q.trim().toLowerCase();
     if (q) {
@@ -248,20 +251,20 @@ export interface VerificationStats {
 const VKEY = 'ob_verifications';
 
 /** 读取本设备的投票记录（未投返回 null） */
-function localVote(resourceId: string): { result: 'ok' | 'dead'; at: string } | null {
+function localVote(resourceId: string): { result: 'ok' | 'dead'; at: string; synced?: boolean } | null {
   try {
-    const m = JSON.parse(localStorage.getItem(VKEY) ?? '{}') as Record<string, { result: 'ok' | 'dead'; at: string }>;
+    const m = JSON.parse(localStorage.getItem(VKEY) ?? '{}') as Record<string, { result: 'ok' | 'dead'; at: string; synced?: boolean }>;
     return m[resourceId] ?? null;
   } catch {
     return null;
   }
 }
 
-/** 记录本设备投票 */
-function saveLocalVote(resourceId: string, result: 'ok' | 'dead') {
+/** 记录本设备投票；synced=true 表示该票已成功写入云端（统计时不再与云端重复计数） */
+function saveLocalVote(resourceId: string, result: 'ok' | 'dead', synced = false) {
   try {
-    const m = JSON.parse(localStorage.getItem(VKEY) ?? '{}') as Record<string, { result: 'ok' | 'dead'; at: string }>;
-    m[resourceId] = { result, at: new Date().toISOString() };
+    const m = JSON.parse(localStorage.getItem(VKEY) ?? '{}') as Record<string, { result: 'ok' | 'dead'; at: string; synced?: boolean }>;
+    m[resourceId] = { result, at: new Date().toISOString(), synced };
     localStorage.setItem(VKEY, JSON.stringify(m));
   } catch {
     /* localStorage 不可用时静默降级 */
@@ -273,15 +276,18 @@ export async function submitVerification(
   resourceId: string,
   result: 'ok' | 'dead',
 ): Promise<{ ok: boolean; message?: string }> {
-  saveLocalVote(resourceId, result);
+  // 先落本地（无论云端成败都保留本设备记录，用于防重复 + 未上云时的兜底统计）
+  saveLocalVote(resourceId, result, false);
   if (hasSupabase && supabase) {
     try {
       const { error } = await supabase
         .from('verifications')
         .insert({ resource_id: resourceId, result, created_at: new Date().toISOString() });
       if (error) return { ok: false, message: error.message };
+      // 云端写入成功：标记本地票已上云，统计时以云端为准，避免同票被计两次
+      saveLocalVote(resourceId, result, true);
     } catch {
-      /* 云端失败不阻塞：本地已记录，下次可重试 */
+      /* 云端失败不阻塞：本地已记录（未上云），统计时作兜底计入 */
     }
   }
   return { ok: true };
@@ -290,35 +296,42 @@ export async function submitVerification(
 /** 读取某资源的验证统计（总票数 / 可用票 / 失效票 / 最近验证时间） */
 export async function getVerificationStats(resourceId: string): Promise<VerificationStats> {
   const local = localVote(resourceId);
-  const base = { ok: 0, dead: 0, total: 0, lastAt: null as string | null };
-  // 本地票并入统计（乐观展示；云端模式也计入本设备这一次）
-  if (local) {
-    if (local.result === 'ok') base.ok += 1;
-    else base.dead += 1;
-    base.lastAt = local.at;
-  }
+  // 本地模式（未配置 Supabase）：本设备票并入统计
   if (!(hasSupabase && supabase)) {
+    const base = { ok: 0, dead: 0, total: 0, lastAt: null as string | null };
+    if (local) {
+      if (local.result === 'ok') base.ok += 1;
+      else base.dead += 1;
+      base.lastAt = local.at;
+    }
     return { ...base, total: base.ok + base.dead };
   }
+  // Supabase 模式：以云端统计为准
+  let ok = 0;
+  let dead = 0;
+  let lastAt: string | null = null;
   try {
     const { data, error } = await supabase
       .from('verifications')
       .select('result, created_at')
       .eq('resource_id', resourceId);
-    if (error || !data) return { ...base, total: base.ok + base.dead };
-    const rows = data as { result: string; created_at: string }[];
-    let ok = base.ok;
-    let dead = base.dead;
-    let lastAt = base.lastAt;
-    for (const r of rows) {
-      if (r.result === 'ok') ok += 1;
-      else if (r.result === 'dead') dead += 1;
-      if (!lastAt || r.created_at > lastAt) lastAt = r.created_at;
+    if (!error && data) {
+      for (const r of data as { result: string; created_at: string }[]) {
+        if (r.result === 'ok') ok += 1;
+        else if (r.result === 'dead') dead += 1;
+        if (!lastAt || r.created_at > lastAt) lastAt = r.created_at;
+      }
     }
-    return { ok, dead, total: ok + dead, lastAt };
   } catch {
-    return { ...base, total: base.ok + base.dead };
+    /* 云端读取失败：继续用下面的本地兜底 */
   }
+  // 本设备「未成功上云」的票兜底计入（如云端 insert 失败但本地已记录），已上云的不重复计
+  if (local && local.synced !== true) {
+    if (local.result === 'ok') ok += 1;
+    else dead += 1;
+    if (!lastAt || local.at > lastAt) lastAt = local.at;
+  }
+  return { ok, dead, total: ok + dead, lastAt };
 }
 
 // ============================================================
