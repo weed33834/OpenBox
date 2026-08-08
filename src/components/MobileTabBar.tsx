@@ -14,6 +14,7 @@ export function MobileTabBar() {
   const tabs = [
     { name: 'home', label: t('nav.home'), icon: 'Home', href: '#/home', match: ['home', 'landing'] },
     { name: 'search', label: t('nav.search'), icon: 'Search', href: '#/search', match: ['search'] },
+    { name: 'ranking', label: t('nav.ranking'), icon: 'TrendingUp', href: '#/ranking', match: ['ranking'] },
     { name: 'favorites', label: t('nav.favorites'), icon: 'Heart', href: '#/favorites', match: ['favorites'] },
     { name: 'submit', label: t('nav.submit'), icon: 'Plus', href: '#/submit', match: ['submit'] },
     { name: 'about', label: t('nav.about'), icon: 'Info', href: '#/about', match: ['about'] },
